@@ -1,9 +1,9 @@
 package BusPooling;
 
-import BusPooling.rest.commandBus.CommandBus;
-import BusPooling.rest.commandBus.ICommandBus;
-import BusPooling.rest.commandBus.IHandleCommand;
-import BusPooling.rest.commandBus.UserHandler;
+import BusPooling.rest.aplication.CommandBus;
+import BusPooling.rest.aplication.ICommandBus;
+import BusPooling.rest.aplication.command.IHandleCommand;
+import BusPooling.rest.aplication.command.UserHandler;
 import BusPooling.rest.infrastructure.DbalUserQuery;
 import BusPooling.rest.infrastructure.InMemoryUserRepository;
 import BusPooling.rest.repository.UserRepository;

@@ -1,4 +1,4 @@
-package BusPooling.rest.commandBus;
+package BusPooling.rest.aplication.command;
 
 /**
  * Created by pawe on 3/1/17.

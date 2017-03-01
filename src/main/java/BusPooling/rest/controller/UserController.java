@@ -2,10 +2,10 @@ package BusPooling.rest.controller;
 
 import BusPooling.AppConfiguration;
 import BusPooling.rest.aplication.query.User.IUserQuery;
-import BusPooling.rest.aplication.query.User.UserView.UserView;
-import BusPooling.rest.commandBus.CreateNewUser;
-import BusPooling.rest.commandBus.ICommand;
-import BusPooling.rest.commandBus.ICommandBus;
+import BusPooling.rest.aplication.query.User.UserView.UserQuery;
+import BusPooling.rest.aplication.command.CreateNewUser;
+import BusPooling.rest.aplication.command.ICommand;
+import BusPooling.rest.aplication.ICommandBus;
 import BusPooling.rest.domain.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @GET
-    public List<UserView> getUsers() {
+    public List<UserQuery> getUsers() {
         return this.userQuery.getAll();
     }
 

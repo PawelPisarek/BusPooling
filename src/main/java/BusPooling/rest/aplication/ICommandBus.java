@@ -1,4 +1,7 @@
-package BusPooling.rest.commandBus;
+package BusPooling.rest.aplication;
+
+import BusPooling.rest.aplication.command.ICommand;
+import BusPooling.rest.aplication.command.IHandleCommand;
 
 /**
  * Created by pawe on 2/27/17.

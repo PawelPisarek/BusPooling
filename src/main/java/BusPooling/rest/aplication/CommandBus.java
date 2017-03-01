@@ -1,5 +1,7 @@
-package BusPooling.rest.commandBus;
+package BusPooling.rest.aplication;
 
+import BusPooling.rest.aplication.command.ICommand;
+import BusPooling.rest.aplication.command.IHandleCommand;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -14,7 +16,6 @@ public class CommandBus implements ICommandBus {
     private  HashMap<String,IHandleCommand> handlers;
 
     public CommandBus(HashMap<String, IHandleCommand> handlers) {
-        System.out.println(handlers);
         this.handlers = handlers;
     }
 

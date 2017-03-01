@@ -3,11 +3,11 @@ package BusPooling.rest.aplication.query.User.UserView;
 /**
  * Created by pawe on 3/1/17.
  */
-public class UserView {
+public class UserQuery {
 
     private String name;
 
-    public UserView(String name) {
+    public UserQuery(String name) {
         this.name = name;
     }
 

@@ -1,4 +1,4 @@
-package BusPooling.rest.commandBus;
+package BusPooling.rest.aplication.command;
 
 import BusPooling.AppConfiguration;
 import BusPooling.rest.domain.User;

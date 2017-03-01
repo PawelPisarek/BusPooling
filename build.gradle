@@ -27,6 +27,7 @@ repositories {
 	mavenCentral()
 	maven { url "https://repo.spring.io/snapshot" }
 	maven { url "https://repo.spring.io/milestone" }
+	jcenter()
 }
 
 
@@ -34,4 +35,5 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 	compile('org.springframework.boot:spring-boot-starter-jersey')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile ("org.mockito:mockito-core:1.10.19")
 }
