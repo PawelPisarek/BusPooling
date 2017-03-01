@@ -1,4 +1,4 @@
-package BusPooling.rest.dao;
+package BusPooling.rest.domain;
 
 /**
  * Created by pawe on 2/27/17.

@@ -1,7 +1,7 @@
 package BusPooling.rest.repository;
 
 
-import BusPooling.rest.dao.User;
+import BusPooling.rest.domain.User;
 
 import java.util.List;
 

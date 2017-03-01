@@ -6,14 +6,10 @@ import BusPooling.rest.aplication.query.User.UserView.UserView;
 import BusPooling.rest.commandBus.CreateNewUser;
 import BusPooling.rest.commandBus.ICommand;
 import BusPooling.rest.commandBus.ICommandBus;
-import BusPooling.rest.dao.User;
-import BusPooling.rest.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import BusPooling.rest.domain.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

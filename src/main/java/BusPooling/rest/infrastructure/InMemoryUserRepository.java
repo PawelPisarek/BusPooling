@@ -1,8 +1,7 @@
 package BusPooling.rest.infrastructure;
 
-import BusPooling.rest.dao.User;
+import BusPooling.rest.domain.User;
 import BusPooling.rest.repository.UserRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

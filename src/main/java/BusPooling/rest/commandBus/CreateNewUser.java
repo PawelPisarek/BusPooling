@@ -1,7 +1,7 @@
 package BusPooling.rest.commandBus;
 
 import BusPooling.AppConfiguration;
-import BusPooling.rest.dao.User;
+import BusPooling.rest.domain.User;
 
 /**
  * Created by pawe on 2/27/17.

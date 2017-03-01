@@ -1,13 +1,10 @@
 package BusPooling.rest.service;
 
 import BusPooling.AppConfiguration;
-import BusPooling.rest.dao.User;
+import BusPooling.rest.domain.User;
 import BusPooling.rest.repository.UserRepository;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
