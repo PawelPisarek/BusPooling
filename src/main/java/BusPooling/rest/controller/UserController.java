@@ -1,6 +1,11 @@
 package BusPooling.rest.controller;
 
 import BusPooling.AppConfiguration;
+import BusPooling.rest.aplication.query.User.IUserQuery;
+import BusPooling.rest.aplication.query.User.UserView.UserView;
+import BusPooling.rest.commandBus.CreateNewUser;
+import BusPooling.rest.commandBus.ICommand;
+import BusPooling.rest.commandBus.ICommandBus;
 import BusPooling.rest.dao.User;
 import BusPooling.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,23 +26,27 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserController {
 
-    private UserService userService;
+
+    private ICommandBus commandBus;
+    private IUserQuery userQuery;
 
 
     public UserController() {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
-        this.userService = context.getBean("getUserService", UserService.class);
+        this.commandBus = context.getBean("getCommandBus", ICommandBus.class);
+        this.userQuery = context.getBean("getUserQuery", IUserQuery.class);
     }
 
     @GET
-    public List<User> getUsers() {
-        return userService.getUsers();
+    public List<UserView> getUsers() {
+        return this.userQuery.getAll();
     }
 
     @POST
-    public Response registerUser(User user){
+    public Response registerUser(User user) {
 
-        this.userService.addUser(user);
+        ICommand command = new CreateNewUser(user);
+        this.commandBus.handle(command);
 
         URI path = UriBuilder.fromPath("/users/" + user.getName()).build();
         return Response.created(path).entity(user).build();

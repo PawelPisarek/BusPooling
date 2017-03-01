@@ -1,11 +1,12 @@
 package BusPooling.rest.commandBus;
 
+import BusPooling.AppConfiguration;
 import BusPooling.rest.dao.User;
 
 /**
  * Created by pawe on 2/27/17.
  */
-public class CreateNewUser {
+public class CreateNewUser implements ICommand {
     private User name;
 
     public CreateNewUser(User name) {
@@ -21,6 +22,6 @@ public class CreateNewUser {
     }
 
     public String getKey() {
-        return "user";
+        return AppConfiguration.user;
     }
 }

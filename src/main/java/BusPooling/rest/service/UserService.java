@@ -20,6 +20,7 @@ public class UserService {
     public static int liczbaSingletonów = 0;
     public static int liczbaSingletonów2 = 0;
     public static int liczbaSingletonów3 = 0;
+    public static UserService userService;
     private int liczbaSingletonów5 = 0;
 
 
