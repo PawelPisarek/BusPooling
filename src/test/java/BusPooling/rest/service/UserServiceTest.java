@@ -3,9 +3,11 @@ package BusPooling.rest.service;
 import BusPooling.rest.domain.User;
 import BusPooling.rest.repository.UserRepository;
 import BusPooling.rest.service.UserService;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -59,5 +61,17 @@ public class UserServiceTest {
 
         Mockito.verify(userRepository, Mockito.times(1)).addUser(user);
     }
+
+
+    @Test
+    public void addUser_should_has_name() {
+
+        User user = new User("ktos");
+        userService.addUser(user);
+        ArgumentCaptor<User> emailCaptor = ArgumentCaptor.forClass(User.class);
+        Mockito.verify(userRepository, times(1)).addUser(emailCaptor.capture());
+        Assert.assertEquals("ktos", emailCaptor.getValue().getName());
+    }
+
 
 }

@@ -29,7 +29,6 @@ public class AppConfiguration {
     }
 
     @Bean
-    @Scope("singleton")
     public UserService getUserService() {
         return new UserService(this.getRepository());
     }
