@@ -8,5 +8,5 @@ import java.util.List;
  * Created by pawe on 3/1/17.
  */
 public interface IUserQuery {
-    public List<UserQuery> getAll();
+    List<UserQuery> getAll();
 }
