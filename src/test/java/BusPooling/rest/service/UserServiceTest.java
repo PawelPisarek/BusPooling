@@ -8,9 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 
@@ -72,6 +75,22 @@ public class UserServiceTest {
         Mockito.verify(userRepository, times(1)).addUser(emailCaptor.capture());
         Assert.assertEquals("ktos", emailCaptor.getValue().getName());
     }
+    @Test
+    public void User_should_has_name() {
+
+        User user = new User("ktos");
+        userService.addUser(user);
+        Mockito.when(userService.addUser(any())).thenAnswer(new Answer<User>() {
+            public User answer(InvocationOnMock invocation) throws Throwable {
+                return new User(
+                        (String) invocation.getArguments()[0]
+                );
+            }
+        });
+    }
+
+
+
 
 
 }
