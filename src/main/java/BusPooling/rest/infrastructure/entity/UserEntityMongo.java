@@ -1,18 +1,15 @@
-package pl.edu.uam.restapi.entity;
+package BusPooling.rest.infrastructure.entity;
 
 import com.mongodb.DBObject;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
-import org.mongodb.morphia.annotations.PostLoad;
-import org.mongodb.morphia.annotations.Property;
+import org.mongodb.morphia.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 @org.mongodb.morphia.annotations.Entity("users")
 public class UserEntityMongo {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserEntityMongo.class);
+//    private static final Logger LOGGER = LoggerFactory.getLogger(UserEntityMongo.class);
 
     // auto-generated, if not set (see ObjectId)
     @Id
@@ -33,7 +30,7 @@ public class UserEntityMongo {
     //Lifecycle methods -- Pre/PostLoad, Pre/PostPersist...
     @PostLoad
     private void postLoad(DBObject dbObj) {
-        LOGGER.info("postLoad: {}", dbObj);
+//        LOGGER.info("postLoad: {}", dbObj);
     }
 
     public UserEntityMongo() {

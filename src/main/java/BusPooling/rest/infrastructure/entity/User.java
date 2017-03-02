@@ -1,4 +1,4 @@
-package pl.edu.uam.restapi.model;
+package BusPooling.rest.infrastructure.entity;
 
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
