@@ -6,6 +6,10 @@ import org.mongodb.morphia.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.util.Date;
+
 
 @org.mongodb.morphia.annotations.Entity("users")
 public class UserEntityMongo {
@@ -27,7 +31,14 @@ public class UserEntityMongo {
     @Indexed
     private boolean active = false;
 
-    //Lifecycle methods -- Pre/PostLoad, Pre/PostPersist...
+    @Indexed
+    private Date lastUpdated;
+    @PrePersist
+    void prePersist() {
+        lastUpdated = Date.from(Instant.now().atOffset(ZoneOffset.UTC)
+                .toInstant());
+    }
+
     @PostLoad
     private void postLoad(DBObject dbObj) {
 //        LOGGER.info("postLoad: {}", dbObj);

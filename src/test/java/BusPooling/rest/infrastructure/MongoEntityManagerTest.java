@@ -1,18 +1,13 @@
 package BusPooling.rest.infrastructure;
 
-import BusPooling.rest.infrastructure.entity.UserEntityMongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.mongodb.morphia.ValidationExtension;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.net.UnknownHostException;
 
 /**
  * Created by pawe on 3/2/17.
@@ -26,33 +21,29 @@ public class MongoEntityManagerTest {
     private static final String PASSWORD = "tasty123";
     private static Datastore datastore;
 
+   static private final String MONGO_URI = "mongodb://tasty:tasty123@ds113650.mlab.com:13650/testmorphia";
 
     static public Datastore mongoClient() {
-        if (datastore == null) {
-            Morphia morphia = new Morphia();
-            morphia.map(UserEntityMongo.class);
-            MongoClient client = createMongoClient();
-            datastore = morphia.createDatastore(client, DATABASE);
-        }
-
-        return datastore;
-    }
-    private static MongoClient createMongoClient() {
-        MongoCredential credential = MongoCredential.createMongoCRCredential(
-                USER_NAME,
-                DATABASE,
-                PASSWORD.toCharArray()
-        );
-        List<MongoCredential> credentialsList = new ArrayList<MongoCredential>();
-        credentialsList.add(credential);
-
+        MongoClientURI mongoClientURI = new MongoClientURI(MONGO_URI);
+        MongoClient mongoClient;
         try {
-            ServerAddress serverAddress = new ServerAddress(HOST, PORT);
-            return new MongoClient(serverAddress, credentialsList);
+            mongoClient = new MongoClient(mongoClientURI);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
+
+        // http://stackoverflow.com/questions/6832517/how-to-check-from-a-driver-if-mongodb-server-is-running
+        mongoClient.listDatabaseNames();
+
+        Morphia morphia = new Morphia();
+
+        new ValidationExtension(morphia);
+
+         datastore = morphia.createDatastore(mongoClient,
+                mongoClientURI.getDatabase());
+         return datastore;
     }
+
 
 
 
