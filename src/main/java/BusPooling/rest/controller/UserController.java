@@ -39,12 +39,12 @@ public class UserController {
     }
 
     @POST
-    public Response registerUser(User user) {
+    public Response registerUser(BusPooling.rest.infrastructure.entity.User user) {
 
         ICommand command = new CreateNewUser(user);
         this.commandBus.handle(command);
 
-        URI path = UriBuilder.fromPath("/users/" + user.getName()).build();
+        URI path = UriBuilder.fromPath("/users/" + user.getFirstName()).build();
         return Response.created(path).entity(user).build();
 
 //        return Response.status(Response.Status.CREATED)

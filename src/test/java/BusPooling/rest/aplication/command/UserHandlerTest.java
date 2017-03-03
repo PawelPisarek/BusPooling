@@ -1,6 +1,7 @@
 package BusPooling.rest.aplication.command;
 
-import BusPooling.rest.domain.User;
+
+import BusPooling.rest.infrastructure.entity.User;
 import BusPooling.rest.repository.UserRepository;
 import BusPooling.rest.service.UserService;
 import org.junit.Before;

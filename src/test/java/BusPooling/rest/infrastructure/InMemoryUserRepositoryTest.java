@@ -19,14 +19,14 @@ public class InMemoryUserRepositoryTest {
     @Test
     public void GetUsers_Returns_All_Items() {
         //arrange
-        UserRepository i = mock(UserRepository.class);
+        InMemoryUserRepository i = mock(InMemoryUserRepository.class);
 
         List<User> objects = new ArrayList<>();
         objects.add(new User("ktos"));
 
         when(i.getUsers()).thenReturn(objects);
         //act
-        UserRepository ktos = new BusPooling.rest.infrastructure.InMemoryUserRepository();
+        InMemoryUserRepository ktos = new BusPooling.rest.infrastructure.InMemoryUserRepository();
         ktos.addUser(new User("ktos"));
         List<User> result = ktos.getUsers();
         //assert

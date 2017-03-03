@@ -1,8 +1,11 @@
 package BusPooling.rest.repository;
 
 
-import BusPooling.rest.domain.User;
 
+
+import BusPooling.rest.infrastructure.entity.User;
+
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -10,7 +13,7 @@ import java.util.List;
  */
 public interface UserRepository {
 
-        List<User> getUsers();
+    Collection<User> getUsers();
     User addUser(User user);
 
 }

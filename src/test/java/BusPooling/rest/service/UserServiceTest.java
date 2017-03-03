@@ -1,6 +1,7 @@
 package BusPooling.rest.service;
 
-import BusPooling.rest.domain.User;
+//import BusPooling.rest.domain.User;
+import BusPooling.rest.infrastructure.entity.User;
 import BusPooling.rest.repository.UserRepository;
 import BusPooling.rest.service.UserService;
 import org.junit.Assert;
@@ -58,7 +59,7 @@ public class UserServiceTest {
     @Test
     public void addUser_should_addUser() {
 
-        User user = new User("ktos");
+        User user = new User("ktos","cos","jakos");
 
         userService.addUser(user);
 
@@ -69,21 +70,23 @@ public class UserServiceTest {
     @Test
     public void addUser_should_has_name() {
 
-        User user = new User("ktos");
+        User user = new User("ktos","cos","jakos");
         userService.addUser(user);
         ArgumentCaptor<User> emailCaptor = ArgumentCaptor.forClass(User.class);
         Mockito.verify(userRepository, times(1)).addUser(emailCaptor.capture());
-        Assert.assertEquals("ktos", emailCaptor.getValue().getName());
+        Assert.assertEquals("cos", emailCaptor.getValue().getFirstName());
     }
     @Test
     public void User_should_has_name() {
 
-        User user = new User("ktos");
+        User user = new User("ktos","cos","jakos");
         userService.addUser(user);
         Mockito.when(userService.addUser(any())).thenAnswer(new Answer<User>() {
             public User answer(InvocationOnMock invocation) throws Throwable {
                 return new User(
-                        (String) invocation.getArguments()[0]
+                        (String) invocation.getArguments()[0],
+                        (String) invocation.getArguments()[1],
+                        (String) invocation.getArguments()[2]
                 );
             }
         });

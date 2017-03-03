@@ -11,19 +11,19 @@ import java.util.List;
  * Created by adrian.perek@amu.edu.pl
  */
 @Repository
-public class InMemoryUserRepository implements UserRepository {
+public class InMemoryUserRepository {
 
     private static final List<User> users = new ArrayList<>();
 
     public InMemoryUserRepository() {
     }
 
-    @Override
+
     public List<User> getUsers() {
         return users;
     }
 
-    @Override
+
     public User addUser(User user) {
         InMemoryUserRepository.users.add(user);
         return user;

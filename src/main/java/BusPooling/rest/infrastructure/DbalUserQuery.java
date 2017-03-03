@@ -23,7 +23,8 @@ public class DbalUserQuery implements IUserQuery {
     public List<UserQuery> getAll() {
         return this.userRepository.getUsers().stream()
                 .map(user -> new UserQuery(user
-                        .getName()))
+                        .getFirstName()))
                 .collect(Collectors.toList());
     }
+
 }
