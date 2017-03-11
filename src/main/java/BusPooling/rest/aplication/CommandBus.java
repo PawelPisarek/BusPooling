@@ -1,5 +1,6 @@
 package BusPooling.rest.aplication;
 
+import BusPooling.AppConfiguration;
 import BusPooling.rest.aplication.command.ICommand;
 import BusPooling.rest.aplication.command.IHandleCommand;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,9 @@ import java.util.HashMap;
 @Service
 public class CommandBus implements ICommandBus {
 
-    private  HashMap<String,IHandleCommand> handlers;
+    private  HashMap<AppConfiguration.Commands,IHandleCommand> handlers;
 
-    public CommandBus(HashMap<String, IHandleCommand> handlers) {
+    public CommandBus(HashMap<AppConfiguration.Commands, IHandleCommand> handlers) {
         this.handlers = handlers;
     }
 
@@ -26,7 +27,7 @@ public class CommandBus implements ICommandBus {
     }
 
     @Override
-    public void registerHandler(String name, IHandleCommand handler) {
+    public void registerHandler(AppConfiguration.Commands name, IHandleCommand handler) {
 
         this.handlers.put(name, handler);
     }

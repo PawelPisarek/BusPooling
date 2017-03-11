@@ -1,8 +1,10 @@
 package BusPooling.rest.aplication.command;
 
+import BusPooling.AppConfiguration;
 import BusPooling.rest.domain.DelayedTransport;
 
-import static BusPooling.AppConfiguration.CREATE_DELAYED_TRANSPORT;
+import static BusPooling.AppConfiguration.Commands.CREATE_DELAYED_TRANSPORT;
+
 
 /**
  * Created by pawe on 3/4/17.
@@ -25,7 +27,7 @@ public class CreateDelayedTransport implements ICommand {
     }
 
     @Override
-    public String getKey() {
+    public AppConfiguration.Commands getKey() {
 
         return CREATE_DELAYED_TRANSPORT;
     }

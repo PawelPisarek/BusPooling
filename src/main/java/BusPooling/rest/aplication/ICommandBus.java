@@ -1,5 +1,6 @@
 package BusPooling.rest.aplication;
 
+import BusPooling.AppConfiguration;
 import BusPooling.rest.aplication.command.ICommand;
 import BusPooling.rest.aplication.command.IHandleCommand;
 
@@ -8,5 +9,5 @@ import BusPooling.rest.aplication.command.IHandleCommand;
  */
 public interface ICommandBus {
     void handle(ICommand command);
-    void  registerHandler(String name,IHandleCommand handler);
+    void  registerHandler(AppConfiguration.Commands name, IHandleCommand handler);
 }

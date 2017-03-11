@@ -22,7 +22,8 @@ public class CreateNewUser implements ICommand {
         this.name = name;
     }
 
-    public String getKey() {
-        return AppConfiguration.user;
+    @Override
+    public AppConfiguration.Commands getKey() {
+        return AppConfiguration.Commands.CREATE_USER;
     }
 }

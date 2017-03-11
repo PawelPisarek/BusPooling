@@ -8,9 +8,7 @@ import BusPooling.rest.aplication.command.UserHandler;
 import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.infrastructure.DbalDelayedTransportQuery;
 import BusPooling.rest.infrastructure.DbalUserQuery;
-import BusPooling.rest.infrastructure.InMemoryUserRepository;
 import BusPooling.rest.infrastructure.MongoEntityManager;
-import BusPooling.rest.infrastructure.entity.UserEntityMongo;
 import BusPooling.rest.infrastructure.repository.DelayedTransportRepository;
 import BusPooling.rest.repository.IRepository;
 import BusPooling.rest.repository.UserRepository;
@@ -19,20 +17,15 @@ import BusPooling.rest.service.IService;
 import BusPooling.rest.service.UserService;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
-import com.mongodb.client.MongoDatabase;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.ValidationExtension;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 
-import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
+import static BusPooling.AppConfiguration.Commands.CREATE_DELAYED_TRANSPORT;
 
 /**
  * Created by pawe on 2/27/17.
@@ -40,8 +33,8 @@ import java.util.List;
 @Configuration
 public class AppConfiguration {
 
-    public final static String user = "user";
-    public final static String CREATE_DELAYED_TRANSPORT = "CreateDelayedTransport";
+//    public final static String CREATE_USER = "CREATE_USER";
+//    public final static String CREATE_DELAYED_TRANSPORT = "CreateDelayedTransport";
 
     @Bean
     public UserRepository getRepository() {
@@ -117,10 +110,13 @@ public class AppConfiguration {
 
 
     @Bean
-    public HashMap<String, IHandleCommand> getHandlers() {
-        HashMap<String, IHandleCommand> handler = new HashMap<>();
-        handler.put(user, new UserHandler(this.getUserService()));
+    public HashMap<Commands, IHandleCommand> getHandlers() {
+        HashMap<Commands, IHandleCommand> handler = new HashMap<>();
+        handler.put(Commands.CREATE_USER, new UserHandler(this.getUserService()));
         handler.put(CREATE_DELAYED_TRANSPORT, new DelayedTransportHandler(this.getDelayedTransportService()));
         return handler;
+    }
+    public enum Commands {
+        CREATE_USER, CREATE_DELAYED_TRANSPORT
     }
 }
