@@ -35,6 +35,14 @@ public class DelayedTransportServiceTest {
         DelayedTransportService delayedTransportService = new DelayedTransportService(getDelayedTransportRepository);
         delayedTransportService.getAll();
     }
+    @Test
+    public void get_by_id_DelayedTransport() {
+
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
+        IRepository getDelayedTransportRepository = context.getBean("getDelayedTransportRepository", IRepository.class);
+        DelayedTransportService delayedTransportService = new DelayedTransportService(getDelayedTransportRepository);
+        delayedTransportService.findById("58b96a3e32ff2960a84b1e37");
+    }
 
 
 }

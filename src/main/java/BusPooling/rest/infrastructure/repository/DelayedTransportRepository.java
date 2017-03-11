@@ -11,11 +11,12 @@ import org.mongodb.morphia.Key;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * Created by pawe on 3/3/17.
  */
-public class DelayedTransportRepository implements IRepository<DelayedTransport>, MongoDatastore<DelayedTransport, DelayedTransportEntity, DelayedTransport> {
+public class DelayedTransportRepository implements IRepository<DelayedTransport,DelayedTransportEntity>, MongoDatastore<DelayedTransport, DelayedTransportEntity, DelayedTransport> {
     Datastore mongoDatabase;
 
     public DelayedTransportRepository(Datastore mongoDatabase) {
@@ -32,6 +33,20 @@ public class DelayedTransportRepository implements IRepository<DelayedTransport>
         }
 
         return lists;
+    }
+
+
+    public DelayedTransportEntity findById(String id) {
+        Collection<DelayedTransportEntity> lists = new ArrayList<DelayedTransportEntity>();
+
+        for (DelayedTransportEntity userEntity : this.mongoDatabase.find(DelayedTransportEntity.class)) {
+            lists.add(userEntity);
+        }
+
+        return lists.stream().filter(entitty -> {
+            return id.equals(buildResponse(entitty).getId());
+        }).collect(Collectors.toList()).stream().findAny()
+                .orElse(null);
     }
 
     @Override

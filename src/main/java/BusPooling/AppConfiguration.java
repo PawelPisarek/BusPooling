@@ -9,6 +9,7 @@ import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.infrastructure.DbalDelayedTransportQuery;
 import BusPooling.rest.infrastructure.DbalUserQuery;
 import BusPooling.rest.infrastructure.MongoEntityManager;
+import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.infrastructure.repository.DelayedTransportRepository;
 import BusPooling.rest.repository.IRepository;
 import BusPooling.rest.repository.UserRepository;
@@ -43,7 +44,7 @@ public class AppConfiguration {
     }
 
     @Bean
-    public IRepository<DelayedTransport> getDelayedTransportRepository() {
+    public IRepository<DelayedTransport,DelayedTransportEntity> getDelayedTransportRepository() {
         return new DelayedTransportRepository(this.mongoClient());
 
     }
@@ -116,7 +117,8 @@ public class AppConfiguration {
         handler.put(CREATE_DELAYED_TRANSPORT, new DelayedTransportHandler(this.getDelayedTransportService()));
         return handler;
     }
+
     public enum Commands {
-        CREATE_USER, CREATE_DELAYED_TRANSPORT
+        CREATE_USER, CREATE_DELAYED_TRANSPORT, FIND_DELAYED_TRANSPORT
     }
 }

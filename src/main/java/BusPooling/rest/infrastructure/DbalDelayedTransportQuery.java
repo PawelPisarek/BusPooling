@@ -2,6 +2,7 @@ package BusPooling.rest.infrastructure;
 
 import BusPooling.rest.aplication.query.DelayedTransportView.DelayedTransportView;
 import BusPooling.rest.domain.DelayedTransport;
+import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.repository.IRepository;
 
 import java.util.List;
@@ -13,9 +14,9 @@ import java.util.stream.Collectors;
  */
 public class DbalDelayedTransportQuery {
 
-    private final IRepository<DelayedTransport> repository;
+    private final IRepository<DelayedTransport,DelayedTransportEntity> repository;
 
-    public DbalDelayedTransportQuery(IRepository<DelayedTransport> repository) {
+    public DbalDelayedTransportQuery(IRepository<DelayedTransport,DelayedTransportEntity> repository) {
         this.repository = repository;
     }
 
