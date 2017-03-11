@@ -1,6 +1,6 @@
-package BusPooling.rest.aplication.query.User;
+package BusPooling.rest.aplication.query;
 
-import BusPooling.rest.aplication.query.User.UserView.UserQuery;
+import BusPooling.rest.aplication.query.UserView.UserQuery;
 
 import java.util.List;
 

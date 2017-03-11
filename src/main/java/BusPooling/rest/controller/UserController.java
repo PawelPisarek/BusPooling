@@ -1,12 +1,11 @@
 package BusPooling.rest.controller;
 
 import BusPooling.AppConfiguration;
-import BusPooling.rest.aplication.query.User.IUserQuery;
-import BusPooling.rest.aplication.query.User.UserView.UserQuery;
+import BusPooling.rest.aplication.query.IUserQuery;
+import BusPooling.rest.aplication.query.UserView.UserQuery;
 import BusPooling.rest.aplication.command.CreateNewUser;
 import BusPooling.rest.aplication.command.ICommand;
 import BusPooling.rest.aplication.ICommandBus;
-import BusPooling.rest.domain.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

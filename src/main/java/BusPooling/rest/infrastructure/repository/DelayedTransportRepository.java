@@ -1,0 +1,55 @@
+package BusPooling.rest.infrastructure.repository;
+
+import BusPooling.rest.domain.DelayedTransport;
+import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
+import BusPooling.rest.infrastructure.entity.User;
+import BusPooling.rest.infrastructure.entity.UserEntityMongo;
+import BusPooling.rest.repository.IRepository;
+import BusPooling.rest.repository.MongoDatastore;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Key;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+/**
+ * Created by pawe on 3/3/17.
+ */
+public class DelayedTransportRepository implements IRepository<DelayedTransport>, MongoDatastore<DelayedTransport, DelayedTransportEntity, DelayedTransport> {
+    Datastore mongoDatabase;
+
+    public DelayedTransportRepository(Datastore mongoDatabase) {
+        this.mongoDatabase = mongoDatabase;
+    }
+
+
+    @Override
+    public Collection<DelayedTransport> getAll() {
+        Collection<DelayedTransport> lists = new ArrayList<DelayedTransport>();
+
+        for (DelayedTransportEntity userEntity : this.mongoDatabase.find(DelayedTransportEntity.class)) {
+            lists.add(buildResponse(userEntity));
+        }
+
+        return lists;
+    }
+
+    @Override
+    public DelayedTransportEntity buildEntity(DelayedTransport object) {
+        return new DelayedTransportEntity(object.getNameTrain(), object.getFrom(), object.getAlternative(), object.getLat(), object.getLng());
+
+    }
+
+    @Override
+    public DelayedTransport buildResponse(DelayedTransportEntity entity) {
+        return new DelayedTransport(entity.getId().toString(), entity.getNameTrain(), entity.getFrom(), entity.getAlternative(), entity.getLat(), entity.getLng());
+    }
+
+    @Override
+    public DelayedTransport addData(DelayedTransport data) {
+        DelayedTransportEntity userEntity = buildEntity(data);
+        Key<DelayedTransportEntity> userEntityKey = this.mongoDatabase
+                .save(userEntity);
+        return data;
+    }
+}

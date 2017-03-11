@@ -1,4 +1,4 @@
-package BusPooling.rest.aplication.query.User.UserView;
+package BusPooling.rest.aplication.query.UserView;
 
 /**
  * Created by pawe on 3/1/17.
