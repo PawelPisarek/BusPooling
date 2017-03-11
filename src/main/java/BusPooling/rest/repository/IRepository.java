@@ -12,4 +12,6 @@ public interface IRepository<T,E> {
     T addData(T data);
 
     E findById(String id);
+
+    E save(E save);
 }

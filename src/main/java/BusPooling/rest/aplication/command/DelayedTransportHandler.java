@@ -1,5 +1,6 @@
 package BusPooling.rest.aplication.command;
 
+import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.service.DelayedTransportService;
 import BusPooling.rest.service.IService;
 
@@ -8,9 +9,9 @@ import BusPooling.rest.service.IService;
  */
 public class DelayedTransportHandler implements IHandleCommand<CreateDelayedTransport> {
 
-    private IService<CreateDelayedTransport> delayedTransportService;
+    private IService<CreateDelayedTransport,DelayedTransportEntity> delayedTransportService;
 
-    public DelayedTransportHandler(IService<CreateDelayedTransport> delayedTransportService) {
+    public DelayedTransportHandler(IService<CreateDelayedTransport,DelayedTransportEntity> delayedTransportService) {
         this.delayedTransportService = delayedTransportService;
     }
 

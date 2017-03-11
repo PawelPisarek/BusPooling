@@ -61,6 +61,12 @@ public class DelayedTransportRepository implements IRepository<DelayedTransport,
     }
 
     @Override
+    public DelayedTransportEntity save(DelayedTransportEntity save) {
+        this.mongoDatabase.save(save);
+        return save;
+    }
+
+    @Override
     public DelayedTransport addData(DelayedTransport data) {
         DelayedTransportEntity userEntity = buildEntity(data);
         Key<DelayedTransportEntity> userEntityKey = this.mongoDatabase

@@ -46,23 +46,47 @@ public class DelayedTransportEntity {
         return id;
     }
 
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
     public String getNameTrain() {
         return nameTrain;
+    }
+
+    public void setNameTrain(String nameTrain) {
+        this.nameTrain = nameTrain;
     }
 
     public String getFrom() {
         return from;
     }
 
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
     public String getAlternative() {
         return alternative;
+    }
+
+    public void setAlternative(String alternative) {
+        this.alternative = alternative;
     }
 
     public String getLat() {
         return lat;
     }
 
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
     public String getLng() {
         return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
     }
 }

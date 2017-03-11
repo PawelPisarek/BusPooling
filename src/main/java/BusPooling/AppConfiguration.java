@@ -44,8 +44,8 @@ public class AppConfiguration {
     }
 
     @Bean
-    public IRepository<DelayedTransport,DelayedTransportEntity> getDelayedTransportRepository() {
-        return new DelayedTransportRepository(this.mongoClient());
+    public IRepository<DelayedTransport, DelayedTransportEntity> getDelayedTransportRepository() {
+        return this.getRepositories().get(Repositories.DELAYED_TRANSPORT);
 
     }
 
@@ -117,8 +117,17 @@ public class AppConfiguration {
         handler.put(CREATE_DELAYED_TRANSPORT, new DelayedTransportHandler(this.getDelayedTransportService()));
         return handler;
     }
+    @Bean
+    public HashMap<Repositories, IRepository> getRepositories() {
+        HashMap<Repositories, IRepository> handler = new HashMap<>();
+        handler.put(Repositories.DELAYED_TRANSPORT,  new DelayedTransportRepository(this.mongoClient()));
+        return handler;
+    }
 
     public enum Commands {
-        CREATE_USER, CREATE_DELAYED_TRANSPORT, FIND_DELAYED_TRANSPORT
+        CREATE_USER, CREATE_DELAYED_TRANSPORT, FIND_DELAYED_TRANSPORT, UPDATE_DELAYED_TRANSPORT
+    }
+    public enum Repositories {
+        DELAYED_TRANSPORT
     }
 }

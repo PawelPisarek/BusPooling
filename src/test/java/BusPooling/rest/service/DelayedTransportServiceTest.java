@@ -3,6 +3,9 @@ package BusPooling.rest.service;
 //import BusPooling.rest.domain.User;
 
 import BusPooling.AppConfiguration;
+import BusPooling.rest.aplication.command.UpdateDelayedTransport;
+import BusPooling.rest.domain.DelayedTransport;
+import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.infrastructure.entity.User;
 import BusPooling.rest.repository.IRepository;
 import BusPooling.rest.repository.UserRepository;
@@ -42,6 +45,17 @@ public class DelayedTransportServiceTest {
         IRepository getDelayedTransportRepository = context.getBean("getDelayedTransportRepository", IRepository.class);
         DelayedTransportService delayedTransportService = new DelayedTransportService(getDelayedTransportRepository);
         delayedTransportService.findById("58b96a3e32ff2960a84b1e37");
+    }
+
+    @Test
+    public void update_DelayedTransport() {
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
+        IRepository getDelayedTransportRepository = context.getBean("getDelayedTransportRepository", IRepository.class);
+        DelayedTransportService delayedTransportService = new DelayedTransportService(getDelayedTransportRepository);
+        DelayedTransport i = new DelayedTransport("dowolne id nie ma znaczenia jakie", "as23d", "c2os", "asd", "sad", "sad");
+        DelayedTransportEntity i2 = delayedTransportService.findById("58c448244d4bef7923033b86");
+        final UpdateDelayedTransport command = new UpdateDelayedTransport(i, i2);
+        delayedTransportService.update(command);
     }
 
 
