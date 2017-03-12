@@ -3,10 +3,14 @@ package BusPooling.rest.domain;
 /**
  * Created by pawe on 2/27/17.
  */
+
 public class User {
 
     public User(String name) {
         this.name = name;
+    }
+
+    public User() {
     }
 
     public String getName() {

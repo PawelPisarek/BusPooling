@@ -1,12 +1,15 @@
 package BusPooling.rest.service;
 
 import BusPooling.AppConfiguration;
-import BusPooling.rest.domain.User;
+
+import BusPooling.rest.infrastructure.entity.User;
 import BusPooling.rest.repository.UserRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -26,7 +29,7 @@ public class UserService {
     }
 
 
-    public List<User> getUsers() {
+    public Collection<User> getUsers() {
         return userRepository.getUsers();
     }
 

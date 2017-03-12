@@ -1,12 +1,11 @@
 package BusPooling.rest.controller;
 
 import BusPooling.AppConfiguration;
-import BusPooling.rest.aplication.query.User.IUserQuery;
-import BusPooling.rest.aplication.query.User.UserView.UserQuery;
+import BusPooling.rest.aplication.query.IUserQuery;
+import BusPooling.rest.aplication.query.UserView.UserQuery;
 import BusPooling.rest.aplication.command.CreateNewUser;
 import BusPooling.rest.aplication.command.ICommand;
 import BusPooling.rest.aplication.ICommandBus;
-import BusPooling.rest.domain.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -39,12 +38,12 @@ public class UserController {
     }
 
     @POST
-    public Response registerUser(User user) {
+    public Response registerUser(BusPooling.rest.infrastructure.entity.User user) {
 
         ICommand command = new CreateNewUser(user);
         this.commandBus.handle(command);
 
-        URI path = UriBuilder.fromPath("/users/" + user.getName()).build();
+        URI path = UriBuilder.fromPath("/users/" + user.getFirstName()).build();
         return Response.created(path).entity(user).build();
 
 //        return Response.status(Response.Status.CREATED)

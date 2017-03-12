@@ -1,7 +1,7 @@
 package BusPooling.rest.infrastructure;
 
-import BusPooling.rest.aplication.query.User.IUserQuery;
-import BusPooling.rest.aplication.query.User.UserView.UserQuery;
+import BusPooling.rest.aplication.query.IUserQuery;
+import BusPooling.rest.aplication.query.UserView.UserQuery;
 import BusPooling.rest.repository.UserRepository;
 
 import java.util.List;
@@ -23,7 +23,8 @@ public class DbalUserQuery implements IUserQuery {
     public List<UserQuery> getAll() {
         return this.userRepository.getUsers().stream()
                 .map(user -> new UserQuery(user
-                        .getName()))
+                        .getFirstName()))
                 .collect(Collectors.toList());
     }
+
 }
