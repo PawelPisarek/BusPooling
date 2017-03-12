@@ -16,16 +16,13 @@ import java.util.stream.Collectors;
 /**
  * Created by pawe on 3/3/17.
  */
-public class DelayedTransportRepository implements IRepository<DelayedTransport, DelayedTransportEntity>, MongoDatastore<DelayedTransport, DelayedTransportEntity, DelayedTransport> {
-    Datastore mongoDatabase;
+public class DelayedTransportRepository extends AbstractRepository implements IRepository<DelayedTransport, DelayedTransportEntity>, MongoDatastore<DelayedTransport, DelayedTransportEntity, DelayedTransport> {
+
     private Collection<DelayedTransportEntity> listToSave;
-
     public DelayedTransportRepository(Datastore mongoDatabase) {
-        this.mongoDatabase = mongoDatabase;
+        super(mongoDatabase);
         this.listToSave = new ArrayList<DelayedTransportEntity>();
-
     }
-
 
     @Override
     public Collection<DelayedTransport> getAll() {
