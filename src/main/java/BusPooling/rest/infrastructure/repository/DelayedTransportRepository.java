@@ -6,6 +6,7 @@ import BusPooling.rest.infrastructure.entity.User;
 import BusPooling.rest.infrastructure.entity.UserEntityMongo;
 import BusPooling.rest.repository.IRepository;
 import BusPooling.rest.repository.MongoDatastore;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Key;
 
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class DelayedTransportRepository extends AbstractRepository implements IRepository<DelayedTransport, DelayedTransportEntity>, MongoDatastore<DelayedTransport, DelayedTransportEntity, DelayedTransport> {
 
     private Collection<DelayedTransportEntity> listToSave;
+
     public DelayedTransportRepository(Datastore mongoDatabase) {
         super(mongoDatabase);
         this.listToSave = new ArrayList<DelayedTransportEntity>();
@@ -51,13 +53,13 @@ public class DelayedTransportRepository extends AbstractRepository implements IR
 
     @Override
     public DelayedTransportEntity buildEntity(DelayedTransport object) {
-        return new DelayedTransportEntity(object.getNameTrain(), object.getFrom(), object.getAlternative(), object.getLat(), object.getLng());
+        return new DelayedTransportEntity(object.getNameTrain(), object.getFrom(), object.getAlternative(), object.getLat(), object.getLng(), object.getUuid());
 
     }
 
     @Override
     public DelayedTransport buildResponse(DelayedTransportEntity entity) {
-        return new DelayedTransport(entity.getId().toString(), entity.getNameTrain(), entity.getFrom(), entity.getAlternative(), entity.getLat(), entity.getLng());
+        return new DelayedTransport(entity.getId().toString(), entity.getNameTrain(), entity.getFrom(), entity.getAlternative(), entity.getLat(), entity.getLng(), entity.getUuid());
     }
 
     @Override

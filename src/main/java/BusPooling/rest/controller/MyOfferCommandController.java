@@ -38,16 +38,6 @@ public class MyOfferCommandController {
     }
 
 
-    @POST
-    public Response addDelayedTransport(MyOffer delayedTransport) {
-
-        ICommand command = new CreateMyOffer(delayedTransport);
-        this.commandBus.handle(command);
-
-        URI path = UriBuilder.fromPath("/users/" + delayedTransport.getAuthor()).build();
-        return Response.created(path).entity(delayedTransport).build();
-
-    }
 
     @PUT
     public Response editDelayedTransport(MyOffer delayedTransport) {

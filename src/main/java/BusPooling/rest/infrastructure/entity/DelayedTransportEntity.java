@@ -23,16 +23,16 @@ public class DelayedTransportEntity {
     private String alternative;
     private String lat;
     private String lng;
+    private String uuid;
 
-    public DelayedTransportEntity(String nameTrain, String from, String alternative, String lat, String lng) {
+    public DelayedTransportEntity(String nameTrain, String from, String alternative, String lat, String lng, String uuid) {
         this.nameTrain = nameTrain;
         this.from = from;
         this.alternative = alternative;
         this.lat = lat;
         this.lng = lng;
+        this.uuid = uuid;
     }
-
-
 
     @PostLoad
     private void postLoad(DBObject dbObj) {
@@ -88,5 +88,13 @@ public class DelayedTransportEntity {
 
     public void setLng(String lng) {
         this.lng = lng;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

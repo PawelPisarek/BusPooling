@@ -65,12 +65,12 @@ public class AppConfiguration {
 
     @Bean
     public DbalDelayedTransportQuery getDelayedTransportQuery() {
-        return new DbalDelayedTransportQuery(this.getDelayedTransportRepository());
+        return new DbalDelayedTransportQuery(this.getDelayedTransportRepository(),this.mongoClient());
     }
 
     @Bean
     public DbalMyOfferQuery getMyOfferQuery() {
-        return new DbalMyOfferQuery(this.getMyOfferRepository());
+        return new DbalMyOfferQuery(this.getMyOfferRepository(),this.mongoClient());
     }
 
     @Bean

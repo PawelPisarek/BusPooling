@@ -5,6 +5,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.PostLoad;
+import org.mongodb.morphia.annotations.Reference;
 
 
 @Entity("my-offers")
@@ -16,16 +17,18 @@ public class MyOfferEntity {
     private String price;
     private String timeToLeft;
     private String author;
-    //tutaj będzie relacja
+    @Reference
+    private DelayedTransportEntity delayedTransportEntity;
 
 
     public MyOfferEntity() {
     }
 
-    public MyOfferEntity(String price, String timeToLeft, String author) {
+    public MyOfferEntity(String price, String timeToLeft, String author, DelayedTransportEntity delayedTransportEntity) {
         this.price = price;
         this.timeToLeft = timeToLeft;
         this.author = author;
+        this.delayedTransportEntity = delayedTransportEntity;
     }
 
     @PostLoad
@@ -63,5 +66,13 @@ public class MyOfferEntity {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public DelayedTransportEntity getDelayedTransportEntity() {
+        return delayedTransportEntity;
+    }
+
+    public void setDelayedTransportEntity(DelayedTransportEntity delayedTransportEntity) {
+        this.delayedTransportEntity = delayedTransportEntity;
     }
 }

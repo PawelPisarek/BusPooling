@@ -4,6 +4,7 @@ import BusPooling.AppConfiguration;
 import BusPooling.rest.aplication.command.ICommand;
 import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.domain.MyOffer;
+import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 
 import static BusPooling.AppConfiguration.Commands.CREATE_DELAYED_TRANSPORT;
 import static BusPooling.AppConfiguration.Commands.CREATE_MY_OFFER;
@@ -15,13 +16,19 @@ import static BusPooling.AppConfiguration.Commands.CREATE_MY_OFFER;
 public class CreateMyOffer implements ICommand {
 
     MyOffer myOffer;
+    DelayedTransportEntity delayedTransport;
 
-    public CreateMyOffer(MyOffer myOffer) {
+    public CreateMyOffer(MyOffer myOffer, DelayedTransportEntity delayedTransport) {
         this.myOffer = myOffer;
+        this.delayedTransport = delayedTransport;
     }
 
     public MyOffer getMyOffer() {
         return myOffer;
+    }
+
+    public DelayedTransportEntity getDelayedTransportEntity() {
+        return delayedTransport;
     }
 
     @Override

@@ -39,8 +39,8 @@ public class updateDelayedTransportHandlerTest {
     @Test
     public void handle_command_updateDelayedTransport() {
 
-        DelayedTransport i = new DelayedTransport("asd", "asd", "sad", "asd", "sad", "sad");
-        DelayedTransportEntity i2 = new DelayedTransportEntity("asd","sad","asd","sad","sad");
+        DelayedTransport i = new DelayedTransport("asd", "asd", "sad", "asd", "sad", "sad","1");
+        DelayedTransportEntity i2 = new DelayedTransportEntity("asd","sad","asd","sad","sad","1");
         final UpdateDelayedTransport command = new UpdateDelayedTransport(i, i2);
         userHandler.handle(command);
 

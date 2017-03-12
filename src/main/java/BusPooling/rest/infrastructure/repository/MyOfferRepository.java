@@ -76,7 +76,7 @@ public class MyOfferRepository extends AbstractRepository implements IRepository
 
     @Override
     public MyOfferEntity buildEntity(MyOffer object) {
-        return new MyOfferEntity(object.getPrice(), object.getTimeToLeft(), object.getAuthor());
+        return new MyOfferEntity(object.getPrice(), object.getTimeToLeft(), object.getAuthor(), object.getDelayedTransportEntity());
     }
 
     @Override

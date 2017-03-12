@@ -38,7 +38,9 @@ public class MyOfferService implements IService<CreateMyOffer, UpdateMyOffer> {
 
     @Override
     public void addFromHandle(CreateMyOffer command) {
-        this.iRepository.addData(command.getMyOffer());
+        MyOffer myOffer = command.getMyOffer();
+        myOffer.setDelayedTransportEntity(command.getDelayedTransportEntity());
+        this.iRepository.addData(myOffer);
     }
 
     @Override

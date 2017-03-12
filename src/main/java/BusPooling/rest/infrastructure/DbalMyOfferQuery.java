@@ -7,8 +7,14 @@ import BusPooling.rest.domain.MyOffer;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.infrastructure.entity.MyOfferEntity;
 import BusPooling.rest.repository.IRepository;
+import javassist.tools.rmi.ObjectNotFoundException;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
 
+import javax.ws.rs.NotFoundException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 
@@ -18,14 +24,24 @@ import java.util.stream.Collectors;
 public class DbalMyOfferQuery {
 
     private final IRepository<MyOffer, MyOfferEntity> repository;
+    Datastore mongoDatabase;
 
-    public DbalMyOfferQuery(IRepository<MyOffer, MyOfferEntity> repository) {
+    public DbalMyOfferQuery(IRepository<MyOffer, MyOfferEntity> repository, Datastore mongoDatabase) {
         this.repository = repository;
+        this.mongoDatabase = mongoDatabase;
     }
 
-    public List<MyOfferView> getAll() {
-        return this.repository.getAll().stream()
-                .map(user -> new MyOfferView(user.getId(), user.getPrice(), user.getTimeToLeft(), user.getAuthor()))
+    public List<MyOfferView> getAll(String delayedTransportId) {
+        final List<DelayedTransportEntity> from = this.mongoDatabase.createQuery(DelayedTransportEntity.class)
+                .filter("uuid", delayedTransportId).asList();
+        if (from.size() == 0) throw new NotFoundException();
+        return this.mongoDatabase.createQuery(MyOfferEntity.class)
+                .filter("delayedTransportEntity", from.get(0)).asList()
+                .stream().map(entity -> new MyOfferView(
+                        entity.getId().toString(),
+                        entity.getPrice(),
+                        entity.getTimeToLeft(),
+                        entity.getAuthor()))
                 .collect(Collectors.toList());
     }
 

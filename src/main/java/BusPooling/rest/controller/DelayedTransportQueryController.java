@@ -9,10 +9,7 @@ import BusPooling.rest.infrastructure.DbalMyOfferQuery;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -42,8 +39,8 @@ public class DelayedTransportQueryController {
     }
 
     @GET
-    @Path("/my-offer")
-    public List<MyOfferView> getMyOffer() {
-        return this.dbalMyOfferQuery.getAll();
+    @Path("/{id}/my-offer")
+    public List<MyOfferView> getMyOffer(@PathParam("id") String id) {
+        return this.dbalMyOfferQuery.getAll(id);
     }
 }

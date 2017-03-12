@@ -5,7 +5,9 @@ import BusPooling.rest.aplication.ICommandBus;
 import BusPooling.rest.aplication.command.DelayedTransport.CreateDelayedTransport;
 import BusPooling.rest.aplication.command.ICommand;
 import BusPooling.rest.aplication.command.DelayedTransport.UpdateDelayedTransport;
+import BusPooling.rest.aplication.command.MyOffer.CreateMyOffer;
 import BusPooling.rest.domain.DelayedTransport;
+import BusPooling.rest.domain.MyOffer;
 import BusPooling.rest.infrastructure.DbalDelayedTransportQuery;
 import BusPooling.rest.infrastructure.UnitOfWork;
 import org.springframework.context.ApplicationContext;
@@ -61,4 +63,19 @@ public class DelayedTransportCommandController {
         return Response.created(path).entity(delayedTransport).build();
 
     }
+
+    @POST
+    @Path("/{id}/my-offer")
+    public Response addDelayedTransport(MyOffer myOffer, @PathParam("id") String id) {
+
+
+        ICommand command = new CreateMyOffer(myOffer, this.delayedTransportQuery.getByUuid(id));
+        this.commandBus.handle(command);
+
+        URI path = UriBuilder.fromPath("/users/" + myOffer.getAuthor()).build();
+        return Response.created(path).entity(myOffer).build();
+
+    }
+
+
 }

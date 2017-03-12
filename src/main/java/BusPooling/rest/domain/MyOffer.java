@@ -1,5 +1,7 @@
 package BusPooling.rest.domain;
 
+import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
+import BusPooling.rest.infrastructure.entity.MyOfferEntity;
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 
@@ -9,7 +11,7 @@ public class MyOffer {
     private String price;
     private String timeToLeft;
     private String author;
-    //tutaj będzie relacja
+    private DelayedTransportEntity delayedTransportEntity;
 
 
     public MyOffer() {
@@ -39,5 +41,13 @@ public class MyOffer {
     @ApiModelProperty(value = "My offer author", required = true)
     public String getAuthor() {
         return author;
+    }
+
+    public DelayedTransportEntity getDelayedTransportEntity() {
+        return delayedTransportEntity;
+    }
+
+    public void setDelayedTransportEntity(DelayedTransportEntity delayedTransportEntity) {
+        this.delayedTransportEntity = delayedTransportEntity;
     }
 }
