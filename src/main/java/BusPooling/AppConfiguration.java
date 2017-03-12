@@ -2,12 +2,12 @@ package BusPooling;
 
 import BusPooling.rest.aplication.CommandBus;
 import BusPooling.rest.aplication.ICommandBus;
-import BusPooling.rest.aplication.command.DelayedTransportHandler;
+import BusPooling.rest.aplication.command.DelayedTransport.DelayedTransportHandler;
 import BusPooling.rest.aplication.command.IHandleCommand;
 import BusPooling.rest.aplication.command.UserHandler;
-import BusPooling.rest.aplication.handler.CreateDelayedTransportHandler;
-import BusPooling.rest.aplication.handler.UpdateDelayedTransportHandler;
-import BusPooling.rest.aplication.handler.UpdateMyOfferHandler;
+import BusPooling.rest.aplication.command.MyOffer.CreateMyOfferHandler;
+import BusPooling.rest.aplication.command.DelayedTransport.UpdateDelayedTransportHandler;
+import BusPooling.rest.aplication.command.MyOffer.UpdateMyOfferHandler;
 import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.domain.MyOffer;
 import BusPooling.rest.infrastructure.*;
@@ -29,7 +29,6 @@ import org.mongodb.morphia.ValidationExtension;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 
 import static BusPooling.AppConfiguration.Commands.CREATE_DELAYED_TRANSPORT;
@@ -141,7 +140,7 @@ public class AppConfiguration {
         handler.put(Commands.CREATE_USER, new UserHandler(this.getUserService()));
         handler.put(CREATE_DELAYED_TRANSPORT, new DelayedTransportHandler(this.getDelayedTransportService()));
         handler.put(Commands.UPDATE_DELAYED_TRANSPORT, new UpdateDelayedTransportHandler(this.getDelayedTransportService()));
-        handler.put(Commands.CREATE_MY_OFFER, new CreateDelayedTransportHandler(this.getMyOfferService()));
+        handler.put(Commands.CREATE_MY_OFFER, new CreateMyOfferHandler(this.getMyOfferService()));
         handler.put(Commands.UPDATE_MY_OFFER, new UpdateMyOfferHandler(this.getMyOfferService()));
         return handler;
     }

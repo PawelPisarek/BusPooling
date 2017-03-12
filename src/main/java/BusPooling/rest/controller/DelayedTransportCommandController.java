@@ -2,13 +2,12 @@ package BusPooling.rest.controller;
 
 import BusPooling.AppConfiguration;
 import BusPooling.rest.aplication.ICommandBus;
-import BusPooling.rest.aplication.command.CreateDelayedTransport;
+import BusPooling.rest.aplication.command.DelayedTransport.CreateDelayedTransport;
 import BusPooling.rest.aplication.command.ICommand;
-import BusPooling.rest.aplication.command.UpdateDelayedTransport;
+import BusPooling.rest.aplication.command.DelayedTransport.UpdateDelayedTransport;
 import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.infrastructure.DbalDelayedTransportQuery;
 import BusPooling.rest.infrastructure.UnitOfWork;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

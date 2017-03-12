@@ -3,12 +3,9 @@ package BusPooling.rest.service;
 //import BusPooling.rest.domain.User;
 
 import BusPooling.AppConfiguration;
-import BusPooling.rest.aplication.command.UpdateDelayedTransport;
-import BusPooling.rest.aplication.command.UpdateMyOffer;
-import BusPooling.rest.domain.DelayedTransport;
+import BusPooling.rest.aplication.command.MyOffer.UpdateMyOffer;
 import BusPooling.rest.domain.MyOffer;
 import BusPooling.rest.infrastructure.UnitOfWork;
-import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.infrastructure.entity.MyOfferEntity;
 import BusPooling.rest.repository.IRepository;
 import org.junit.Test;

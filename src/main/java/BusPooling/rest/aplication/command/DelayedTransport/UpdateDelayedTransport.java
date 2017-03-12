@@ -1,6 +1,7 @@
-package BusPooling.rest.aplication.command;
+package BusPooling.rest.aplication.command.DelayedTransport;
 
 import BusPooling.AppConfiguration;
+import BusPooling.rest.aplication.command.ICommand;
 import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 

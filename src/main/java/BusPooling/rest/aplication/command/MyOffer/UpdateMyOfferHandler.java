@@ -1,6 +1,8 @@
-package BusPooling.rest.aplication.handler;
+package BusPooling.rest.aplication.command.MyOffer;
 
 import BusPooling.rest.aplication.command.*;
+import BusPooling.rest.aplication.command.MyOffer.CreateMyOffer;
+import BusPooling.rest.aplication.command.MyOffer.UpdateMyOffer;
 import BusPooling.rest.service.IService;
 
 /**

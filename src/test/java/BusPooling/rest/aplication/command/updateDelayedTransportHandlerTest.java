@@ -3,7 +3,9 @@ package BusPooling.rest.aplication.command;
 
 //import BusPooling.rest.infrastructure.entity.User;
 
-import BusPooling.rest.aplication.handler.UpdateDelayedTransportHandler;
+import BusPooling.rest.aplication.command.DelayedTransport.CreateDelayedTransport;
+import BusPooling.rest.aplication.command.DelayedTransport.UpdateDelayedTransport;
+import BusPooling.rest.aplication.command.DelayedTransport.UpdateDelayedTransportHandler;
 import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.service.IService;
@@ -16,7 +18,6 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by pawe on 3/1/17.

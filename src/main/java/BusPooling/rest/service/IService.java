@@ -1,7 +1,5 @@
 package BusPooling.rest.service;
 
-import BusPooling.rest.aplication.command.UpdateDelayedTransport;
-
 /**
  * Created by pawe on 3/3/17.
  */

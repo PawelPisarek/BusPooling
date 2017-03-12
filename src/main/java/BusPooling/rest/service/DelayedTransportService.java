@@ -1,14 +1,13 @@
 package BusPooling.rest.service;
 
 import BusPooling.AppConfiguration;
-import BusPooling.rest.aplication.command.CreateDelayedTransport;
-import BusPooling.rest.aplication.command.UpdateDelayedTransport;
+import BusPooling.rest.aplication.command.DelayedTransport.CreateDelayedTransport;
+import BusPooling.rest.aplication.command.DelayedTransport.UpdateDelayedTransport;
 import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.repository.IRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
