@@ -16,11 +16,14 @@ import java.util.stream.Collectors;
 /**
  * Created by pawe on 3/3/17.
  */
-public class DelayedTransportRepository implements IRepository<DelayedTransport,DelayedTransportEntity>, MongoDatastore<DelayedTransport, DelayedTransportEntity, DelayedTransport> {
+public class DelayedTransportRepository implements IRepository<DelayedTransport, DelayedTransportEntity>, MongoDatastore<DelayedTransport, DelayedTransportEntity, DelayedTransport> {
     Datastore mongoDatabase;
+    private Collection<DelayedTransportEntity> listToSave;
 
     public DelayedTransportRepository(Datastore mongoDatabase) {
         this.mongoDatabase = mongoDatabase;
+        this.listToSave = new ArrayList<DelayedTransportEntity>();
+
     }
 
 
@@ -61,9 +64,17 @@ public class DelayedTransportRepository implements IRepository<DelayedTransport,
     }
 
     @Override
-    public DelayedTransportEntity save(DelayedTransportEntity save) {
-        this.mongoDatabase.save(save);
+    public DelayedTransportEntity update(DelayedTransportEntity save) {
+        this.listToSave.add(save);
         return save;
+
+    }
+
+    @Override
+    public void save() {
+        for (DelayedTransportEntity o : this.listToSave) {
+            this.mongoDatabase.save(o);
+        }
     }
 
     @Override

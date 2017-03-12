@@ -5,10 +5,12 @@ import BusPooling.rest.aplication.ICommandBus;
 import BusPooling.rest.aplication.command.DelayedTransportHandler;
 import BusPooling.rest.aplication.command.IHandleCommand;
 import BusPooling.rest.aplication.command.UserHandler;
+import BusPooling.rest.aplication.handler.UpdateDelayedTransportHandler;
 import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.infrastructure.DbalDelayedTransportQuery;
 import BusPooling.rest.infrastructure.DbalUserQuery;
 import BusPooling.rest.infrastructure.MongoEntityManager;
+import BusPooling.rest.infrastructure.UnitOfWork;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.infrastructure.repository.DelayedTransportRepository;
 import BusPooling.rest.repository.IRepository;
@@ -24,6 +26,7 @@ import org.mongodb.morphia.ValidationExtension;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 
 import static BusPooling.AppConfiguration.Commands.CREATE_DELAYED_TRANSPORT;
@@ -46,7 +49,11 @@ public class AppConfiguration {
     @Bean
     public IRepository<DelayedTransport, DelayedTransportEntity> getDelayedTransportRepository() {
         return this.getRepositories().get(Repositories.DELAYED_TRANSPORT);
+    }
 
+    @Bean
+    public UnitOfWork getUnitOfWork() {
+        return new UnitOfWork(this.getRepositories());
     }
 
     @Bean
@@ -115,6 +122,7 @@ public class AppConfiguration {
         HashMap<Commands, IHandleCommand> handler = new HashMap<>();
         handler.put(Commands.CREATE_USER, new UserHandler(this.getUserService()));
         handler.put(CREATE_DELAYED_TRANSPORT, new DelayedTransportHandler(this.getDelayedTransportService()));
+        handler.put(Commands.UPDATE_DELAYED_TRANSPORT, new UpdateDelayedTransportHandler(this.getDelayedTransportService()));
         return handler;
     }
     @Bean

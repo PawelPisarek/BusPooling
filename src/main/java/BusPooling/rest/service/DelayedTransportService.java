@@ -8,17 +8,18 @@ import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.repository.IRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
 @Service
-public class DelayedTransportService implements IService<CreateDelayedTransport,UpdateDelayedTransport> {
+public class DelayedTransportService implements IService<CreateDelayedTransport, UpdateDelayedTransport> {
 
-    private final IRepository<DelayedTransport,DelayedTransportEntity> delayedTransportIRepository;
+    private final IRepository<DelayedTransport, DelayedTransportEntity> delayedTransportIRepository;
 
 
-    public DelayedTransportService(IRepository<DelayedTransport,DelayedTransportEntity> userRepository) {
+    public DelayedTransportService(IRepository<DelayedTransport, DelayedTransportEntity> userRepository) {
         this.delayedTransportIRepository = userRepository;
     }
 
@@ -43,11 +44,11 @@ public class DelayedTransportService implements IService<CreateDelayedTransport,
         DelayedTransportEntity delayedTransportEntity = command.getDelayedTransportEntity();
         delayedTransportEntity.setAlternative(delayedTransport.getAlternative());
         delayedTransportEntity.setFrom(delayedTransport.getFrom());
-        delayedTransportEntity.setLat(delayedTransport.getLat());
+        delayedTransportEntity.setLat(delayedTransport.getLat() != null ? delayedTransport.getLat() : delayedTransportEntity.getLat());
         delayedTransportEntity.setLng(delayedTransport.getLng());
         delayedTransportEntity.setNameTrain(delayedTransport.getNameTrain());
 
-        this.delayedTransportIRepository.save(delayedTransportEntity);
+        this.delayedTransportIRepository.update(delayedTransportEntity);
     }
 
     @Override

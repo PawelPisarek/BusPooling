@@ -4,7 +4,7 @@ package BusPooling.rest.repository;
 import java.util.Collection;
 
 
-public interface IRepository<T,E> {
+public interface IRepository<T, E> {
 
 
     Collection<T> getAll();
@@ -13,5 +13,7 @@ public interface IRepository<T,E> {
 
     E findById(String id);
 
-    E save(E save);
+    E update(E save);
+
+    void save();
 }
