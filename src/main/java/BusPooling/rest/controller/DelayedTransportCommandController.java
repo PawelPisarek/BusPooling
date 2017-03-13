@@ -9,6 +9,7 @@ import BusPooling.rest.aplication.command.MyOffer.CreateMyOffer;
 import BusPooling.rest.aplication.command.TransportOffer.CreateTransportOffer;
 import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.domain.MyOffer;
+import BusPooling.rest.infrastructure.DAO.MyOfferDAO;
 import BusPooling.rest.infrastructure.DAO.TransportOfferDAO;
 import BusPooling.rest.infrastructure.DbalDelayedTransportQuery;
 import BusPooling.rest.infrastructure.DbalTransportOfferQuery;
@@ -69,7 +70,7 @@ public class DelayedTransportCommandController {
 
     @POST
     @Path("/{id}/my-offer")
-    public Response addDelayedTransport(MyOffer myOffer, @PathParam("id") String id) {
+    public Response addDelayedTransport(MyOfferDAO myOffer, @PathParam("id") String id) {
 
 
         ICommand command = new CreateMyOffer(myOffer, this.delayedTransportQuery.getByUuid(id));

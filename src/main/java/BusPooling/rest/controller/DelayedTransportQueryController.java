@@ -2,6 +2,7 @@ package BusPooling.rest.controller;
 
 import BusPooling.AppConfiguration;
 import BusPooling.rest.aplication.ICommandBus;
+import BusPooling.rest.aplication.query.DelayedTransportView.DelayedTransportDetailView;
 import BusPooling.rest.aplication.query.DelayedTransportView.DelayedTransportView;
 import BusPooling.rest.aplication.query.MyOfferView.MyOfferView;
 import BusPooling.rest.aplication.query.TransportView.TransportOfferView;
@@ -52,5 +53,11 @@ public class DelayedTransportQueryController {
     @Path("/{id}/transport-offer")
     public List<TransportOfferView> getTransportOffer(@PathParam("id") String id) {
         return this.dbalTransportOfferQuery.getAll(id);
+    }
+
+    @GET
+    @Path("/{id}")
+    public DelayedTransportDetailView getDetailView(@PathParam("id") String id) {
+        return this.delayedTransportQuery.getByUuidDetail(id);
     }
 }

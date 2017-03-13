@@ -5,6 +5,7 @@ import BusPooling.AppConfiguration;
 import BusPooling.rest.aplication.command.MyOffer.CreateMyOffer;
 import BusPooling.rest.aplication.command.MyOffer.UpdateMyOffer;
 import BusPooling.rest.domain.MyOffer;
+import BusPooling.rest.infrastructure.DAO.MyOfferDAO;
 import BusPooling.rest.infrastructure.entity.MyOfferEntity;
 import BusPooling.rest.repository.IRepository;
 import org.springframework.context.ApplicationContext;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 @Service
-public class MyOfferService implements IService<CreateMyOffer, UpdateMyOffer,MyOffer> {
+public class MyOfferService implements IService<CreateMyOffer, UpdateMyOffer, MyOffer> {
 
     private final IRepository<MyOffer, MyOfferEntity> iRepository;
 
@@ -38,8 +39,8 @@ public class MyOfferService implements IService<CreateMyOffer, UpdateMyOffer,MyO
 
     @Override
     public void addFromHandle(CreateMyOffer command) {
-        MyOffer myOffer = command.getMyOffer();
-        myOffer.setDelayedTransportEntity(command.getDelayedTransportEntity());
+        MyOfferDAO myOfferDAO = command.getMyOffer();
+        final MyOffer myOffer = new MyOffer(myOfferDAO.getId(), myOfferDAO.getPrice(), myOfferDAO.getTimeToLeft(), myOfferDAO.getAuthor(), command.getDelayedTransportEntity());
         this.iRepository.addData(myOffer);
     }
 

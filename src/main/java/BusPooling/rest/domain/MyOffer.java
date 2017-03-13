@@ -17,12 +17,12 @@ public class MyOffer {
     public MyOffer() {
     }
 
-    public MyOffer(String id, String price, String timeToLeft, String author) {
-
+    public MyOffer(String id, String price, String timeToLeft, String author, DelayedTransportEntity delayedTransportEntity) {
         this.id = id;
         this.price = price;
         this.timeToLeft = timeToLeft;
         this.author = author;
+        this.delayedTransportEntity = delayedTransportEntity;
     }
 
     @ApiModelProperty(value = "My offer id", required = true)

@@ -1,8 +1,13 @@
 package BusPooling.rest.infrastructure;
 
+import BusPooling.rest.aplication.query.DelayedTransportView.DelayedTransportDetailView;
 import BusPooling.rest.aplication.query.DelayedTransportView.DelayedTransportView;
+import BusPooling.rest.aplication.query.MyOfferView.MyOfferView;
+import BusPooling.rest.aplication.query.TransportView.TransportOfferView;
 import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
+import BusPooling.rest.infrastructure.entity.MyOfferEntity;
+import BusPooling.rest.infrastructure.entity.TransportOfferEntity;
 import BusPooling.rest.repository.IRepository;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.annotation.Lazy;
@@ -35,6 +40,31 @@ public class DbalDelayedTransportQuery {
         final DelayedTransportEntity byId = this.repository.findById(id);
         return byId;
     }
+
+    public DelayedTransportDetailView getByUuidDetail(String id) {
+        final DelayedTransportEntity byUuid = this.getByUuid(id);
+        final List<TransportOfferView> delayedTransportEntity = this.mongoDatabase.createQuery(TransportOfferEntity.class)
+                .filter("delayedTransportEntity", byUuid).asList()
+                .stream().map(entity -> new TransportOfferView(
+                        entity.getId().toString(),
+                        entity.getPrice(),
+                        entity.getTransportName(),
+                        entity.getSeats(),
+                        entity.getIsJoined()))
+                .collect(Collectors.toList());
+
+        final List<MyOfferView> delayedTransportEntity1 = this.mongoDatabase.createQuery(MyOfferEntity.class)
+                .filter("delayedTransportEntity", byUuid).asList()
+                .stream().map(entity -> new MyOfferView(
+                        entity.getId().toString(),
+                        entity.getPrice(),
+                        entity.getTimeToLeft(),
+                        entity.getAuthor()))
+                .collect(Collectors.toList());
+
+        return new DelayedTransportDetailView(byUuid.getUuid(), byUuid.getNameTrain(), byUuid.getFrom(), byUuid.getAlternative(), byUuid.getLat(), byUuid.getLng(), delayedTransportEntity, delayedTransportEntity1);
+    }
+
 
     public DelayedTransportEntity getByUuid(String id) {
         final List<DelayedTransportEntity> byId = this.mongoDatabase.createQuery(DelayedTransportEntity.class)

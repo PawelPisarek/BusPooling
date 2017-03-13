@@ -5,6 +5,7 @@ package BusPooling.rest.service;
 import BusPooling.AppConfiguration;
 import BusPooling.rest.aplication.command.MyOffer.UpdateMyOffer;
 import BusPooling.rest.domain.MyOffer;
+import BusPooling.rest.infrastructure.DAO.MyOfferDAO;
 import BusPooling.rest.infrastructure.UnitOfWork;
 import BusPooling.rest.infrastructure.entity.MyOfferEntity;
 import BusPooling.rest.repository.IRepository;
@@ -35,7 +36,7 @@ public class MyOfferServiceTest {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
         IRepository getDelayedTransportRepository = context.getBean("getMyOfferRepository", IRepository.class);
         MyOfferService delayedTransportService = new MyOfferService(getDelayedTransportRepository);
-        delayedTransportService.findById("58c51b394d4bef3c2f72b51b");
+        final MyOfferEntity byId = delayedTransportService.findById("58c569d14d4bef6fe87457c7");
     }
 
     @Test
@@ -45,8 +46,8 @@ public class MyOfferServiceTest {
 
         HashMap<AppConfiguration.Repositories, IRepository> hashMap = context.getBean("getRepositories", HashMap.class);
         MyOfferService delayedTransportService = new MyOfferService(getDelayedTransportRepository);
-        MyOffer i = new MyOffer("ASD","ASD","SAD","SAD");
-        MyOfferEntity i2 = delayedTransportService.findById("58c51b394d4bef3c2f72b51b");
+        MyOfferDAO i = new MyOfferDAO("ASD","ASD","SAD","SAD");
+        MyOfferEntity i2 = delayedTransportService.findById("58c569d14d4bef6fe87457c7");
         final UpdateMyOffer command = new UpdateMyOffer(i, i2);
         final UnitOfWork unitOfWork = new UnitOfWork(hashMap);
         unitOfWork.registerRepository(AppConfiguration.Repositories.MY_OFFER);

@@ -6,6 +6,7 @@ import BusPooling.rest.aplication.command.*;
 import BusPooling.rest.aplication.command.MyOffer.CreateMyOffer;
 import BusPooling.rest.aplication.command.MyOffer.UpdateMyOffer;
 import BusPooling.rest.domain.MyOffer;
+import BusPooling.rest.infrastructure.DAO.MyOfferDAO;
 import BusPooling.rest.infrastructure.DbalMyOfferQuery;
 import BusPooling.rest.infrastructure.UnitOfWork;
 import org.springframework.context.ApplicationContext;
@@ -40,7 +41,7 @@ public class MyOfferCommandController {
 
 
     @PUT
-    public Response editDelayedTransport(MyOffer delayedTransport) {
+    public Response editDelayedTransport(MyOfferDAO delayedTransport) {
 
         this.unitOfWork.registerRepository(AppConfiguration.Repositories.MY_OFFER);
         ICommand command = new UpdateMyOffer(delayedTransport, this.dbalMyOfferQuery.getById(delayedTransport.getId()));
