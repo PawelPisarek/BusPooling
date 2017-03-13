@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 @Service
-public class DelayedTransportService implements IService<CreateDelayedTransport, UpdateDelayedTransport> {
+public class DelayedTransportService implements IService<CreateDelayedTransport, UpdateDelayedTransport,DelayedTransport> {
 
     private final IRepository<DelayedTransport, DelayedTransportEntity> delayedTransportIRepository;
 

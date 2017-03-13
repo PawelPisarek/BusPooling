@@ -14,6 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
@@ -27,7 +28,7 @@ public class DelayedTransportServiceTest {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
         IRepository getDelayedTransportRepository = context.getBean("getDelayedTransportRepository", IRepository.class);
         DelayedTransportService delayedTransportService = new DelayedTransportService(getDelayedTransportRepository);
-        delayedTransportService.getAll();
+        final Collection<DelayedTransport> all = delayedTransportService.getAll();
     }
 
     @Test
@@ -36,7 +37,7 @@ public class DelayedTransportServiceTest {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
         IRepository getDelayedTransportRepository = context.getBean("getDelayedTransportRepository", IRepository.class);
         DelayedTransportService delayedTransportService = new DelayedTransportService(getDelayedTransportRepository);
-        delayedTransportService.findById("58c448244d4bef7923033b86");
+        final DelayedTransportEntity byId = delayedTransportService.findById("58c564514d4bef6a2582ff24");
     }
 
     @Test

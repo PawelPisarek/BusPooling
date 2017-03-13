@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 @Service
-public class MyOfferService implements IService<CreateMyOffer, UpdateMyOffer> {
+public class MyOfferService implements IService<CreateMyOffer, UpdateMyOffer,MyOffer> {
 
     private final IRepository<MyOffer, MyOfferEntity> iRepository;
 

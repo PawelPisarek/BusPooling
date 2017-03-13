@@ -1,9 +1,6 @@
 package BusPooling.config;
 
-import BusPooling.rest.controller.DelayedTransportCommandController;
-import BusPooling.rest.controller.DelayedTransportQueryController;
-import BusPooling.rest.controller.MyOfferCommandController;
-import BusPooling.rest.controller.UserController;
+import BusPooling.rest.controller.*;
 import BusPooling.rest.exception.CustomExceptionMapper;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -15,6 +12,7 @@ public class JerseyConfig extends ResourceConfig {
     public JerseyConfig() {
 //        register(LoggingFilter.class);
         register(DelayedTransportQueryController.class);
+        register(TransportOfferCommandController.class);
         register(MyOfferCommandController.class);
         register(DelayedTransportCommandController.class);
         register(UserController.class);

@@ -26,7 +26,7 @@ import static org.mockito.Mockito.mock;
 public class updateDelayedTransportHandlerTest {
 
     @Mock
-    IService<CreateDelayedTransport, UpdateDelayedTransport> userService;
+    IService<CreateDelayedTransport, UpdateDelayedTransport,DelayedTransport> userService;
 
     UpdateDelayedTransportHandler userHandler;
 

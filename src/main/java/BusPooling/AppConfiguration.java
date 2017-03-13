@@ -3,24 +3,26 @@ package BusPooling;
 import BusPooling.rest.aplication.CommandBus;
 import BusPooling.rest.aplication.ICommandBus;
 import BusPooling.rest.aplication.command.DelayedTransport.DelayedTransportHandler;
-import BusPooling.rest.aplication.command.IHandleCommand;
-import BusPooling.rest.aplication.command.UserHandler;
-import BusPooling.rest.aplication.command.MyOffer.CreateMyOfferHandler;
 import BusPooling.rest.aplication.command.DelayedTransport.UpdateDelayedTransportHandler;
+import BusPooling.rest.aplication.command.IHandleCommand;
+import BusPooling.rest.aplication.command.MyOffer.CreateMyOfferHandler;
 import BusPooling.rest.aplication.command.MyOffer.UpdateMyOfferHandler;
+import BusPooling.rest.aplication.command.TransportOffer.CreateTransportOfferHandler;
+import BusPooling.rest.aplication.command.TransportOffer.UpdateTransportOfferHandler;
+import BusPooling.rest.aplication.command.UserHandler;
 import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.domain.MyOffer;
+import BusPooling.rest.domain.TransportOffer;
 import BusPooling.rest.infrastructure.*;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.infrastructure.entity.MyOfferEntity;
+import BusPooling.rest.infrastructure.entity.TransportOfferEntity;
 import BusPooling.rest.infrastructure.repository.DelayedTransportRepository;
 import BusPooling.rest.infrastructure.repository.MyOfferRepository;
+import BusPooling.rest.infrastructure.repository.TransportOfferRepository;
 import BusPooling.rest.repository.IRepository;
 import BusPooling.rest.repository.UserRepository;
-import BusPooling.rest.service.DelayedTransportService;
-import BusPooling.rest.service.IService;
-import BusPooling.rest.service.MyOfferService;
-import BusPooling.rest.service.UserService;
+import BusPooling.rest.service.*;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import org.mongodb.morphia.Datastore;
@@ -59,6 +61,11 @@ public class AppConfiguration {
     }
 
     @Bean
+    public IRepository<TransportOffer, TransportOfferEntity> getTransportOfferRepository() {
+        return this.getRepositories().get(Repositories.TRANSPORT_OFFER);
+    }
+
+    @Bean
     public UnitOfWork getUnitOfWork() {
         return new UnitOfWork(this.getRepositories());
     }
@@ -70,7 +77,12 @@ public class AppConfiguration {
 
     @Bean
     public DbalMyOfferQuery getMyOfferQuery() {
-        return new DbalMyOfferQuery(this.getMyOfferRepository(),this.mongoClient());
+        return new DbalMyOfferQuery(this.getMyOfferRepository(), this.mongoClient(),this.getDelayedTransportQuery());
+    }
+
+    @Bean
+    public DbalTransportOfferQuery getTransportOfferQuery() {
+        return new DbalTransportOfferQuery(this.getTransportOfferRepository(), this.mongoClient(),this.getDelayedTransportQuery());
     }
 
     @Bean
@@ -81,6 +93,11 @@ public class AppConfiguration {
     @Bean
     public IService getMyOfferService() {
         return new MyOfferService(this.getMyOfferRepository());
+    }
+
+    @Bean
+    public IService getTransportOfferService() {
+        return new TransportOfferService(this.getTransportOfferRepository());
     }
 
 
@@ -142,6 +159,8 @@ public class AppConfiguration {
         handler.put(Commands.UPDATE_DELAYED_TRANSPORT, new UpdateDelayedTransportHandler(this.getDelayedTransportService()));
         handler.put(Commands.CREATE_MY_OFFER, new CreateMyOfferHandler(this.getMyOfferService()));
         handler.put(Commands.UPDATE_MY_OFFER, new UpdateMyOfferHandler(this.getMyOfferService()));
+        handler.put(Commands.CREATE_TRANSPORT_OFFER, new CreateTransportOfferHandler(this.getTransportOfferService()));
+        handler.put(Commands.UPDATE_TRANSPORT_OFFER, new UpdateTransportOfferHandler(this.getTransportOfferService()));
         return handler;
     }
 
@@ -150,14 +169,21 @@ public class AppConfiguration {
         HashMap<Repositories, IRepository> handler = new HashMap<>();
         handler.put(Repositories.DELAYED_TRANSPORT, new DelayedTransportRepository(this.mongoClient()));
         handler.put(Repositories.MY_OFFER, new MyOfferRepository(this.mongoClient()));
+        handler.put(Repositories.TRANSPORT_OFFER, new TransportOfferRepository(this.mongoClient()));
         return handler;
     }
 
     public enum Commands {
-        CREATE_USER, CREATE_DELAYED_TRANSPORT, UPDATE_DELAYED_TRANSPORT, CREATE_MY_OFFER, UPDATE_MY_OFFER
+        CREATE_USER,
+        CREATE_DELAYED_TRANSPORT,
+        UPDATE_DELAYED_TRANSPORT,
+        CREATE_MY_OFFER,
+        UPDATE_MY_OFFER,
+        CREATE_TRANSPORT_OFFER,
+        UPDATE_TRANSPORT_OFFER
     }
 
     public enum Repositories {
-        DELAYED_TRANSPORT, MY_OFFER
+        DELAYED_TRANSPORT, MY_OFFER, TRANSPORT_OFFER
     }
 }

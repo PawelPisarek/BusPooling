@@ -7,6 +7,7 @@ import BusPooling.rest.repository.IRepository;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.annotation.Lazy;
 
+import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,9 +37,10 @@ public class DbalDelayedTransportQuery {
     }
 
     public DelayedTransportEntity getByUuid(String id) {
-        final DelayedTransportEntity byId = this.mongoDatabase.createQuery(DelayedTransportEntity.class)
-                .filter("uuid", id).asList().get(0);
-        return byId;
+        final List<DelayedTransportEntity> byId = this.mongoDatabase.createQuery(DelayedTransportEntity.class)
+                .filter("uuid", id).asList();
+        if (byId.size() == 0) throw new NotFoundException();
+        return byId.get(0);
     }
 
 }

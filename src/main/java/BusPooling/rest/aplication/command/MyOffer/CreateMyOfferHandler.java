@@ -2,6 +2,7 @@ package BusPooling.rest.aplication.command.MyOffer;
 
 import BusPooling.rest.aplication.command.MyOffer.CreateMyOffer;
 import BusPooling.rest.aplication.command.IHandleCommand;
+import BusPooling.rest.domain.MyOffer;
 import BusPooling.rest.infrastructure.entity.MyOfferEntity;
 import BusPooling.rest.service.IService;
 
@@ -10,9 +11,9 @@ import BusPooling.rest.service.IService;
  */
 public class CreateMyOfferHandler implements IHandleCommand<CreateMyOffer> {
 
-    private IService<CreateMyOffer,MyOfferEntity> iService;
+    private IService<CreateMyOffer, MyOfferEntity, MyOffer> iService;
 
-    public CreateMyOfferHandler(IService<CreateMyOffer, MyOfferEntity> iService) {
+    public CreateMyOfferHandler(IService<CreateMyOffer, MyOfferEntity, MyOffer> iService) {
         this.iService = iService;
     }
 

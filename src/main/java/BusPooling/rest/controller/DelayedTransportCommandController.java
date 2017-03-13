@@ -3,12 +3,15 @@ package BusPooling.rest.controller;
 import BusPooling.AppConfiguration;
 import BusPooling.rest.aplication.ICommandBus;
 import BusPooling.rest.aplication.command.DelayedTransport.CreateDelayedTransport;
-import BusPooling.rest.aplication.command.ICommand;
 import BusPooling.rest.aplication.command.DelayedTransport.UpdateDelayedTransport;
+import BusPooling.rest.aplication.command.ICommand;
 import BusPooling.rest.aplication.command.MyOffer.CreateMyOffer;
+import BusPooling.rest.aplication.command.TransportOffer.CreateTransportOffer;
 import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.domain.MyOffer;
+import BusPooling.rest.infrastructure.DAO.TransportOfferDAO;
 import BusPooling.rest.infrastructure.DbalDelayedTransportQuery;
+import BusPooling.rest.infrastructure.DbalTransportOfferQuery;
 import BusPooling.rest.infrastructure.UnitOfWork;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -75,6 +78,16 @@ public class DelayedTransportCommandController {
         URI path = UriBuilder.fromPath("/users/" + myOffer.getAuthor()).build();
         return Response.created(path).entity(myOffer).build();
 
+    }
+
+    @POST
+    @Path("/{id}/transport-offer")
+    public Response addTransportOffer(TransportOfferDAO transportOfferDAO, @PathParam("id") String id) {
+        ICommand command = new CreateTransportOffer(transportOfferDAO, this.delayedTransportQuery.getByUuid(id));
+        this.commandBus.handle(command);
+
+        URI path = UriBuilder.fromPath("/users/" + transportOfferDAO.getId()).build();
+        return Response.created(path).entity(transportOfferDAO).build();
     }
 
 
