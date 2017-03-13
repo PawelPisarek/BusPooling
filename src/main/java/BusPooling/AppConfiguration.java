@@ -2,6 +2,8 @@ package BusPooling;
 
 import BusPooling.rest.aplication.CommandBus;
 import BusPooling.rest.aplication.ICommandBus;
+import BusPooling.rest.aplication.command.Comment.CreateComment;
+import BusPooling.rest.aplication.command.Comment.CreateCommentHandler;
 import BusPooling.rest.aplication.command.DelayedTransport.DelayedTransportHandler;
 import BusPooling.rest.aplication.command.DelayedTransport.UpdateDelayedTransportHandler;
 import BusPooling.rest.aplication.command.IHandleCommand;
@@ -104,6 +106,11 @@ public class AppConfiguration {
     }
 
     @Bean
+    public IService getCommentService() {
+        return new CommentService(this.getCommentRepository());
+    }
+
+    @Bean
     public IService getTransportOfferService() {
         return new TransportOfferService(this.getTransportOfferRepository());
     }
@@ -169,6 +176,7 @@ public class AppConfiguration {
         handler.put(Commands.UPDATE_MY_OFFER, new UpdateMyOfferHandler(this.getMyOfferService()));
         handler.put(Commands.CREATE_TRANSPORT_OFFER, new CreateTransportOfferHandler(this.getTransportOfferService()));
         handler.put(Commands.UPDATE_TRANSPORT_OFFER, new UpdateTransportOfferHandler(this.getTransportOfferService()));
+        handler.put(Commands.CREATE_COMMAND, new CreateCommentHandler(this.getCommentService()));
         return handler;
     }
 

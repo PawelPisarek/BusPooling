@@ -8,15 +8,16 @@ public class CommentDAO {
     private String root;
     private String text;
 
+
+    public CommentDAO() {
+    }
+
     public CommentDAO(String uuid, String root, String text) {
         this.uuid = uuid;
         this.root = root;
         this.text = text;
     }
 
-    public CommentDAO(String text) {
-        this.text = text;
-    }
 
     public String getUuid() {
         return uuid;
