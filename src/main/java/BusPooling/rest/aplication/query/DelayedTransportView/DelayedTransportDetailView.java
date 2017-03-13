@@ -1,5 +1,6 @@
 package BusPooling.rest.aplication.query.DelayedTransportView;
 
+import BusPooling.rest.aplication.query.Comment.CommentView;
 import BusPooling.rest.aplication.query.MyOfferView.MyOfferView;
 import BusPooling.rest.aplication.query.TransportView.TransportOfferView;
 
@@ -16,18 +17,20 @@ public class DelayedTransportDetailView {
     private String alternative;
     private String lat;
     private String lng;
-    private List<TransportOfferView> transportOfferViews;
-    private List<MyOfferView> myOfferViews;
+    private List<TransportOfferView> transportOffers;
+    private List<MyOfferView> myOffers;
+    private List<CommentView> comments;
 
-    public DelayedTransportDetailView(String id, String nameTrain, String from, String alternative, String lat, String lng, List<TransportOfferView> transportOfferViews, List<MyOfferView> myOfferViews) {
+    public DelayedTransportDetailView(String id, String nameTrain, String from, String alternative, String lat, String lng, List<TransportOfferView> transportOfferViews, List<MyOfferView> myOfferViews, List<CommentView> commentViews) {
         this.id = id;
         this.nameTrain = nameTrain;
         this.from = from;
         this.alternative = alternative;
         this.lat = lat;
         this.lng = lng;
-        this.transportOfferViews = transportOfferViews;
-        this.myOfferViews = myOfferViews;
+        this.transportOffers = transportOfferViews;
+        this.myOffers = myOfferViews;
+        this.comments = commentViews;
     }
 
     public String getId() {
@@ -78,19 +81,27 @@ public class DelayedTransportDetailView {
         this.lng = lng;
     }
 
-    public List<TransportOfferView> getTransportOfferViews() {
-        return transportOfferViews;
+    public List<TransportOfferView> getTransportOffers() {
+        return transportOffers;
     }
 
-    public void setTransportOfferViews(List<TransportOfferView> transportOfferViews) {
-        this.transportOfferViews = transportOfferViews;
+    public void setTransportOffers(List<TransportOfferView> transportOffers) {
+        this.transportOffers = transportOffers;
     }
 
-    public List<MyOfferView> getMyOfferViews() {
-        return myOfferViews;
+    public List<MyOfferView> getMyOffers() {
+        return myOffers;
     }
 
-    public void setMyOfferViews(List<MyOfferView> myOfferViews) {
-        this.myOfferViews = myOfferViews;
+    public void setMyOffers(List<MyOfferView> myOffers) {
+        this.myOffers = myOffers;
+    }
+
+    public List<CommentView> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentView> comments) {
+        this.comments = comments;
     }
 }

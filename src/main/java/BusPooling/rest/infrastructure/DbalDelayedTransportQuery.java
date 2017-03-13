@@ -1,10 +1,12 @@
 package BusPooling.rest.infrastructure;
 
+import BusPooling.rest.aplication.query.Comment.CommentView;
 import BusPooling.rest.aplication.query.DelayedTransportView.DelayedTransportDetailView;
 import BusPooling.rest.aplication.query.DelayedTransportView.DelayedTransportView;
 import BusPooling.rest.aplication.query.MyOfferView.MyOfferView;
 import BusPooling.rest.aplication.query.TransportView.TransportOfferView;
 import BusPooling.rest.domain.DelayedTransport;
+import BusPooling.rest.infrastructure.entity.CommentEntity;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.infrastructure.entity.MyOfferEntity;
 import BusPooling.rest.infrastructure.entity.TransportOfferEntity;
@@ -62,7 +64,24 @@ public class DbalDelayedTransportQuery {
                         entity.getAuthor()))
                 .collect(Collectors.toList());
 
-        return new DelayedTransportDetailView(byUuid.getUuid(), byUuid.getNameTrain(), byUuid.getFrom(), byUuid.getAlternative(), byUuid.getLat(), byUuid.getLng(), delayedTransportEntity, delayedTransportEntity1);
+        final List<CommentView> delayedTransportEntity2 = this.mongoDatabase.createQuery(CommentEntity.class)
+                .filter("delayedTransportEntity", byUuid).asList()
+                .stream().map(entity -> new CommentView(
+                        entity.getId().toString(),
+                        entity.getUuid(),
+                        entity.getRoot(),
+                        entity.getText()))
+                .collect(Collectors.toList());
+
+        return new DelayedTransportDetailView(byUuid.getUuid(),
+                byUuid.getNameTrain(),
+                byUuid.getFrom(),
+                byUuid.getAlternative(),
+                byUuid.getLat(),
+                byUuid.getLng(),
+                delayedTransportEntity,
+                delayedTransportEntity1,
+                delayedTransportEntity2);
     }
 
 

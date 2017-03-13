@@ -10,13 +10,16 @@ import BusPooling.rest.aplication.command.MyOffer.UpdateMyOfferHandler;
 import BusPooling.rest.aplication.command.TransportOffer.CreateTransportOfferHandler;
 import BusPooling.rest.aplication.command.TransportOffer.UpdateTransportOfferHandler;
 import BusPooling.rest.aplication.command.UserHandler;
+import BusPooling.rest.domain.Comment;
 import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.domain.MyOffer;
 import BusPooling.rest.domain.TransportOffer;
 import BusPooling.rest.infrastructure.*;
+import BusPooling.rest.infrastructure.entity.CommentEntity;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.infrastructure.entity.MyOfferEntity;
 import BusPooling.rest.infrastructure.entity.TransportOfferEntity;
+import BusPooling.rest.infrastructure.repository.CommentRepository;
 import BusPooling.rest.infrastructure.repository.DelayedTransportRepository;
 import BusPooling.rest.infrastructure.repository.MyOfferRepository;
 import BusPooling.rest.infrastructure.repository.TransportOfferRepository;
@@ -66,23 +69,28 @@ public class AppConfiguration {
     }
 
     @Bean
+    public IRepository<Comment, CommentEntity> getCommentRepository() {
+        return this.getRepositories().get(Repositories.COMMENT_REPOSITORY);
+    }
+
+    @Bean
     public UnitOfWork getUnitOfWork() {
         return new UnitOfWork(this.getRepositories());
     }
 
     @Bean
     public DbalDelayedTransportQuery getDelayedTransportQuery() {
-        return new DbalDelayedTransportQuery(this.getDelayedTransportRepository(),this.mongoClient());
+        return new DbalDelayedTransportQuery(this.getDelayedTransportRepository(), this.mongoClient());
     }
 
     @Bean
     public DbalMyOfferQuery getMyOfferQuery() {
-        return new DbalMyOfferQuery(this.getMyOfferRepository(), this.mongoClient(),this.getDelayedTransportQuery());
+        return new DbalMyOfferQuery(this.getMyOfferRepository(), this.mongoClient(), this.getDelayedTransportQuery());
     }
 
     @Bean
     public DbalTransportOfferQuery getTransportOfferQuery() {
-        return new DbalTransportOfferQuery(this.getTransportOfferRepository(), this.mongoClient(),this.getDelayedTransportQuery());
+        return new DbalTransportOfferQuery(this.getTransportOfferRepository(), this.mongoClient(), this.getDelayedTransportQuery());
     }
 
     @Bean
@@ -170,6 +178,7 @@ public class AppConfiguration {
         handler.put(Repositories.DELAYED_TRANSPORT, new DelayedTransportRepository(this.mongoClient()));
         handler.put(Repositories.MY_OFFER, new MyOfferRepository(this.mongoClient()));
         handler.put(Repositories.TRANSPORT_OFFER, new TransportOfferRepository(this.mongoClient()));
+        handler.put(Repositories.COMMENT_REPOSITORY, new CommentRepository(this.mongoClient()));
         return handler;
     }
 
@@ -180,10 +189,11 @@ public class AppConfiguration {
         CREATE_MY_OFFER,
         UPDATE_MY_OFFER,
         CREATE_TRANSPORT_OFFER,
-        UPDATE_TRANSPORT_OFFER
+        UPDATE_TRANSPORT_OFFER,
+        CREATE_COMMAND
     }
 
     public enum Repositories {
-        DELAYED_TRANSPORT, MY_OFFER, TRANSPORT_OFFER
+        DELAYED_TRANSPORT, MY_OFFER, TRANSPORT_OFFER, COMMENT_REPOSITORY
     }
 }

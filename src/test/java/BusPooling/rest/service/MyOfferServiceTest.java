@@ -47,7 +47,7 @@ public class MyOfferServiceTest {
         HashMap<AppConfiguration.Repositories, IRepository> hashMap = context.getBean("getRepositories", HashMap.class);
         MyOfferService delayedTransportService = new MyOfferService(getDelayedTransportRepository);
         MyOfferDAO i = new MyOfferDAO("ASD","ASD","SAD","SAD");
-        MyOfferEntity i2 = delayedTransportService.findById("58c569d14d4bef6fe87457c7");
+        MyOfferEntity i2 = delayedTransportService.findById("58c6a8064d4bef0c16b29d3c");
         final UpdateMyOffer command = new UpdateMyOffer(i, i2);
         final UnitOfWork unitOfWork = new UnitOfWork(hashMap);
         unitOfWork.registerRepository(AppConfiguration.Repositories.MY_OFFER);
