@@ -1,5 +1,10 @@
 package BusPooling;
 
+import BusPooling.config.CustomUserDetailsService;
+import BusPooling.config.UsersDatabase;
+import BusPooling.config.UsersMongoDatabase;
+import BusPooling.config.mongo.ConfirmationTokenRepository;
+import BusPooling.config.mongo.UserRepository;
 import BusPooling.rest.aplication.CommandBus;
 import BusPooling.rest.aplication.ICommandBus;
 import BusPooling.rest.aplication.command.Comment.CreateCommentHandler;
@@ -28,15 +33,22 @@ import BusPooling.rest.infrastructure.repository.DelayedTransportRepository;
 import BusPooling.rest.infrastructure.repository.MyOfferRepository;
 import BusPooling.rest.infrastructure.repository.TransportOfferRepository;
 import BusPooling.rest.repository.IRepository;
-import BusPooling.rest.repository.UserRepository;
+
+
+
+
 import BusPooling.rest.service.*;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoCollection;
+import org.bson.Document;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.ValidationExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.HashMap;
 
@@ -51,11 +63,31 @@ public class AppConfiguration {
 //    public final static String CREATE_USER = "CREATE_USER";
 //    public final static String CREATE_DELAYED_TRANSPORT = "CreateDelayedTransport";
 
+
+
+    @Autowired
+    BusPooling.config.mongo.UserRepository userRepository;
+
     @Bean
-    public UserRepository getRepository() {
+    public BusPooling.rest.repository.UserRepository getRepository() {
         return getEntityManager();
 
     }
+    UserDetailsService userDetailsService;
+
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        if (userDetailsService == null)
+            userDetailsService = new CustomUserDetailsService(usersDatabase());
+        return userDetailsService;
+    }
+
+    @Bean
+    public UsersDatabase usersDatabase() {
+        return new UsersMongoDatabase( userRepository);
+    }
+
 
     @Bean
     public IRepository<DelayedTransport, DelayedTransportEntity> getDelayedTransportRepository() {
