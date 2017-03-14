@@ -25,7 +25,7 @@ public class MongoEntityManagerTest {
 
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
 
-        MongoEntityManager testmorphia = new MongoEntityManager(context.getBean("mongoClient", Datastore.class));
+        MongoEntityManager testmorphia = new MongoEntityManager(context.getBean("mongoClien2t", Datastore.class));
 
         testmorphia.AddNewUser();
 

@@ -31,8 +31,8 @@ public class CommentRepositoryTest {
     public void addData_Integration() throws Exception {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
 
-        CommentRepository testmorphia = new CommentRepository(context.getBean("mongoClient", Datastore.class));
-        DelayedTransportRepository delayedTransportRepository = new DelayedTransportRepository(context.getBean("mongoClient", Datastore.class));
+        CommentRepository testmorphia = new CommentRepository(context.getBean("mongoClien2t", Datastore.class));
+        DelayedTransportRepository delayedTransportRepository = new DelayedTransportRepository(context.getBean("mongoClien2t", Datastore.class));
         final Comment data = new Comment("sadasdasdsadasd", "asd", "asd", "asd", delayedTransportRepository.findById("58c564514d4bef6a2582ff24"));
         testmorphia.addData(data);
 

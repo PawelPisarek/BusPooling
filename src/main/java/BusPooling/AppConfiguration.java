@@ -84,17 +84,17 @@ public class AppConfiguration {
 
     @Bean
     public DbalDelayedTransportQuery getDelayedTransportQuery() {
-        return new DbalDelayedTransportQuery(this.getDelayedTransportRepository(), this.mongoClient());
+        return new DbalDelayedTransportQuery(this.getDelayedTransportRepository(), this.mongoClien2t());
     }
 
     @Bean
     public DbalMyOfferQuery getMyOfferQuery() {
-        return new DbalMyOfferQuery(this.getMyOfferRepository(), this.mongoClient(), this.getDelayedTransportQuery());
+        return new DbalMyOfferQuery(this.getMyOfferRepository(), this.mongoClien2t(), this.getDelayedTransportQuery());
     }
 
     @Bean
     public IDbalTransportOfferQuery getTransportOfferQuery() {
-        return new DbalTransportOfferQuery(this.getTransportOfferRepository(), this.mongoClient(), this.getDelayedTransportQuery());
+        return new DbalTransportOfferQuery(this.getTransportOfferRepository(), this.mongoClien2t(), this.getDelayedTransportQuery());
     }
 
     @Bean
@@ -126,7 +126,7 @@ public class AppConfiguration {
     private static Datastore datastore;
 
     @Bean
-    public Datastore mongoClient() {
+    public Datastore mongoClien2t() {
 
         MongoClientURI mongoClientURI = new MongoClientURI(MONGO_URI);
         MongoClient mongoClient;
@@ -190,10 +190,10 @@ public class AppConfiguration {
     @Bean
     public HashMap<Repositories, IRepository> getRepositories() {
         HashMap<Repositories, IRepository> handler = new HashMap<>();
-        handler.put(Repositories.DELAYED_TRANSPORT, new DelayedTransportRepository(this.mongoClient()));
-        handler.put(Repositories.MY_OFFER, new MyOfferRepository(this.mongoClient()));
-        handler.put(Repositories.TRANSPORT_OFFER, new TransportOfferRepository(this.mongoClient()));
-        handler.put(Repositories.COMMENT_REPOSITORY, new CommentRepository(this.mongoClient()));
+        handler.put(Repositories.DELAYED_TRANSPORT, new DelayedTransportRepository(this.mongoClien2t()));
+        handler.put(Repositories.MY_OFFER, new MyOfferRepository(this.mongoClien2t()));
+        handler.put(Repositories.TRANSPORT_OFFER, new TransportOfferRepository(this.mongoClien2t()));
+        handler.put(Repositories.COMMENT_REPOSITORY, new CommentRepository(this.mongoClien2t()));
         return handler;
     }
 

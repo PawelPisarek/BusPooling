@@ -1,5 +1,6 @@
 package BusPooling.config;
 
+import BusPooling.configurations.UsersController;
 import BusPooling.rest.controller.*;
 import BusPooling.rest.exception.CustomExceptionMapper;
 import org.glassfish.jersey.filter.LoggingFilter;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class JerseyConfig extends ResourceConfig {
     public JerseyConfig() {
 //        register(LoggingFilter.class);
+        register(UsersController.class);
         register(DelayedTransportQueryController.class);
         register(TransportOfferCommandController.class);
         register(MyOfferCommandController.class);

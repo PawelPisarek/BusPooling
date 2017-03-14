@@ -19,7 +19,7 @@ public class DelayedTransportRepositoryTest {
 
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
 
-        DelayedTransportRepository testmorphia = new DelayedTransportRepository(context.getBean("mongoClient", Datastore.class));
+        DelayedTransportRepository testmorphia = new DelayedTransportRepository(context.getBean("mongoClien2t", Datastore.class));
 
         testmorphia.addData(new DelayedTransport("id","sa222d","asd","asd","asd","sad","1"));
 

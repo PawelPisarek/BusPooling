@@ -17,8 +17,8 @@ public class MyOfferRepositoryTest {
     public void add_my_offer(){
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
 
-        MyOfferRepository testmorphia = new MyOfferRepository(context.getBean("mongoClient", Datastore.class));
-        DelayedTransportRepository delayedTransportRepository = new DelayedTransportRepository(context.getBean("mongoClient", Datastore.class));
+        MyOfferRepository testmorphia = new MyOfferRepository(context.getBean("mongoClien2t", Datastore.class));
+        DelayedTransportRepository delayedTransportRepository = new DelayedTransportRepository(context.getBean("mongoClien2t", Datastore.class));
         MyOffer myOffer = new MyOffer("sadasdasdsadasd", "asd", "asd", "asd",delayedTransportRepository.findById("58c564514d4bef6a2582ff24"));
         testmorphia.addData(myOffer);
 
