@@ -8,7 +8,7 @@ import BusPooling.rest.aplication.query.MyOfferView.MyOfferView;
 import BusPooling.rest.aplication.query.TransportView.TransportOfferView;
 import BusPooling.rest.infrastructure.DbalDelayedTransportQuery;
 import BusPooling.rest.infrastructure.DbalMyOfferQuery;
-import BusPooling.rest.infrastructure.DbalTransportOfferQuery;
+import BusPooling.rest.infrastructure.TransportOffer.IDbalTransportOfferQuery;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -27,7 +27,7 @@ public class DelayedTransportQueryController {
     private ICommandBus commandBus;
     private DbalDelayedTransportQuery delayedTransportQuery;
     private DbalMyOfferQuery dbalMyOfferQuery;
-    private DbalTransportOfferQuery dbalTransportOfferQuery;
+    private IDbalTransportOfferQuery dbalTransportOfferQuery;
 
 
     public DelayedTransportQueryController() {
@@ -35,7 +35,7 @@ public class DelayedTransportQueryController {
         this.commandBus = context.getBean("getCommandBus", ICommandBus.class);
         this.delayedTransportQuery = context.getBean("getDelayedTransportQuery", DbalDelayedTransportQuery.class);
         this.dbalMyOfferQuery = context.getBean("getMyOfferQuery", DbalMyOfferQuery.class);
-        this.dbalTransportOfferQuery = context.getBean("getTransportOfferQuery", DbalTransportOfferQuery.class);
+        this.dbalTransportOfferQuery = context.getBean("getTransportOfferCachedQuery", IDbalTransportOfferQuery.class);
     }
 
     @GET

@@ -47,7 +47,7 @@ public class DelayedTransportServiceTest {
 
         HashMap<AppConfiguration.Repositories, IRepository> hashMap = context.getBean("getRepositories", HashMap.class);
         DelayedTransportService delayedTransportService = new DelayedTransportService(getDelayedTransportRepository);
-        DelayedTransport i = new DelayedTransport("dowolne id nie ma znaczenia jakie", "123213", "Warszawa", "asd", "sad", "sad","2");
+        DelayedTransport i = new DelayedTransport("dowolne id nie ma znaczenia jakie", "portowiec", "Warszawa", "asd", "sad", "sad","2");
         DelayedTransportEntity i2 = delayedTransportService.findById("58c564514d4bef6a2582ff24");
         final UpdateDelayedTransport command = new UpdateDelayedTransport(i, i2);
         final UnitOfWork unitOfWork = new UnitOfWork(hashMap);

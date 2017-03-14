@@ -2,7 +2,6 @@ package BusPooling;
 
 import BusPooling.rest.aplication.CommandBus;
 import BusPooling.rest.aplication.ICommandBus;
-import BusPooling.rest.aplication.command.Comment.CreateComment;
 import BusPooling.rest.aplication.command.Comment.CreateCommentHandler;
 import BusPooling.rest.aplication.command.DelayedTransport.DelayedTransportHandler;
 import BusPooling.rest.aplication.command.DelayedTransport.UpdateDelayedTransportHandler;
@@ -17,6 +16,9 @@ import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.domain.MyOffer;
 import BusPooling.rest.domain.TransportOffer;
 import BusPooling.rest.infrastructure.*;
+import BusPooling.rest.infrastructure.TransportOffer.DbalTransportOfferQuery;
+import BusPooling.rest.infrastructure.TransportOffer.DbalTransportOfferCachedQuery;
+import BusPooling.rest.infrastructure.TransportOffer.IDbalTransportOfferQuery;
 import BusPooling.rest.infrastructure.entity.CommentEntity;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.infrastructure.entity.MyOfferEntity;
@@ -91,8 +93,13 @@ public class AppConfiguration {
     }
 
     @Bean
-    public DbalTransportOfferQuery getTransportOfferQuery() {
+    public IDbalTransportOfferQuery getTransportOfferQuery() {
         return new DbalTransportOfferQuery(this.getTransportOfferRepository(), this.mongoClient(), this.getDelayedTransportQuery());
+    }
+
+    @Bean
+    public IDbalTransportOfferQuery getTransportOfferCachedQuery() {
+        return new DbalTransportOfferCachedQuery(this.getTransportOfferQuery());
     }
 
     @Bean

@@ -3,12 +3,9 @@ package BusPooling.rest.controller;
 import BusPooling.AppConfiguration;
 import BusPooling.rest.aplication.ICommandBus;
 import BusPooling.rest.aplication.command.ICommand;
-import BusPooling.rest.aplication.command.MyOffer.UpdateMyOffer;
 import BusPooling.rest.aplication.command.TransportOffer.UpdateTransportOffer;
-import BusPooling.rest.domain.MyOffer;
-import BusPooling.rest.domain.TransportOffer;
 import BusPooling.rest.infrastructure.DAO.TransportOfferDAO;
-import BusPooling.rest.infrastructure.DbalTransportOfferQuery;
+import BusPooling.rest.infrastructure.TransportOffer.IDbalTransportOfferQuery;
 import BusPooling.rest.infrastructure.UnitOfWork;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -31,14 +28,14 @@ import java.net.URI;
 public class TransportOfferCommandController {
 
     private ICommandBus commandBus;
-    private DbalTransportOfferQuery dbalTransportOfferQuery;
+    private IDbalTransportOfferQuery dbalTransportOfferQuery;
     private UnitOfWork unitOfWork;
 
 
     public TransportOfferCommandController() {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
         this.commandBus = context.getBean("getCommandBus", ICommandBus.class);
-        this.dbalTransportOfferQuery = context.getBean("getTransportOfferQuery", DbalTransportOfferQuery.class);
+        this.dbalTransportOfferQuery = context.getBean("getTransportOfferCachedQuery", IDbalTransportOfferQuery.class);
         this.unitOfWork = context.getBean("getUnitOfWork", UnitOfWork.class);
     }
 

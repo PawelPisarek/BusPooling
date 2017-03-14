@@ -1,11 +1,9 @@
-package BusPooling.rest.infrastructure;
+package BusPooling.rest.infrastructure.TransportOffer;
 
-import BusPooling.rest.aplication.query.MyOfferView.MyOfferView;
 import BusPooling.rest.aplication.query.TransportView.TransportOfferView;
-import BusPooling.rest.domain.MyOffer;
 import BusPooling.rest.domain.TransportOffer;
+import BusPooling.rest.infrastructure.DbalDelayedTransportQuery;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
-import BusPooling.rest.infrastructure.entity.MyOfferEntity;
 import BusPooling.rest.infrastructure.entity.TransportOfferEntity;
 import BusPooling.rest.repository.IRepository;
 import org.mongodb.morphia.Datastore;
@@ -17,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * Created by pawe on 3/1/17.
  */
-public class DbalTransportOfferQuery implements IDbal<TransportOfferView, TransportOfferEntity> {
+public class DbalTransportOfferQuery implements IDbalTransportOfferQuery {
 
     private final IRepository<TransportOffer, TransportOfferEntity> repository;
     Datastore mongoDatabase;
