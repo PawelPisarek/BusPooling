@@ -45,34 +45,9 @@ public class DbalDelayedTransportQuery {
 
     public DelayedTransportDetailView getByUuidDetail(String id) {
         final DelayedTransportEntity byUuid = this.getByUuid(id);
-        final List<TransportOfferView> delayedTransportEntity = this.mongoDatabase.createQuery(TransportOfferEntity.class)
-                .filter("delayedTransportEntity", byUuid).asList()
-                .stream().map(entity -> new TransportOfferView(
-                        entity.getId().toString(),
-                        entity.getPrice(),
-                        entity.getTransportName(),
-                        entity.getSeats(),
-                        entity.getIsJoined()))
-                .collect(Collectors.toList());
-
-        final List<MyOfferView> delayedTransportEntity1 = this.mongoDatabase.createQuery(MyOfferEntity.class)
-                .filter("delayedTransportEntity", byUuid).asList()
-                .stream().map(entity -> new MyOfferView(
-                        entity.getId().toString(),
-                        entity.getPrice(),
-                        entity.getTimeToLeft(),
-                        entity.getAuthor()))
-                .collect(Collectors.toList());
-
-        final List<CommentView> delayedTransportEntity2 = this.mongoDatabase.createQuery(CommentEntity.class)
-                .filter("delayedTransportEntity", byUuid).asList()
-                .stream().map(entity -> new CommentView(
-                        entity.getId().toString(),
-                        entity.getUuid(),
-                        entity.getRoot(),
-                        entity.getText()))
-                .collect(Collectors.toList());
-
+        final List<TransportOfferView> delayedTransportEntity = this.getTransportOffers(byUuid);
+        final List<MyOfferView> delayedTransportEntity1 = this.getMyOffers(byUuid);
+        final List<CommentView> delayedTransportEntity2 = this.getComments(byUuid);
         return new DelayedTransportDetailView(byUuid.getUuid(),
                 byUuid.getNameTrain(),
                 byUuid.getFrom(),
@@ -92,4 +67,38 @@ public class DbalDelayedTransportQuery {
         return byId.get(0);
     }
 
+    public List<MyOfferView> getMyOffers(DelayedTransportEntity delayedTransportEntity) {
+        return this.mongoDatabase.createQuery(MyOfferEntity.class)
+                .filter("delayedTransportEntity", delayedTransportEntity).asList()
+                .stream().map(entity -> new MyOfferView(
+                        entity.getId().toString(),
+                        entity.getPrice(),
+                        entity.getTimeToLeft(),
+                        entity.getAuthor()))
+                .collect(Collectors.toList());
+    }
+
+    public List<TransportOfferView> getTransportOffers(DelayedTransportEntity delayedTransportEntity) {
+        return this.mongoDatabase.createQuery(TransportOfferEntity.class)
+                .filter("delayedTransportEntity", delayedTransportEntity).asList()
+                .stream().map(entity -> new TransportOfferView(
+                        entity.getId().toString(),
+                        entity.getPrice(),
+                        entity.getTransportName(),
+                        entity.getSeats(),
+                        entity.getIsJoined()))
+                .collect(Collectors.toList());
+
+    }
+
+    public List<CommentView> getComments(DelayedTransportEntity delayedTransportEntity) {
+        return this.mongoDatabase.createQuery(CommentEntity.class)
+                .filter("delayedTransportEntity", delayedTransportEntity).asList()
+                .stream().map(entity -> new CommentView(
+                        entity.getId().toString(),
+                        entity.getUuid(),
+                        entity.getRoot(),
+                        entity.getText()))
+                .collect(Collectors.toList());
+    }
 }

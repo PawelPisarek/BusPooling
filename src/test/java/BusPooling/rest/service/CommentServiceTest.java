@@ -4,24 +4,26 @@ import BusPooling.AppConfiguration;
 import BusPooling.rest.aplication.command.Comment.CreateComment;
 import BusPooling.rest.domain.Comment;
 import BusPooling.rest.infrastructure.DAO.CommentDAO;
+import BusPooling.rest.infrastructure.entity.CommentEntity;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.infrastructure.repository.DelayedTransportRepository;
 import BusPooling.rest.repository.IRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by pawe on 3/13/17.
@@ -40,9 +42,14 @@ public class CommentServiceTest {
 
     @Test
     public void getAll_unit() throws Exception {
-        commentService.getAll();
-        Mockito.verify(repository, Mockito.times(1)).getAll();
 
+        final ArrayList<Comment> comments = new ArrayList<>();
+        comments.add(new Comment());
+        when(repository.getAll()).thenReturn(comments);
+
+        final Collection<Comment> all = commentService.getAll();
+        Mockito.verify(repository, Mockito.times(1)).getAll();
+        assertEquals(1, all.size());
     }
 
     @Test
@@ -53,6 +60,7 @@ public class CommentServiceTest {
         when(mock.getComment()).thenReturn(value);
         commentService.addFromHandle(mock);
         verify(repository, Mockito.times(1)).addData(value);
+        verify(mock, Mockito.times(1)).getComment();
     }
 
     @Test

@@ -26,16 +26,12 @@ public class DelayedTransportQueryController {
 
     private ICommandBus commandBus;
     private DbalDelayedTransportQuery delayedTransportQuery;
-    private DbalMyOfferQuery dbalMyOfferQuery;
-    private IDbalTransportOfferQuery dbalTransportOfferQuery;
 
 
     public DelayedTransportQueryController() {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
         this.commandBus = context.getBean("getCommandBus", ICommandBus.class);
         this.delayedTransportQuery = context.getBean("getDelayedTransportQuery", DbalDelayedTransportQuery.class);
-        this.dbalMyOfferQuery = context.getBean("getMyOfferQuery", DbalMyOfferQuery.class);
-        this.dbalTransportOfferQuery = context.getBean("getTransportOfferCachedQuery", IDbalTransportOfferQuery.class);
     }
 
     @GET
@@ -46,13 +42,13 @@ public class DelayedTransportQueryController {
     @GET
     @Path("/{id}/my-offer")
     public List<MyOfferView> getMyOffer(@PathParam("id") String id) {
-        return this.dbalMyOfferQuery.getAll(id);
+        return this.delayedTransportQuery.getMyOffers(this.delayedTransportQuery.getByUuid(id));
     }
 
     @GET
     @Path("/{id}/transport-offer")
     public List<TransportOfferView> getTransportOffer(@PathParam("id") String id) {
-        return this.dbalTransportOfferQuery.getAll(id);
+        return this.delayedTransportQuery.getTransportOffers(this.delayedTransportQuery.getByUuid(id));
     }
 
     @GET
