@@ -1,15 +1,20 @@
 package BusPooling.configurations;
 
 
+import BusPooling.AppConfiguration;
 import BusPooling.configurations.repositories.CustomUserDetailsService;
 import BusPooling.configurations.repositories.SequenceHandler;
 import BusPooling.configurations.repositories.UsersDatabase;
 import BusPooling.configurations.repositories.UsersMongoDatabase;
+import BusPooling.rest.infrastructure.repository.UserRepository;
+import BusPooling.rest.repository.IRepository;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,11 +43,15 @@ public class Beans {
 
     @Bean
     public UsersDatabase usersDatabase() {
-        if (usersMongoDatabase == null) {
-            MongoCollection<Document> users = mongoClient().getCollection("users");
-            usersMongoDatabase = new UsersMongoDatabase(users);
-        }
-        return usersMongoDatabase;
+//        if (usersMongoDatabase == null) {
+//            MongoCollection<Document> users = mongoClient().getCollection("users");
+//            usersMongoDatabase = new UsersMongoDatabase(users);
+//        }
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
+        UserRepository userRepository = new UserRepository(context.getBean("personEntityIRepository", IRepository.class));
+
+
+        return userRepository;
     }
     UserDetailsService userDetailsService;
     @Bean
