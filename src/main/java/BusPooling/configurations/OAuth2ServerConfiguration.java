@@ -31,6 +31,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -84,6 +85,14 @@ public class OAuth2ServerConfiguration {
                     .tokenStore(this.tokenStore)
                     .authenticationManager(this.authenticationManager)
                     .userDetailsService(userDetailsService);
+        }
+
+        @Override
+        public void configure(AuthorizationServerSecurityConfigurer security) {
+            security
+                    .tokenKeyAccess("permitAll()")
+                    .checkTokenAccess("isAuthenticated()")
+                    .allowFormAuthenticationForClients();
         }
 
         @Override
