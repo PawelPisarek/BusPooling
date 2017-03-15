@@ -11,22 +11,13 @@ import BusPooling.rest.aplication.command.MyOffer.UpdateMyOfferHandler;
 import BusPooling.rest.aplication.command.TransportOffer.CreateTransportOfferHandler;
 import BusPooling.rest.aplication.command.TransportOffer.UpdateTransportOfferHandler;
 import BusPooling.rest.aplication.command.UserHandler;
-import BusPooling.rest.domain.Comment;
-import BusPooling.rest.domain.DelayedTransport;
-import BusPooling.rest.domain.MyOffer;
-import BusPooling.rest.domain.TransportOffer;
+import BusPooling.rest.domain.*;
 import BusPooling.rest.infrastructure.*;
 import BusPooling.rest.infrastructure.TransportOffer.DbalTransportOfferQuery;
 import BusPooling.rest.infrastructure.TransportOffer.DbalTransportOfferCachedQuery;
 import BusPooling.rest.infrastructure.TransportOffer.IDbalTransportOfferQuery;
-import BusPooling.rest.infrastructure.entity.CommentEntity;
-import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
-import BusPooling.rest.infrastructure.entity.MyOfferEntity;
-import BusPooling.rest.infrastructure.entity.TransportOfferEntity;
-import BusPooling.rest.infrastructure.repository.CommentRepository;
-import BusPooling.rest.infrastructure.repository.DelayedTransportRepository;
-import BusPooling.rest.infrastructure.repository.MyOfferRepository;
-import BusPooling.rest.infrastructure.repository.TransportOfferRepository;
+import BusPooling.rest.infrastructure.entity.*;
+import BusPooling.rest.infrastructure.repository.*;
 import BusPooling.rest.repository.IRepository;
 import BusPooling.rest.repository.UserRepository;
 import BusPooling.rest.service.*;
@@ -75,6 +66,11 @@ public class AppConfiguration {
     @Bean
     public IRepository<Comment, CommentEntity> getCommentRepository() {
         return this.getRepositories().get(Repositories.COMMENT_REPOSITORY);
+    }
+
+    @Bean
+    public IRepository<Person, PersonEntity> personEntityIRepository() {
+        return this.getRepositories().get(Repositories.PERSON_REPOSITORY);
     }
 
     @Bean
@@ -194,6 +190,7 @@ public class AppConfiguration {
         handler.put(Repositories.MY_OFFER, new MyOfferRepository(this.mongoClien2t()));
         handler.put(Repositories.TRANSPORT_OFFER, new TransportOfferRepository(this.mongoClien2t()));
         handler.put(Repositories.COMMENT_REPOSITORY, new CommentRepository(this.mongoClien2t()));
+        handler.put(Repositories.PERSON_REPOSITORY, new PersonRepository(this.mongoClien2t()));
         return handler;
     }
 
@@ -209,6 +206,6 @@ public class AppConfiguration {
     }
 
     public enum Repositories {
-        DELAYED_TRANSPORT, MY_OFFER, TRANSPORT_OFFER, COMMENT_REPOSITORY
+        DELAYED_TRANSPORT, MY_OFFER, TRANSPORT_OFFER, COMMENT_REPOSITORY, PERSON_REPOSITORY
     }
 }
