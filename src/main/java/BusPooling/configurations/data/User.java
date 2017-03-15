@@ -16,49 +16,56 @@
 
 package BusPooling.configurations.data;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 @XmlRootElement
 public class User {
-
 	private String id;
 
-	private String name;
+	private String username;
 
-	private String login;
-
-	@JsonIgnore
 	private String password;
 
 	private Set<Role> roles = new HashSet<Role>();
 
+	private String birthdate;
+
+	private String gender;
+
+	private ArrayList interests = new ArrayList();
+
+	private ArrayList culinaryPreferences = new ArrayList();
+
+	private boolean active = false;
+
 	public User() {
 	}
 
-	public User(String name, String login, String password) {
-		this.name = name;
-		this.login = login;
-		this.password = password;
-	}
-
-	public User(String id, String name, String login, String password) {
+	public User(String id, String username, String password, String birthdate, String gender, ArrayList interests, ArrayList culinaryPreferences, boolean active) {
 		this.id = id;
-		this.name = name;
-		this.login = login;
+		this.username = username;
 		this.password = password;
+		this.birthdate = birthdate;
+		this.gender = gender;
+		this.interests = interests;
+		this.culinaryPreferences = culinaryPreferences;
+		this.active = active;
 	}
 
 	public User(User user) {
 		super();
 		this.id = user.getId();
-		this.name = user.getName();
-		this.login = user.getLogin();
+		this.username = user.getUsername();
 		this.password = user.getPassword();
 		this.roles = user.getRoles();
+		this.birthdate = user.getBirthdate();
+		this.gender = user.getGender();
+		this.interests = user.getInterests();
+		this.culinaryPreferences = user.getCulinaryPreferences();
+		this.active = user.active;
 	}
 
 	public String getId() {
@@ -69,20 +76,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -104,4 +103,45 @@ public class User {
 	public void addRole(Role role) {
 		roles.add(role);
 	}
+
+	public ArrayList getInterests() {
+		return interests;
+	}
+
+	public void setInterests(ArrayList interests) {
+		this.interests = interests;
+	}
+
+	public ArrayList getCulinaryPreferences() {
+		return culinaryPreferences;
+	}
+
+	public void setCulinaryPreferences(ArrayList culinaryPreferences) {
+		this.culinaryPreferences = culinaryPreferences;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 }

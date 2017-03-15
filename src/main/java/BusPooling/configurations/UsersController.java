@@ -7,43 +7,51 @@ import BusPooling.configurations.repositories.UsersDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import java.util.ArrayList;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
  * Created by rafal on 3/20/16.
  */
 @Component
-@Path("/api/users")
+@Path("/users")
+@Produces(MediaType.APPLICATION_JSON)
 public class UsersController {
     @Autowired
     UsersDatabase usersDatabase;
 
     @GET
-    @Path("/1")
-    @Produces("application/json")
-    public User getUserById() {
-        return new User("1", "test", "test123", "password");
+    @Path("/{id}")
+    public User getUserById(@PathParam("id") String id) {
+        return usersDatabase.getUser(id);
     }
 
     @GET
-    @Produces("application/json")
     public List<User> getAllUsers() {
-//        return usersDatabase.getUsers();
-        List<User> users = new ArrayList<>();
-        users.add(new User("1", "test", "test", "test"));
-        users.add(new User("2", "test2", "test2", "test2"));
-        return users;
+        return usersDatabase.getUsers();
     }
 
     @POST
-    public void addUser() {
-        User user = new User("5", "someName", "someLogin", "somePassword");
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addUser(User user) {
         usersDatabase.addUser(user);
-        System.out.println("test");
+        return Response.status(201).build();
+    }
+
+    @Path("/{userId}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateUser(@PathParam("userId") String id, User user) {
+        usersDatabase.updateUser(id, user);
+        return Response.ok().build();
+    }
+
+    @DELETE
+    @Path("/{userId}")
+    public Response deleteMeeting(@PathParam("userId") String Id) {
+        usersDatabase.deleteUser(Id);
+        return Response.ok().build();
     }
 }

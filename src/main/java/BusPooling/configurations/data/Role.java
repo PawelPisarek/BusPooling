@@ -27,13 +27,18 @@ public class Role implements GrantedAuthority {
 
 	private Integer id;
 
-	private String name;
+	private String authority;
 
 	private Set<User> users = new HashSet<User>();
 
+	public Role(Integer id, String authority) {
+		this.id = id;
+		this.authority = authority;
+	}
+
 	@Override
 	public String getAuthority() {
-		return name;
+		return authority;
 	}
 
 	public Integer getId() {
@@ -42,14 +47,6 @@ public class Role implements GrantedAuthority {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Set<User> getUsers() {

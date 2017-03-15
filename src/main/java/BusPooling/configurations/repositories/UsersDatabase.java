@@ -13,5 +13,9 @@ public interface UsersDatabase {
 
     List<User> getUsers();
     void addUser(User user);
+    void updateUser(String id, User user);
+    void deleteUser(String id);
+    User getUser(String id);
     User findByLogin(String username);
+    User findById(int id);
 }

@@ -77,7 +77,6 @@ public class OAuth2ServerConfiguration {
         @Autowired
         private UserDetailsService userDetailsService;
 
-
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints)
                 throws Exception {
