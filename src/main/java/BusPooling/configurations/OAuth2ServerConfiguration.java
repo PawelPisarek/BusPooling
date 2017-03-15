@@ -87,13 +87,6 @@ public class OAuth2ServerConfiguration {
                     .userDetailsService(userDetailsService);
         }
 
-        @Override
-        public void configure(AuthorizationServerSecurityConfigurer security) {
-            security
-                    .tokenKeyAccess("permitAll()")
-                    .checkTokenAccess("isAuthenticated()")
-                    .allowFormAuthenticationForClients();
-        }
 
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {

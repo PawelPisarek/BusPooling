@@ -23,7 +23,7 @@ public class JerseyConfig extends ResourceConfig {
 
         register(WadlResource.class);
         register(UsersController.class);
-//        register(DelayedTransportQueryController.class);
+        register(DelayedTransportQueryController.class);
 //        register(TransportOfferCommandController.class);
 //        register(MyOfferCommandController.class);
 //        register(DelayedTransportCommandController.class);
