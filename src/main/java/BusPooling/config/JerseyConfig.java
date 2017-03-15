@@ -16,13 +16,18 @@ import javax.ws.rs.ApplicationPath;
 public class JerseyConfig extends ResourceConfig {
     public JerseyConfig() {
 //        register(LoggingFilter.class);
+        registerEndpoints();
+    }
+
+    private void registerEndpoints() {
+
         register(WadlResource.class);
         register(UsersController.class);
-        register(DelayedTransportQueryController.class);
-        register(TransportOfferCommandController.class);
-        register(MyOfferCommandController.class);
-        register(DelayedTransportCommandController.class);
-        register(UserController.class);
-        register(CustomExceptionMapper.class);
+//        register(DelayedTransportQueryController.class);
+//        register(TransportOfferCommandController.class);
+//        register(MyOfferCommandController.class);
+//        register(DelayedTransportCommandController.class);
+//        register(UserController.class);
+//        register(CustomExceptionMapper.class);
     }
 }
