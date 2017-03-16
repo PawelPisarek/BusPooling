@@ -68,14 +68,18 @@ public class DbalDelayedTransportQuery {
     }
 
     public List<MyOfferView> getMyOffers(DelayedTransportEntity delayedTransportEntity) {
-        return this.mongoDatabase.createQuery(MyOfferEntity.class)
-                .filter("delayedTransportEntity", delayedTransportEntity).asList()
+        return this.getMyOffersEntity(delayedTransportEntity)
                 .stream().map(entity -> new MyOfferView(
                         entity.getId().toString(),
                         entity.getPrice(),
                         entity.getTimeToLeft(),
                         entity.getAuthor()))
                 .collect(Collectors.toList());
+    }
+
+    public List<MyOfferEntity> getMyOffersEntity(DelayedTransportEntity delayedTransportEntity) {
+        return this.mongoDatabase.createQuery(MyOfferEntity.class)
+                .filter("delayedTransportEntity", delayedTransportEntity).asList();
     }
 
     public List<TransportOfferView> getTransportOffers(DelayedTransportEntity delayedTransportEntity) {

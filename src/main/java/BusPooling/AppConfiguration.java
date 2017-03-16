@@ -1,7 +1,10 @@
 package BusPooling;
 
+import BusPooling.config.AuthenticationFacade;
+import BusPooling.config.IAuthenticationFacade;
 import BusPooling.rest.aplication.CommandBus;
 import BusPooling.rest.aplication.ICommandBus;
+import BusPooling.rest.aplication.command.AcceptedOffer.AcceptOfferHandler;
 import BusPooling.rest.aplication.command.Comment.CreateCommentHandler;
 import BusPooling.rest.aplication.command.DelayedTransport.DelayedTransportHandler;
 import BusPooling.rest.aplication.command.DelayedTransport.UpdateDelayedTransportHandler;
@@ -52,6 +55,10 @@ public class AppConfiguration {
     public UserRepository getRepository() {
         return getEntityManager();
 
+    }
+    @Bean
+    public IAuthenticationFacade getAuthenticationFacade(){
+        return new AuthenticationFacade(getPersonQuery());
     }
 
     @Bean
@@ -122,6 +129,10 @@ public class AppConfiguration {
     @Bean
     public IService getMyOfferService() {
         return new MyOfferService(this.getMyOfferRepository());
+    }
+    @Bean
+    public IService getAcceptedOfferService() {
+        return new AcceptedOfferService(this.acceptedOfferEntityIRepository());
     }
 
     @Bean
@@ -203,7 +214,7 @@ public class AppConfiguration {
         handler.put(Commands.CREATE_COMMENT, new CreateCommentHandler(this.getCommentService()));
         handler.put(Commands.REGISTER_PERSON, new RegisterPersonHandler(this.getPersonService()));
         handler.put(Commands.UPDATE_PERSON, new UpdatePersonHandler(this.getPersonService()));
-        handler.put(Commands.ACCEPT_OFFER, new UpdatePersonHandler(this.getPersonService()));
+        handler.put(Commands.ACCEPT_OFFER, new AcceptOfferHandler(this.getAcceptedOfferService()));
         return handler;
     }
 

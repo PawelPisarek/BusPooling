@@ -8,6 +8,7 @@ import BusPooling.rest.infrastructure.entity.TransportOfferEntity;
 import BusPooling.rest.repository.IRepository;
 import org.mongodb.morphia.Datastore;
 
+import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,7 +50,11 @@ public class DbalTransportOfferQuery implements IDbalTransportOfferQuery {
 
     @Override
     public TransportOfferEntity getByUuid(String uuid) {
-        return mongoDatabase.find(TransportOfferEntity.class).filter("uuid", uuid)
-                .asList().stream().findAny().get();
+        final TransportOfferEntity uuid1 = mongoDatabase.find(TransportOfferEntity.class).filter("uuid", uuid)
+                .asList().stream().findAny().orElse(null);
+
+        if (uuid == null) throw new NotFoundException();
+        return uuid1;
+
     }
 }

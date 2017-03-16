@@ -61,6 +61,7 @@ public class OAuth2ServerConfiguration {
                     .antMatchers("/api/users").permitAll()
                     .antMatchers("/greeting").authenticated()
                     .antMatchers("/api/delayed-transport/**").authenticated()
+                    .antMatchers("/api/transport-offer/**").authenticated()
             ;
         }
 

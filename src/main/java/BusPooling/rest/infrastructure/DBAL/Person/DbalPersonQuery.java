@@ -17,12 +17,7 @@ public class DbalPersonQuery implements IDbalPersonQuery {
 
     @Override
     public PersonView findByEmail(String email) {
-        final PersonEntity username = mongoDatabase.find(PersonEntity.class).
-                filter("username", email).
-                asList().
-                stream().
-                findFirst().
-                get();
+        final PersonEntity username = findByEmailEntity(email);
         return new PersonView(username.getUsername(),
                 username.getPassword(),
                 username.getName(),
@@ -34,5 +29,15 @@ public class DbalPersonQuery implements IDbalPersonQuery {
                 username.getGeoLat(),
                 username.getGeoLng()
         );
+    }
+
+    @Override
+    public PersonEntity findByEmailEntity(String email) {
+        return mongoDatabase.find(PersonEntity.class).
+                filter("username", email).
+                asList().
+                stream().
+                findFirst().
+                get();
     }
 }

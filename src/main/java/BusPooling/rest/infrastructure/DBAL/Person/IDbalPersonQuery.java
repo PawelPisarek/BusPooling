@@ -8,4 +8,5 @@ import BusPooling.rest.infrastructure.entity.PersonEntity;
  */
 public interface IDbalPersonQuery {
  PersonView findByEmail(String email);
+ PersonEntity findByEmailEntity(String email);
 }
