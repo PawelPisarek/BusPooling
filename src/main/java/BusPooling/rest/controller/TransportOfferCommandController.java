@@ -45,11 +45,11 @@ public class TransportOfferCommandController {
     public Response editDelayedTransport(TransportOfferDAO transportOfferDAO) {
 
         this.unitOfWork.registerRepository(AppConfiguration.Repositories.TRANSPORT_OFFER);
-        ICommand command = new UpdateTransportOffer(transportOfferDAO, this.dbalTransportOfferQuery.getById(transportOfferDAO.getId()));
+        ICommand command = new UpdateTransportOffer(transportOfferDAO, this.dbalTransportOfferQuery.getByUuid(transportOfferDAO.getUuid()));
         this.commandBus.handle(command);
         this.unitOfWork.commit();
 
-        URI path = UriBuilder.fromPath("/users/" + transportOfferDAO.getId()).build();
+        URI path = UriBuilder.fromPath("/users/" + transportOfferDAO.getUuid()).build();
         return Response.created(path).entity(transportOfferDAO).build();
 
     }

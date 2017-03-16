@@ -7,6 +7,7 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "transport-offer")
 public class TransportOffer {
     private String id;
+    private String uuid;
     private String price;
     private String transportName;
     private String seats;
@@ -17,8 +18,9 @@ public class TransportOffer {
     public TransportOffer() {
     }
 
-    public TransportOffer(String id, String price, String transportName, String seats, String isJoined, DelayedTransportEntity delayedTransportEntity) {
+    public TransportOffer(String id, String uuid, String price, String transportName, String seats, String isJoined, DelayedTransportEntity delayedTransportEntity) {
         this.id = id;
+        this.uuid = uuid;
         this.price = price;
         this.transportName = transportName;
         this.seats = seats;
@@ -29,6 +31,11 @@ public class TransportOffer {
     @ApiModelProperty(value = "Transport Offer id", required = true)
     public String getId() {
         return id;
+    }
+
+    @ApiModelProperty(value = "Transport Offer id", required = true)
+    public String getUuid() {
+        return uuid;
     }
 
     @ApiModelProperty(value = "Transport Offer price", required = true)

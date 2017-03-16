@@ -8,5 +8,6 @@ import BusPooling.rest.infrastructure.entity.TransportOfferEntity;
  * Created by pawe on 3/14/17.
  */
 public interface IDbalTransportOfferQuery extends IDbal<TransportOfferView, TransportOfferEntity> {
+    TransportOfferEntity getByUuid(String uuid);
 
 }

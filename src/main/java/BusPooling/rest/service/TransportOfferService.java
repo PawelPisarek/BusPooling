@@ -2,14 +2,10 @@ package BusPooling.rest.service;
 
 
 import BusPooling.AppConfiguration;
-import BusPooling.rest.aplication.command.MyOffer.CreateMyOffer;
-import BusPooling.rest.aplication.command.MyOffer.UpdateMyOffer;
 import BusPooling.rest.aplication.command.TransportOffer.CreateTransportOffer;
 import BusPooling.rest.aplication.command.TransportOffer.UpdateTransportOffer;
-import BusPooling.rest.domain.MyOffer;
 import BusPooling.rest.domain.TransportOffer;
 import BusPooling.rest.infrastructure.DAO.TransportOfferDAO;
-import BusPooling.rest.infrastructure.entity.MyOfferEntity;
 import BusPooling.rest.infrastructure.entity.TransportOfferEntity;
 import BusPooling.rest.repository.IRepository;
 import org.springframework.context.ApplicationContext;
@@ -44,7 +40,7 @@ public class TransportOfferService implements IService<CreateTransportOffer, Upd
     @Override
     public void addFromHandle(CreateTransportOffer command) {
         TransportOfferDAO myOffer = command.getMyOffer();
-        final TransportOffer transportOffer = new TransportOffer(myOffer.getId(),
+        final TransportOffer transportOffer = new TransportOffer(myOffer.getUuid(),myOffer.getUuid(),
                 myOffer.getPrice(),
                 myOffer.getTransportName(),
                 myOffer.getSeats(),

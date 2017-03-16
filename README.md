@@ -19,10 +19,10 @@ POST na /api/users
 GET na /api/users
 
 ### Pobranie uzytkownika
-GET na /api/users/{id}
+GET na /api/users/{uuid}
 
 ### Update użytkownika
-PUT na /api/users/{id}
+PUT na /api/users/{uuid}
 {
     "username":"rafal@pydyniak.pl",
     "password":"password01",
@@ -34,4 +34,4 @@ PUT na /api/users/{id}
 }
 
 ### Usunięcie użytkownika
-DELETE na /api/users/{id}
+DELETE na /api/users/{uuid}

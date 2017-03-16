@@ -5,7 +5,7 @@ package BusPooling.rest.infrastructure.DAO;
  */
 public class TransportOfferDAO {
 
-    private String id;
+    private String uuid;
     private String price;
     private String transportName;
     private String seats;
@@ -15,19 +15,19 @@ public class TransportOfferDAO {
     }
 
     public TransportOfferDAO(String id, String price, String transportName, String seats, String isJoined) {
-        this.id = id;
+        this.uuid = id;
         this.price = price;
         this.transportName = transportName;
         this.seats = seats;
         this.isJoined = isJoined;
     }
 
-    public String getId() {
-        return id;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getPrice() {

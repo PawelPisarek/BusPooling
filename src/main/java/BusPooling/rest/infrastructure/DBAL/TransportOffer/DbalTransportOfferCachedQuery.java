@@ -28,6 +28,11 @@ public class DbalTransportOfferCachedQuery implements IDbalTransportOfferQuery {
 
     @Override
     public TransportOfferEntity getById(String id) {
-        return null;
+        return dbalTransportOfferQuery.getById(id);
+    }
+
+    @Override
+    public TransportOfferEntity getByUuid(String uuid) {
+        return dbalTransportOfferQuery.getByUuid(uuid);
     }
 }

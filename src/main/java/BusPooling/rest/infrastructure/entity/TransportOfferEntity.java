@@ -14,6 +14,7 @@ public class TransportOfferEntity {
     @Id
     ObjectId id;
 
+    private String uuid;
     private String price;
     private String transportName;
     private String seats;
@@ -25,7 +26,8 @@ public class TransportOfferEntity {
     public TransportOfferEntity() {
     }
 
-    public TransportOfferEntity(String price, String transportName, String seats, String isJoined, DelayedTransportEntity delayedTransportEntity) {
+    public TransportOfferEntity(String uuid, String price, String transportName, String seats, String isJoined, DelayedTransportEntity delayedTransportEntity) {
+        this.uuid = uuid;
         this.price = price;
         this.transportName = transportName;
         this.seats = seats;
@@ -36,6 +38,14 @@ public class TransportOfferEntity {
     @PostLoad
     private void postLoad(DBObject dbObj) {
 //        LOGGER.info("postLoad: {}", dbObj);
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public ObjectId getId() {

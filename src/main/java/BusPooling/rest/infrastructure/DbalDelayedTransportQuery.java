@@ -83,6 +83,7 @@ public class DbalDelayedTransportQuery {
                 .filter("delayedTransportEntity", delayedTransportEntity).asList()
                 .stream().map(entity -> new TransportOfferView(
                         entity.getId().toString(),
+                        entity.getUuid(),
                         entity.getPrice(),
                         entity.getTransportName(),
                         entity.getSeats(),

@@ -54,7 +54,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.requestMatchers().antMatchers("/api/person/**")
 				.and().authorizeRequests()
 				.antMatchers("/greeting").authenticated()
-				.antMatchers("/delayed-transport/**").authenticated()
+				.antMatchers("/api/delayed-transport/**").authenticated()
+				.antMatchers("/api/transport-offer/**").authenticated()
 				.and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
 	}
 

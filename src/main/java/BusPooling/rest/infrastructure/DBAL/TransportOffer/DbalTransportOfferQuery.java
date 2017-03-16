@@ -34,6 +34,7 @@ public class DbalTransportOfferQuery implements IDbalTransportOfferQuery {
                 .filter("delayedTransportEntity", byUuid).asList()
                 .stream().map(entity -> new TransportOfferView(
                         entity.getId().toString(),
+                        entity.getId().toString(),
                         entity.getPrice(),
                         entity.getTransportName(),
                         entity.getSeats(),
@@ -46,4 +47,9 @@ public class DbalTransportOfferQuery implements IDbalTransportOfferQuery {
         return this.repository.findById(id);
     }
 
+    @Override
+    public TransportOfferEntity getByUuid(String uuid) {
+        return mongoDatabase.find(TransportOfferEntity.class).filter("uuid", uuid)
+                .asList().stream().findAny().get();
+    }
 }

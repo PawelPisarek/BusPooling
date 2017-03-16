@@ -87,7 +87,7 @@ public class DelayedTransportCommandController {
         ICommand command = new CreateTransportOffer(transportOfferDAO, this.delayedTransportQuery.getByUuid(id));
         this.commandBus.handle(command);
 
-        URI path = UriBuilder.fromPath("/users/" + transportOfferDAO.getId()).build();
+        URI path = UriBuilder.fromPath("/users/" + transportOfferDAO.getUuid()).build();
         return Response.created(path).entity(transportOfferDAO).build();
     }
 
