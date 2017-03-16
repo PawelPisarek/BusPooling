@@ -7,8 +7,7 @@ import BusPooling.rest.aplication.query.DelayedTransportView.DelayedTransportVie
 import BusPooling.rest.aplication.query.MyOfferView.MyOfferView;
 import BusPooling.rest.aplication.query.TransportView.TransportOfferView;
 import BusPooling.rest.infrastructure.DbalDelayedTransportQuery;
-import BusPooling.rest.infrastructure.DbalMyOfferQuery;
-import BusPooling.rest.infrastructure.TransportOffer.IDbalTransportOfferQuery;
+import BusPooling.rest.infrastructure.DBAL.TransportOffer.IDbalTransportOfferQuery;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

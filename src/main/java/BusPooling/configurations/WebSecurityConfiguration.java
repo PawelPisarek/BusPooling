@@ -51,6 +51,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 				.csrf().disable()
 				.requestMatchers().antMatchers("/api/users")
+				.requestMatchers().antMatchers("/api/person/**")
 				.and().authorizeRequests()
 				.antMatchers("/greeting").authenticated()
 				.antMatchers("/delayed-transport/**").authenticated()

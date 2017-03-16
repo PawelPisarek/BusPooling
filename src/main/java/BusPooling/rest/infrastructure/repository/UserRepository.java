@@ -3,16 +3,16 @@ package BusPooling.rest.infrastructure.repository;
 import BusPooling.configurations.data.User;
 import BusPooling.configurations.repositories.UsersDatabase;
 import BusPooling.rest.domain.Person;
+import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.infrastructure.entity.PersonEntity;
 import BusPooling.rest.repository.IRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.ws.rs.NotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by pawe on 3/15/17.
@@ -32,7 +32,7 @@ public class UserRepository implements UsersDatabase {
 
     @Override
     public List<User> getUsers() {
-        return personEntityIRepository.getAll().stream().map(person -> new User(person.getId(), person.getUsername(), person.getPassword(), person.getBirthday().toString(), person.getGender(), new ArrayList(), new ArrayList(), person.isActive()))
+        return personEntityIRepository.getAll().stream().map(person -> new User(person.getId(), person.getUsername(), person.getPassword(), new Date().toString(), person.getGender(), new ArrayList(), new ArrayList(), person.isActive()))
                 .collect(Collectors.toList());
     }
 

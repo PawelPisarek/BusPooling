@@ -6,7 +6,7 @@ import BusPooling.rest.domain.Comment;
 import BusPooling.rest.infrastructure.DAO.CommentDAO;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 
-import static BusPooling.AppConfiguration.Commands.CREATE_COMMAND;
+import static BusPooling.AppConfiguration.Commands.CREATE_COMMENT;
 
 
 /**
@@ -36,6 +36,6 @@ public class CreateComment implements ICommand {
 
     @Override
     public AppConfiguration.Commands getKey() {
-        return CREATE_COMMAND;
+        return CREATE_COMMENT;
     }
 }

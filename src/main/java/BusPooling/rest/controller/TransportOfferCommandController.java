@@ -5,7 +5,7 @@ import BusPooling.rest.aplication.ICommandBus;
 import BusPooling.rest.aplication.command.ICommand;
 import BusPooling.rest.aplication.command.TransportOffer.UpdateTransportOffer;
 import BusPooling.rest.infrastructure.DAO.TransportOfferDAO;
-import BusPooling.rest.infrastructure.TransportOffer.IDbalTransportOfferQuery;
+import BusPooling.rest.infrastructure.DBAL.TransportOffer.IDbalTransportOfferQuery;
 import BusPooling.rest.infrastructure.UnitOfWork;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

@@ -1,11 +1,8 @@
 package BusPooling.rest.infrastructure.repository;
 
 
-import BusPooling.rest.domain.Comment;
 import BusPooling.rest.domain.Person;
-import BusPooling.rest.infrastructure.entity.CommentEntity;
 import BusPooling.rest.infrastructure.entity.PersonEntity;
-import BusPooling.rest.infrastructure.entity.TransportOfferEntity;
 import BusPooling.rest.repository.IRepository;
 import BusPooling.rest.repository.MongoDatastore;
 import org.mongodb.morphia.Datastore;
@@ -49,26 +46,40 @@ public class PersonRepository extends AbstractRepository implements IRepository<
 
     @Override
     public PersonEntity buildEntity(Person entity) {
-        return new PersonEntity(entity.getUsername(),entity.getPassword(),entity.getName(),entity.getSurname(),entity.getBirthday(),entity.getGender(),entity.isActive(),entity.getFacebookUID(),entity.getGeoLat(),entity.getGeoLng());
+        return new PersonEntity(entity.getUsername(), entity.getPassword(), entity.getName(), entity.getSurname(), entity.getBirthday(), entity.getGender(), entity.isActive(), entity.getFacebookUID(), entity.getGeoLat(), entity.getGeoLng());
     }
 
     @Override
     public PersonEntity findById(String id) {
-        return null;
+        Collection<PersonEntity> lists = new ArrayList<>();
+
+        for (PersonEntity userEntity : this.mongoDatabase.find(PersonEntity.class)) {
+            lists.add(userEntity);
+        }
+
+        final PersonEntity transportOfferEntity = lists.stream().filter(entitty -> {
+            return id.equals(buildResponse(entitty).getId());
+        }).collect(Collectors.toList()).stream().findAny()
+                .orElse(null);
+        if (transportOfferEntity == null) throw new NotFoundException();
+        return transportOfferEntity;
     }
 
     @Override
     public Person buildResponse(PersonEntity entity) {
-        return new Person(entity.getId().toString(),entity.getUsername(),entity.getPassword(),entity.getName(),entity.getSurname(),entity.getBirthday(),entity.getGender(),entity.isActive(),entity.getFacebookUID(),entity.getGeoLat(),entity.getGeoLng());
+        return new Person(entity.getId().toString(), entity.getUsername(), entity.getPassword(), entity.getName(), entity.getSurname(), entity.getBirthday(), entity.getGender(), entity.isActive(), entity.getFacebookUID(), entity.getGeoLat(), entity.getGeoLng());
     }
 
     @Override
     public PersonEntity update(PersonEntity save) {
-        return null;
+        this.listToSave.add(save);
+        return save;
     }
 
     @Override
     public void save() {
-
+        for (PersonEntity personEntity : listToSave) {
+            this.mongoDatabase.save(personEntity);
+        }
     }
 }

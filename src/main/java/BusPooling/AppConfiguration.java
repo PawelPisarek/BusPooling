@@ -8,19 +8,24 @@ import BusPooling.rest.aplication.command.DelayedTransport.UpdateDelayedTranspor
 import BusPooling.rest.aplication.command.IHandleCommand;
 import BusPooling.rest.aplication.command.MyOffer.CreateMyOfferHandler;
 import BusPooling.rest.aplication.command.MyOffer.UpdateMyOfferHandler;
+import BusPooling.rest.aplication.command.Person.RegisterPersonHandler;
+import BusPooling.rest.aplication.command.Person.UpdatePersonHandler;
 import BusPooling.rest.aplication.command.TransportOffer.CreateTransportOfferHandler;
 import BusPooling.rest.aplication.command.TransportOffer.UpdateTransportOfferHandler;
 import BusPooling.rest.aplication.command.UserHandler;
 import BusPooling.rest.domain.*;
 import BusPooling.rest.infrastructure.*;
-import BusPooling.rest.infrastructure.TransportOffer.DbalTransportOfferQuery;
-import BusPooling.rest.infrastructure.TransportOffer.DbalTransportOfferCachedQuery;
-import BusPooling.rest.infrastructure.TransportOffer.IDbalTransportOfferQuery;
+import BusPooling.rest.infrastructure.DBAL.Person.IDbalPersonQuery;
+import BusPooling.rest.infrastructure.DBAL.Person.DbalPersonQuery;
+import BusPooling.rest.infrastructure.DBAL.TransportOffer.DbalTransportOfferQuery;
+import BusPooling.rest.infrastructure.DBAL.TransportOffer.DbalTransportOfferCachedQuery;
+import BusPooling.rest.infrastructure.DBAL.TransportOffer.IDbalTransportOfferQuery;
 import BusPooling.rest.infrastructure.entity.*;
 import BusPooling.rest.infrastructure.repository.*;
 import BusPooling.rest.repository.IRepository;
 import BusPooling.rest.repository.UserRepository;
 import BusPooling.rest.service.*;
+import BusPooling.rest.service.PersonService;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import org.mongodb.morphia.Datastore;
@@ -82,6 +87,10 @@ public class AppConfiguration {
     public DbalDelayedTransportQuery getDelayedTransportQuery() {
         return new DbalDelayedTransportQuery(this.getDelayedTransportRepository(), this.mongoClien2t());
     }
+    @Bean
+    public IDbalPersonQuery getPersonQuery() {
+        return new DbalPersonQuery(this.mongoClien2t());
+    }
 
     @Bean
     public DbalMyOfferQuery getMyOfferQuery() {
@@ -116,6 +125,11 @@ public class AppConfiguration {
     @Bean
     public IService getTransportOfferService() {
         return new TransportOfferService(this.getTransportOfferRepository());
+    }
+
+    @Bean
+    public IService getPersonService() {
+        return new PersonService(this.personEntityIRepository());
     }
 
 
@@ -179,7 +193,9 @@ public class AppConfiguration {
         handler.put(Commands.UPDATE_MY_OFFER, new UpdateMyOfferHandler(this.getMyOfferService()));
         handler.put(Commands.CREATE_TRANSPORT_OFFER, new CreateTransportOfferHandler(this.getTransportOfferService()));
         handler.put(Commands.UPDATE_TRANSPORT_OFFER, new UpdateTransportOfferHandler(this.getTransportOfferService()));
-        handler.put(Commands.CREATE_COMMAND, new CreateCommentHandler(this.getCommentService()));
+        handler.put(Commands.CREATE_COMMENT, new CreateCommentHandler(this.getCommentService()));
+        handler.put(Commands.REGISTER_PERSON, new RegisterPersonHandler(this.getPersonService()));
+        handler.put(Commands.UPDATE_PERSON, new UpdatePersonHandler(this.getPersonService()));
         return handler;
     }
 
@@ -202,7 +218,9 @@ public class AppConfiguration {
         UPDATE_MY_OFFER,
         CREATE_TRANSPORT_OFFER,
         UPDATE_TRANSPORT_OFFER,
-        CREATE_COMMAND
+        CREATE_COMMENT,
+        REGISTER_PERSON,
+        UPDATE_PERSON
     }
 
     public enum Repositories {

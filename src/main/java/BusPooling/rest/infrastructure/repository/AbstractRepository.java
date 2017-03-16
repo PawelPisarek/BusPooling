@@ -11,7 +11,7 @@ import java.util.Collection;
  */
 public abstract class AbstractRepository {
 
-    Datastore mongoDatabase;
+    public Datastore mongoDatabase;
 
     public AbstractRepository(Datastore mongoDatabase) {
         this.mongoDatabase = mongoDatabase;
