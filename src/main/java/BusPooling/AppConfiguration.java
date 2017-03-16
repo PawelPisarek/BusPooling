@@ -14,6 +14,7 @@ import BusPooling.rest.aplication.command.TransportOffer.CreateTransportOfferHan
 import BusPooling.rest.aplication.command.TransportOffer.UpdateTransportOfferHandler;
 import BusPooling.rest.aplication.command.UserHandler;
 import BusPooling.rest.domain.*;
+import BusPooling.rest.domain.TransportOffer;
 import BusPooling.rest.infrastructure.*;
 import BusPooling.rest.infrastructure.DBAL.Person.IDbalPersonQuery;
 import BusPooling.rest.infrastructure.DBAL.Person.DbalPersonQuery;
@@ -79,6 +80,11 @@ public class AppConfiguration {
     }
 
     @Bean
+    public IRepository<AcceptedOffer, AcceptedOfferEntity> acceptedOfferEntityIRepository() {
+        return this.getRepositories().get(Repositories.ACCEPTED_OFFER);
+    }
+
+    @Bean
     public UnitOfWork getUnitOfWork() {
         return new UnitOfWork(this.getRepositories());
     }
@@ -87,6 +93,7 @@ public class AppConfiguration {
     public DbalDelayedTransportQuery getDelayedTransportQuery() {
         return new DbalDelayedTransportQuery(this.getDelayedTransportRepository(), this.mongoClien2t());
     }
+
     @Bean
     public IDbalPersonQuery getPersonQuery() {
         return new DbalPersonQuery(this.mongoClien2t());
@@ -196,6 +203,7 @@ public class AppConfiguration {
         handler.put(Commands.CREATE_COMMENT, new CreateCommentHandler(this.getCommentService()));
         handler.put(Commands.REGISTER_PERSON, new RegisterPersonHandler(this.getPersonService()));
         handler.put(Commands.UPDATE_PERSON, new UpdatePersonHandler(this.getPersonService()));
+        handler.put(Commands.ACCEPT_OFFER, new UpdatePersonHandler(this.getPersonService()));
         return handler;
     }
 
@@ -207,6 +215,7 @@ public class AppConfiguration {
         handler.put(Repositories.TRANSPORT_OFFER, new TransportOfferRepository(this.mongoClien2t()));
         handler.put(Repositories.COMMENT_REPOSITORY, new CommentRepository(this.mongoClien2t()));
         handler.put(Repositories.PERSON_REPOSITORY, new PersonRepository(this.mongoClien2t()));
+        handler.put(Repositories.ACCEPTED_OFFER, new AcceptedOfferRepository(this.mongoClien2t()));
         return handler;
     }
 
@@ -220,10 +229,11 @@ public class AppConfiguration {
         UPDATE_TRANSPORT_OFFER,
         CREATE_COMMENT,
         REGISTER_PERSON,
-        UPDATE_PERSON
+        UPDATE_PERSON,
+        ACCEPT_OFFER
     }
 
     public enum Repositories {
-        DELAYED_TRANSPORT, MY_OFFER, TRANSPORT_OFFER, COMMENT_REPOSITORY, PERSON_REPOSITORY
+        DELAYED_TRANSPORT, MY_OFFER, TRANSPORT_OFFER, COMMENT_REPOSITORY, PERSON_REPOSITORY, ACCEPTED_OFFER
     }
 }

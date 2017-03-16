@@ -1,15 +1,12 @@
 package BusPooling.rest.infrastructure.repository;
 
 import BusPooling.AppConfiguration;
-import BusPooling.rest.domain.MyOffer;
 import BusPooling.rest.domain.TransportOffer;
 import BusPooling.rest.repository.IRepository;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by pawe on 3/12/17.

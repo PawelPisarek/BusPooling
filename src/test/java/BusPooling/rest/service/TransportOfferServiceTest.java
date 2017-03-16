@@ -1,18 +1,11 @@
 package BusPooling.rest.service;
 
 import BusPooling.AppConfiguration;
-import BusPooling.rest.aplication.command.DelayedTransport.UpdateDelayedTransport;
-import BusPooling.rest.aplication.command.ICommand;
-import BusPooling.rest.aplication.command.MyOffer.UpdateMyOffer;
 import BusPooling.rest.aplication.command.TransportOffer.CreateTransportOffer;
 import BusPooling.rest.aplication.command.TransportOffer.UpdateTransportOffer;
-import BusPooling.rest.domain.DelayedTransport;
-import BusPooling.rest.domain.MyOffer;
-import BusPooling.rest.domain.TransportOffer;
 import BusPooling.rest.infrastructure.DAO.TransportOfferDAO;
 import BusPooling.rest.infrastructure.UnitOfWork;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
-import BusPooling.rest.infrastructure.entity.MyOfferEntity;
 import BusPooling.rest.infrastructure.entity.TransportOfferEntity;
 import BusPooling.rest.infrastructure.repository.DelayedTransportRepository;
 import BusPooling.rest.repository.IRepository;
@@ -66,7 +59,7 @@ public class TransportOfferServiceTest {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
         IRepository getDelayedTransportRepository = context.getBean("getTransportOfferRepository", IRepository.class);
         TransportOfferService transportOfferService = new TransportOfferService(getDelayedTransportRepository);
-        final TransportOfferEntity byId = transportOfferService.findById("58c684124d4bef6aff4d3232");
+        final TransportOfferEntity byId = transportOfferService.findById("58c6a83f4d4bef0c65d3a100");
 
     }
 

@@ -2,13 +2,9 @@ package BusPooling.rest.aplication.command.TransportOffer;
 
 import BusPooling.AppConfiguration;
 import BusPooling.rest.aplication.command.ICommand;
-import BusPooling.rest.domain.MyOffer;
-import BusPooling.rest.domain.TransportOffer;
 import BusPooling.rest.infrastructure.DAO.TransportOfferDAO;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
-import BusPooling.rest.infrastructure.entity.TransportOfferEntity;
 
-import static BusPooling.AppConfiguration.Commands.CREATE_MY_OFFER;
 import static BusPooling.AppConfiguration.Commands.CREATE_TRANSPORT_OFFER;
 
 
