@@ -2,6 +2,7 @@ package BusPooling.rest.infrastructure.repository;
 
 import BusPooling.AppConfiguration;
 import BusPooling.rest.domain.Person;
+import BusPooling.rest.infrastructure.entity.PersonEntity;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
@@ -16,6 +17,13 @@ import static org.junit.Assert.*;
  * Created by pawe on 3/15/17.
  */
 public class PersonRepositoryTest {
+    @Test
+    public void findById() throws Exception {
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
+        PersonRepository personRepository = new PersonRepository(context.getBean("mongoClien2t", Datastore.class));
+        final PersonEntity all = personRepository.findById("58c9b722e15488780817ebba");
+    }
+
     @Test
     public void getAll() throws Exception {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);

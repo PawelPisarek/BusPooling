@@ -50,7 +50,7 @@ public class TransportOfferRepository extends AbstractRepository implements IRep
 
     @Override
     public TransportOfferEntity buildEntity(TransportOffer object) {
-        final TransportOfferEntity transportOfferEntity = new TransportOfferEntity(object.getUuid(), object.getPrice(), object.getTransportName(), object.getSeats(), object.getIsJoined(), object.getDelayedTransportEntity());
+        final TransportOfferEntity transportOfferEntity = new TransportOfferEntity(object.getUuid(), object.getPrice(), object.getTransportName(), object.getSeats(), object.getDelayedTransportEntity());
         transportOfferEntity.setDelayedTransportEntity(object.getDelayedTransportEntity());
         return transportOfferEntity;
     }
@@ -73,7 +73,7 @@ public class TransportOfferRepository extends AbstractRepository implements IRep
 
     @Override
     public TransportOffer buildResponse(TransportOfferEntity entity) {
-        return new TransportOffer(entity.getId().toString(), entity.getUuid(), entity.getPrice(), entity.getTransportName(), entity.getSeats(), entity.getIsJoined(), entity.getDelayedTransportEntity());
+        return new TransportOffer(entity.getId().toString(), entity.getUuid(), entity.getPrice(), entity.getTransportName(), entity.getSeats(), entity.getDelayedTransportEntity());
     }
 
     @Override

@@ -11,20 +11,18 @@ public class TransportOffer {
     private String price;
     private String transportName;
     private String seats;
-    private String isJoined;
     private DelayedTransportEntity delayedTransportEntity;
 
 
     public TransportOffer() {
     }
 
-    public TransportOffer(String id, String uuid, String price, String transportName, String seats, String isJoined, DelayedTransportEntity delayedTransportEntity) {
+    public TransportOffer(String id, String uuid, String price, String transportName, String seats, DelayedTransportEntity delayedTransportEntity) {
         this.id = id;
         this.uuid = uuid;
         this.price = price;
         this.transportName = transportName;
         this.seats = seats;
-        this.isJoined = isJoined;
         this.delayedTransportEntity = delayedTransportEntity;
     }
 
@@ -53,10 +51,6 @@ public class TransportOffer {
         return seats;
     }
 
-    @ApiModelProperty(value = "Transport Offer isJoined", required = true)
-    public String getIsJoined() {
-        return isJoined;
-    }
 
     @ApiModelProperty(value = "Transport Offer DelayedTransportEntity", required = true)
     public DelayedTransportEntity getDelayedTransportEntity() {

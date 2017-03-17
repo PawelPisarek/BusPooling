@@ -19,7 +19,7 @@ public class TransportOfferRepositoryTest {
 
         IRepository testmorphia = new TransportOfferRepository(context.getBean("mongoClien2t", Datastore.class));
         DelayedTransportRepository delayedTransportRepository = new DelayedTransportRepository(context.getBean("mongoClien2t", Datastore.class));
-        TransportOffer myOffer = new TransportOffer("asd","uuid","asd","asd","asd","sad",delayedTransportRepository.findById("58c564514d4bef6a2582ff24"));
+        TransportOffer myOffer = new TransportOffer("asd","uuid","asd","asd","asd",delayedTransportRepository.findById("58c564514d4bef6a2582ff24"));
         testmorphia.addData(myOffer);
     }
 

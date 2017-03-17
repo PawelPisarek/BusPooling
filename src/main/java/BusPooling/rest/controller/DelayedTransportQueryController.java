@@ -1,13 +1,14 @@
 package BusPooling.rest.controller;
 
 import BusPooling.AppConfiguration;
+import BusPooling.config.IAuthenticationFacade;
 import BusPooling.rest.aplication.ICommandBus;
 import BusPooling.rest.aplication.query.DelayedTransportView.DelayedTransportDetailView;
 import BusPooling.rest.aplication.query.DelayedTransportView.DelayedTransportView;
 import BusPooling.rest.aplication.query.MyOfferView.MyOfferView;
 import BusPooling.rest.aplication.query.TransportView.TransportOfferView;
 import BusPooling.rest.infrastructure.DbalDelayedTransportQuery;
-import BusPooling.rest.infrastructure.DBAL.TransportOffer.IDbalTransportOfferQuery;
+import BusPooling.rest.infrastructure.entity.PersonEntity;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -25,12 +26,13 @@ public class DelayedTransportQueryController {
 
     private ICommandBus commandBus;
     private DbalDelayedTransportQuery delayedTransportQuery;
-
+    private IAuthenticationFacade authenticationFacade;
 
     public DelayedTransportQueryController() {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
         this.commandBus = context.getBean("getCommandBus", ICommandBus.class);
         this.delayedTransportQuery = context.getBean("getDelayedTransportQuery", DbalDelayedTransportQuery.class);
+        this.authenticationFacade = context.getBean("getAuthenticationFacade", IAuthenticationFacade.class);
     }
 
     @GET
@@ -47,12 +49,14 @@ public class DelayedTransportQueryController {
     @GET
     @Path("/{id}/transport-offer")
     public List<TransportOfferView> getTransportOffer(@PathParam("id") String id) {
-        return this.delayedTransportQuery.getTransportOffers(this.delayedTransportQuery.getByUuid(id));
+        final PersonEntity authentication = this.authenticationFacade.getAuthentication();
+        return this.delayedTransportQuery.getTransportOffersWithAuthor(this.delayedTransportQuery.getByUuid(id), authentication);
     }
 
     @GET
     @Path("/{id}")
     public DelayedTransportDetailView getDetailView(@PathParam("id") String id) {
-        return this.delayedTransportQuery.getByUuidDetail(id);
+        final PersonEntity authentication = this.authenticationFacade.getAuthentication();
+        return this.delayedTransportQuery.getByUuidDetail(id, authentication);
     }
 }

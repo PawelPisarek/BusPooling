@@ -18,7 +18,6 @@ public class TransportOfferEntity {
     private String price;
     private String transportName;
     private String seats;
-    private String isJoined;
     @Reference
     private DelayedTransportEntity delayedTransportEntity;
 
@@ -26,12 +25,11 @@ public class TransportOfferEntity {
     public TransportOfferEntity() {
     }
 
-    public TransportOfferEntity(String uuid, String price, String transportName, String seats, String isJoined, DelayedTransportEntity delayedTransportEntity) {
+    public TransportOfferEntity(String uuid, String price, String transportName, String seats, DelayedTransportEntity delayedTransportEntity) {
         this.uuid = uuid;
         this.price = price;
         this.transportName = transportName;
         this.seats = seats;
-        this.isJoined = isJoined;
         this.delayedTransportEntity = delayedTransportEntity;
     }
 
@@ -80,13 +78,6 @@ public class TransportOfferEntity {
         this.seats = seats;
     }
 
-    public String getIsJoined() {
-        return isJoined;
-    }
-
-    public void setIsJoined(String isJoined) {
-        this.isJoined = isJoined;
-    }
 
     public DelayedTransportEntity getDelayedTransportEntity() {
         return delayedTransportEntity;

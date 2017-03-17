@@ -1,6 +1,7 @@
 package BusPooling.rest.infrastructure.DBAL.TransportOffer;
 
 import BusPooling.rest.aplication.query.TransportView.TransportOfferView;
+import BusPooling.rest.domain.Person;
 import BusPooling.rest.domain.TransportOffer;
 import BusPooling.rest.infrastructure.DbalDelayedTransportQuery;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
@@ -9,6 +10,7 @@ import BusPooling.rest.repository.IRepository;
 import org.mongodb.morphia.Datastore;
 
 import javax.ws.rs.NotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +41,7 @@ public class DbalTransportOfferQuery implements IDbalTransportOfferQuery {
                         entity.getPrice(),
                         entity.getTransportName(),
                         entity.getSeats(),
-                        entity.getIsJoined()))
+                        false))
                 .collect(Collectors.toList());
     }
 

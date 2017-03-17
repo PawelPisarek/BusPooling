@@ -10,12 +10,12 @@ public class TransportOfferView {
     private String price;
     private String transportName;
     private String seats;
-    private String isJoined;
+    private boolean isJoined;
 
     public TransportOfferView() {
     }
 
-    public TransportOfferView(String id, String uuid, String price, String transportName, String seats, String isJoined) {
+    public TransportOfferView(String id, String uuid, String price, String transportName, String seats, boolean isJoined) {
         this.id = id;
         this.uuid = uuid;
         this.price = price;
@@ -64,11 +64,11 @@ public class TransportOfferView {
         this.seats = seats;
     }
 
-    public String getIsJoined() {
+    public boolean isJoined() {
         return isJoined;
     }
 
-    public void setIsJoined(String isJoined) {
-        this.isJoined = isJoined;
+    public void setJoined(boolean joined) {
+        isJoined = joined;
     }
 }

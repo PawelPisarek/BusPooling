@@ -44,7 +44,6 @@ public class TransportOfferService implements IService<CreateTransportOffer, Upd
                 myOffer.getPrice(),
                 myOffer.getTransportName(),
                 myOffer.getSeats(),
-                myOffer.getIsJoined(),
                 command.getDelayedTransport());
         this.iRepository.addData(transportOffer);
     }
@@ -53,7 +52,6 @@ public class TransportOfferService implements IService<CreateTransportOffer, Upd
     public void update(UpdateTransportOffer command) {
         final TransportOfferEntity transportOfferEntity = command.getTransportOfferEntity();
         final TransportOfferDAO transportOffer = command.getTransportOffer();
-        transportOfferEntity.setIsJoined(transportOffer.getIsJoined() != null ? transportOffer.getIsJoined() : transportOfferEntity.getIsJoined());
         transportOfferEntity.setPrice(transportOffer.getPrice() != null ? transportOffer.getPrice() : transportOfferEntity.getPrice());
         transportOfferEntity.setSeats(transportOffer.getSeats() != null ? transportOffer.getSeats() : transportOfferEntity.getSeats());
         transportOfferEntity.setTransportName(transportOffer.getTransportName() != null ? transportOffer.getTransportName() : transportOfferEntity.getTransportName());

@@ -6,15 +6,17 @@ import BusPooling.rest.aplication.query.DelayedTransportView.DelayedTransportVie
 import BusPooling.rest.aplication.query.MyOfferView.MyOfferView;
 import BusPooling.rest.aplication.query.TransportView.TransportOfferView;
 import BusPooling.rest.domain.DelayedTransport;
-import BusPooling.rest.infrastructure.entity.CommentEntity;
-import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
-import BusPooling.rest.infrastructure.entity.MyOfferEntity;
-import BusPooling.rest.infrastructure.entity.TransportOfferEntity;
+import BusPooling.rest.domain.Person;
+import BusPooling.rest.infrastructure.entity.*;
 import BusPooling.rest.repository.IRepository;
+import com.mongodb.MapReduceCommand;
 import org.mongodb.morphia.Datastore;
-import org.springframework.context.annotation.Lazy;
+import org.mongodb.morphia.MapReduceOptions;
+import org.mongodb.morphia.MapreduceResults;
+import org.mongodb.morphia.MapreduceType;
 
 import javax.ws.rs.NotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,9 +45,9 @@ public class DbalDelayedTransportQuery {
         return byId;
     }
 
-    public DelayedTransportDetailView getByUuidDetail(String id) {
+    public DelayedTransportDetailView getByUuidDetail(String id, PersonEntity personEntity) {
         final DelayedTransportEntity byUuid = this.getByUuid(id);
-        final List<TransportOfferView> delayedTransportEntity = this.getTransportOffers(byUuid);
+        final List<TransportOfferView> delayedTransportEntity = this.getTransportOffersWithAuthor(byUuid, personEntity);
         final List<MyOfferView> delayedTransportEntity1 = this.getMyOffers(byUuid);
         final List<CommentView> delayedTransportEntity2 = this.getComments(byUuid);
         return new DelayedTransportDetailView(byUuid.getUuid(),
@@ -82,17 +84,27 @@ public class DbalDelayedTransportQuery {
                 .filter("delayedTransportEntity", delayedTransportEntity).asList();
     }
 
-    public List<TransportOfferView> getTransportOffers(DelayedTransportEntity delayedTransportEntity) {
-        return this.mongoDatabase.createQuery(TransportOfferEntity.class)
+    public List<TransportOfferView> getTransportOffersWithAuthor(DelayedTransportEntity delayedTransportEntity, PersonEntity person) {
+
+        final List<TransportOfferView> collect = this.mongoDatabase.createQuery(TransportOfferEntity.class)
                 .filter("delayedTransportEntity", delayedTransportEntity).asList()
-                .stream().map(entity -> new TransportOfferView(
-                        entity.getId().toString(),
-                        entity.getUuid(),
-                        entity.getPrice(),
-                        entity.getTransportName(),
-                        entity.getSeats(),
-                        entity.getIsJoined()))
+                .stream().map(entity -> {
+
+                    final AcceptedOfferEntity transportOffer1 = this.mongoDatabase.createQuery(AcceptedOfferEntity.class)
+                            .filter("transportOffer", entity).asList().stream().filter(acceptedOfferEntity -> {
+                                return acceptedOfferEntity.getPersonEntity().getUsername().equals(person.getUsername());
+                            }).collect(Collectors.toList()).stream().findAny().orElse(null);
+                    boolean transportOffer = false;
+                    if (transportOffer1 != null) transportOffer = true;
+                    return new TransportOfferView(
+                            entity.getId().toString(),
+                            entity.getUuid(),
+                            entity.getPrice(),
+                            entity.getTransportName(),
+                            entity.getSeats(), transportOffer);
+                })
                 .collect(Collectors.toList());
+        return collect;
 
     }
 
