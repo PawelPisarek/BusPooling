@@ -74,7 +74,7 @@ public class DelayedTransportCommandController {
     public Response addDelayedTransport(MyOfferDAO myOffer, @PathParam("id") String id) {
         ICommand command = new CreateMyOffer(myOffer,
                 this.delayedTransportQuery.getByUuid(id),
-                this.delayedTransportQuery.getAllUserFromMyOffers(delayedTransportQuery.getByUuid(id)));
+                this.delayedTransportQuery.getAllUserFromMyOffers(delayedTransportQuery.getByUuid(id))); //TODO Tu jest źle bo powiadomi tylko tych użytkowników którzy złożyli oferte
         this.commandBus.handle(command);
 
         URI path = UriBuilder.fromPath("/users/" + myOffer.getAuthor()).build();
