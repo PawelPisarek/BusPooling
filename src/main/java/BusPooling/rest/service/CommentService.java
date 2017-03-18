@@ -2,9 +2,9 @@ package BusPooling.rest.service;
 
 
 import BusPooling.AppConfiguration;
+import BusPooling.rest.aplication.command.Closure.IInformUsers;
 import BusPooling.rest.aplication.command.Comment.CreateComment;
 import BusPooling.rest.domain.Comment;
-import BusPooling.rest.infrastructure.DAO.CommentDAO;
 import BusPooling.rest.infrastructure.entity.CommentEntity;
 import BusPooling.rest.repository.IRepository;
 import org.springframework.context.ApplicationContext;
@@ -34,7 +34,15 @@ public class CommentService implements IService<CreateComment, Object, Comment> 
 
     @Override
     public void addFromHandle(CreateComment command) {
+
+
+        throw new ExceptionInInitializerError("comment Service");
+    }
+
+    @Override
+    public void addFromHandle(CreateComment command, IInformUsers informUsers) {
         iRepository.addData(command.getComment());
+        informUsers.execute(command);
     }
 
     @Override

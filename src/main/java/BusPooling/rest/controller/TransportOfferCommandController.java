@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.ArrayList;
 
 /**
  * Created by pawe on 3/3/17.
@@ -61,7 +62,7 @@ public class TransportOfferCommandController {
     public Response acceptOffer(@PathParam("id") String id) {
 
         final PersonEntity authentication = this.authenticationFacade.getAuthentication();
-        ICommand command = new AcceptOffer(authentication, this.dbalTransportOfferQuery.getByUuid(id));
+        ICommand command = new AcceptOffer(authentication, this.dbalTransportOfferQuery.getByUuid(id),new ArrayList<>());
         this.commandBus.handle(command);
 
         URI path = UriBuilder.fromPath("/transport-offer").build();

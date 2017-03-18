@@ -4,6 +4,7 @@ package BusPooling.rest.service;
 import BusPooling.AppConfiguration;
 import BusPooling.rest.aplication.command.AcceptedOffer.AcceptOffer;
 import BusPooling.rest.aplication.command.AcceptedOffer.UpdateAcceptedOffer;
+import BusPooling.rest.aplication.command.Closure.IInformUsers;
 import BusPooling.rest.domain.AcceptedOffer;
 import BusPooling.rest.infrastructure.entity.AcceptedOfferEntity;
 import BusPooling.rest.repository.IRepository;
@@ -34,8 +35,14 @@ public class AcceptedOfferService implements IService<AcceptOffer, UpdateAccepte
 
     @Override
     public void addFromHandle(AcceptOffer command) {
-        iRepository.addData(command.getAcceptedOffer());
+        throw new ExceptionInInitializerError("accepted offer not implemented");
+    }
 
+    @Override
+    public void addFromHandle(AcceptOffer command, IInformUsers informUsers) {
+
+        iRepository.addData(command.getAcceptedOffer());
+        informUsers.execute(command);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package BusPooling.rest.service;
 
+import BusPooling.rest.aplication.command.Closure.IInformUsers;
+
 import java.util.Collection;
 
 /**
@@ -9,6 +11,7 @@ public interface IService<T, U, O> {
     Collection<O> getAll();
 
     void addFromHandle(T command);
+    void addFromHandle(T command, IInformUsers informUsers);
 
     void update(U command);
 }

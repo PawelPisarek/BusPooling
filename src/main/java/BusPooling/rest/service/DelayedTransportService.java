@@ -1,6 +1,7 @@
 package BusPooling.rest.service;
 
 import BusPooling.AppConfiguration;
+import BusPooling.rest.aplication.command.Closure.IInformUsers;
 import BusPooling.rest.aplication.command.DelayedTransport.CreateDelayedTransport;
 import BusPooling.rest.aplication.command.DelayedTransport.UpdateDelayedTransport;
 import BusPooling.rest.domain.DelayedTransport;
@@ -53,5 +54,11 @@ public class DelayedTransportService implements IService<CreateDelayedTransport,
     @Override
     public void addFromHandle(CreateDelayedTransport command) {
         this.delayedTransportIRepository.addData(command.getDelayedTransport());
+    }
+
+    @Override
+    public void addFromHandle(CreateDelayedTransport command, IInformUsers informUsers) {
+        throw new ExceptionInInitializerError("delayed Transport");
+
     }
 }

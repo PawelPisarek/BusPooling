@@ -18,6 +18,7 @@ public class UpdateDelayedTransportHandler implements IHandleCommand<UpdateDelay
 
     public void handle(UpdateDelayedTransport command) {
 
+        // TODO informować użytkowników o  zmienie dodać   private NotificationService notificationService;
         this.delayedTransportService.update(command);
     }
 }

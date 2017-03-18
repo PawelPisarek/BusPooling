@@ -2,10 +2,10 @@ package BusPooling.rest.service;
 
 
 import BusPooling.AppConfiguration;
+import BusPooling.rest.aplication.command.Closure.IInformUsers;
 import BusPooling.rest.aplication.command.MyOffer.CreateMyOffer;
 import BusPooling.rest.aplication.command.MyOffer.UpdateMyOffer;
 import BusPooling.rest.domain.MyOffer;
-import BusPooling.rest.infrastructure.DAO.MyOfferDAO;
 import BusPooling.rest.infrastructure.entity.MyOfferEntity;
 import BusPooling.rest.repository.IRepository;
 import org.springframework.context.ApplicationContext;
@@ -32,16 +32,20 @@ public class MyOfferService implements IService<CreateMyOffer, UpdateMyOffer, My
         return this.iRepository.getAll();
     }
 
+    @Override
+    public void addFromHandle(CreateMyOffer command) {
+        throw new ExceptionInInitializerError("asdsadasd");
+    }
+
     public MyOfferEntity findById(String id) {
         final MyOfferEntity delayedTransport = this.iRepository.findById(id);
         return delayedTransport;
     }
 
     @Override
-    public void addFromHandle(CreateMyOffer command) {
-        MyOfferDAO myOfferDAO = command.getMyOffer();
-        final MyOffer myOffer = new MyOffer(myOfferDAO.getId(), myOfferDAO.getPrice(), myOfferDAO.getTimeToLeft(), myOfferDAO.getAuthor(), command.getDelayedTransportEntity());
-        this.iRepository.addData(myOffer);
+    public void addFromHandle(CreateMyOffer command, IInformUsers informUsers) {
+        this.iRepository.addData(command.addMyOffer());
+        informUsers.execute(command);
     }
 
     @Override

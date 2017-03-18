@@ -22,6 +22,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.ArrayList;
 
 /**
  * Created by pawe on 3/3/17.
@@ -71,9 +72,9 @@ public class DelayedTransportCommandController {
     @POST
     @Path("/{id}/my-offer")
     public Response addDelayedTransport(MyOfferDAO myOffer, @PathParam("id") String id) {
-
-
-        ICommand command = new CreateMyOffer(myOffer, this.delayedTransportQuery.getByUuid(id));
+        ICommand command = new CreateMyOffer(myOffer,
+                this.delayedTransportQuery.getByUuid(id),
+                this.delayedTransportQuery.getAllUserFromMyOffers(delayedTransportQuery.getByUuid(id)));
         this.commandBus.handle(command);
 
         URI path = UriBuilder.fromPath("/users/" + myOffer.getAuthor()).build();
@@ -84,7 +85,7 @@ public class DelayedTransportCommandController {
     @POST
     @Path("/{id}/transport-offer")
     public Response addTransportOffer(TransportOfferDAO transportOfferDAO, @PathParam("id") String id) {
-        ICommand command = new CreateTransportOffer(transportOfferDAO, this.delayedTransportQuery.getByUuid(id));
+        ICommand command = new CreateTransportOffer(transportOfferDAO, this.delayedTransportQuery.getByUuid(id), new ArrayList<>());
         this.commandBus.handle(command);
 
         URI path = UriBuilder.fromPath("/users/" + transportOfferDAO.getUuid()).build();
@@ -94,7 +95,7 @@ public class DelayedTransportCommandController {
     @POST
     @Path("/{id}/comment")
     public Response addCommand(CommentDAO commentDAO, @PathParam("id") String id) {
-        ICommand command = new CreateComment(commentDAO, this.delayedTransportQuery.getByUuid(id));
+        ICommand command = new CreateComment(commentDAO, this.delayedTransportQuery.getByUuid(id), new ArrayList<>());
         this.commandBus.handle(command);
 
         URI path = UriBuilder.fromPath("/users/" + commentDAO.getUuid()).build();

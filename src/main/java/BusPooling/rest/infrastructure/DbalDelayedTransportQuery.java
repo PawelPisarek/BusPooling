@@ -79,6 +79,14 @@ public class DbalDelayedTransportQuery {
                 .collect(Collectors.toList());
     }
 
+    public List<String> getAllUserFromMyOffers(DelayedTransportEntity delayedTransportEntity) {
+        return this.getMyOffersEntity(delayedTransportEntity)
+                .stream().map(myOfferEntity -> {
+                    return myOfferEntity.getAuthor();
+                })
+                .collect(Collectors.toList());
+    }
+
     public List<MyOfferEntity> getMyOffersEntity(DelayedTransportEntity delayedTransportEntity) {
         return this.mongoDatabase.createQuery(MyOfferEntity.class)
                 .filter("delayedTransportEntity", delayedTransportEntity).asList();

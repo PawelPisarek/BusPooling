@@ -2,12 +2,12 @@ package BusPooling.rest.service;
 
 
 import BusPooling.AppConfiguration;
+import BusPooling.rest.aplication.command.Closure.IInformUsers;
 import BusPooling.rest.aplication.command.Person.RegisterPerson;
 import BusPooling.rest.aplication.command.Person.UpdatePerson;
 import BusPooling.rest.domain.Person;
 import BusPooling.rest.infrastructure.entity.PersonEntity;
 import BusPooling.rest.repository.IRepository;
-import BusPooling.rest.service.IService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
@@ -36,6 +36,11 @@ public class PersonService implements IService<RegisterPerson, UpdatePerson, Per
     @Override
     public void addFromHandle(RegisterPerson command) {
         iRepository.addData(command.getRegisteringPerson());
+    }
+
+    @Override
+    public void addFromHandle(RegisterPerson command, IInformUsers informUsers) {
+        throw new ExceptionInInitializerError("Person Service");
     }
 
     @Override

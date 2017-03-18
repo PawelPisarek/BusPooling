@@ -9,6 +9,9 @@ public class MyOfferDAO {
     private String timeToLeft;
     private String author;
 
+    public MyOfferDAO() {
+    }
+
     public MyOfferDAO(String id, String price, String timeToLeft, String author) {
         this.id = id;
         this.price = price;

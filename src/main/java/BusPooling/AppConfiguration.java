@@ -56,8 +56,9 @@ public class AppConfiguration {
         return getEntityManager();
 
     }
+
     @Bean
-    public IAuthenticationFacade getAuthenticationFacade(){
+    public IAuthenticationFacade getAuthenticationFacade() {
         return new AuthenticationFacade(getPersonQuery());
     }
 
@@ -130,6 +131,7 @@ public class AppConfiguration {
     public IService getMyOfferService() {
         return new MyOfferService(this.getMyOfferRepository());
     }
+
     @Bean
     public IService getAcceptedOfferService() {
         return new AcceptedOfferService(this.acceptedOfferEntityIRepository());
@@ -207,14 +209,14 @@ public class AppConfiguration {
         handler.put(Commands.CREATE_USER, new UserHandler(this.getUserService()));
         handler.put(CREATE_DELAYED_TRANSPORT, new DelayedTransportHandler(this.getDelayedTransportService()));
         handler.put(Commands.UPDATE_DELAYED_TRANSPORT, new UpdateDelayedTransportHandler(this.getDelayedTransportService()));
-        handler.put(Commands.CREATE_MY_OFFER, new CreateMyOfferHandler(this.getMyOfferService()));
+        handler.put(Commands.CREATE_MY_OFFER, new CreateMyOfferHandler(this.getMyOfferService(), this.getNotificationService()));
         handler.put(Commands.UPDATE_MY_OFFER, new UpdateMyOfferHandler(this.getMyOfferService()));
-        handler.put(Commands.CREATE_TRANSPORT_OFFER, new CreateTransportOfferHandler(this.getTransportOfferService()));
+        handler.put(Commands.CREATE_TRANSPORT_OFFER, new CreateTransportOfferHandler(this.getTransportOfferService(),this.getNotificationService()));
         handler.put(Commands.UPDATE_TRANSPORT_OFFER, new UpdateTransportOfferHandler(this.getTransportOfferService()));
-        handler.put(Commands.CREATE_COMMENT, new CreateCommentHandler(this.getCommentService()));
+        handler.put(Commands.CREATE_COMMENT, new CreateCommentHandler(this.getCommentService(),this.getNotificationService()));
         handler.put(Commands.REGISTER_PERSON, new RegisterPersonHandler(this.getPersonService()));
         handler.put(Commands.UPDATE_PERSON, new UpdatePersonHandler(this.getPersonService()));
-        handler.put(Commands.ACCEPT_OFFER, new AcceptOfferHandler(this.getAcceptedOfferService()));
+        handler.put(Commands.ACCEPT_OFFER, new AcceptOfferHandler(this.getAcceptedOfferService(),this.getNotificationService()));
         return handler;
     }
 
@@ -228,6 +230,11 @@ public class AppConfiguration {
         handler.put(Repositories.PERSON_REPOSITORY, new PersonRepository(this.mongoClien2t()));
         handler.put(Repositories.ACCEPTED_OFFER, new AcceptedOfferRepository(this.mongoClien2t()));
         return handler;
+    }
+
+    @Bean
+    public NotificationService getNotificationService() {
+        return new NotificationService();
     }
 
     public enum Commands {

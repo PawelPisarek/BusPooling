@@ -2,6 +2,7 @@ package BusPooling.rest.service;
 
 
 import BusPooling.AppConfiguration;
+import BusPooling.rest.aplication.command.Closure.IInformUsers;
 import BusPooling.rest.aplication.command.TransportOffer.CreateTransportOffer;
 import BusPooling.rest.aplication.command.TransportOffer.UpdateTransportOffer;
 import BusPooling.rest.domain.TransportOffer;
@@ -39,13 +40,13 @@ public class TransportOfferService implements IService<CreateTransportOffer, Upd
 
     @Override
     public void addFromHandle(CreateTransportOffer command) {
-        TransportOfferDAO myOffer = command.getMyOffer();
-        final TransportOffer transportOffer = new TransportOffer(myOffer.getUuid(),myOffer.getUuid(),
-                myOffer.getPrice(),
-                myOffer.getTransportName(),
-                myOffer.getSeats(),
-                command.getDelayedTransport());
-        this.iRepository.addData(transportOffer);
+        throw new ExceptionInInitializerError("trnsport Offer");
+    }
+
+    @Override
+    public void addFromHandle(CreateTransportOffer command, IInformUsers informUsers) {
+        this.iRepository.addData(command.transportOffer());
+        informUsers.execute(command);
     }
 
     @Override
