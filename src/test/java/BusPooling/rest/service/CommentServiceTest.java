@@ -81,7 +81,7 @@ public class CommentServiceTest {
         final CommentService commentService = new CommentService(getCommentRepository);
         IRepository delayedTransportRepository = context.getBean("getDelayedTransportRepository", DelayedTransportRepository.class);
         final DelayedTransportEntity byId = (DelayedTransportEntity) delayedTransportRepository.findById("58c564514d4bef6a2582ff24");
-        commentService.addFromHandle(new CreateComment(new CommentDAO("1", "", "asasdsadsaddsad"), byId));
+        commentService.addFromHandle(new CreateComment(new CommentDAO("1", "", "asasdsadsaddsad"), byId,new ArrayList<String>()));
     }
 
     @Test

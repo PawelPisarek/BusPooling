@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -34,7 +35,7 @@ public class TransportOfferServiceTest {
         TransportOfferDAO i = new TransportOfferDAO("ASD", "ASD", "SAD", "SAD","asd");
 
         final DelayedTransportEntity byId = (DelayedTransportEntity) delayedTransportRepository.findById("58c564514d4bef6a2582ff24");
-        CreateTransportOffer command = new CreateTransportOffer(i, byId);
+        CreateTransportOffer command = new CreateTransportOffer(i, byId,new ArrayList<>());
 
         final UnitOfWork unitOfWork = new UnitOfWork(hashMap);
         unitOfWork.registerRepository(AppConfiguration.Repositories.TRANSPORT_OFFER);

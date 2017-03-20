@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.ArrayList;
+
 /**
  * Created by pawe on 3/16/17.
  */
@@ -22,7 +24,7 @@ public class AcceptedOfferServiceTest {
         final PersonEntity byId = personEntityIRepository.findById("58ca4c17e154881e230c1520");
         final IRepository<TransportOffer, BusPooling.rest.infrastructure.entity.TransportOfferEntity> getTransportOfferRepository = context.getBean("getTransportOfferRepository", IRepository.class);
         final BusPooling.rest.infrastructure.entity.TransportOfferEntity byId1 = getTransportOfferRepository.findById("58c6a83f4d4bef0c65d3a100");
-        acceptedOfferService.addFromHandle(new AcceptOffer(byId, byId1));
+        acceptedOfferService.addFromHandle(new AcceptOffer(byId, byId1,new ArrayList<String>()));
     }
 
     @Test
