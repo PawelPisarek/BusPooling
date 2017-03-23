@@ -16,12 +16,18 @@
 
 package BusPooling.configurations;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,6 +42,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @Import(Beans.class)
@@ -113,5 +122,54 @@ public class OAuth2ServerConfiguration {
         }
 
     }
+
+
+    @Configuration
+    @EnableAuthorizationServer
+    @EnableConfigurationProperties(AuthorizationServerProperties.class)
+    @Order(2)
+    protected static class OAuth2Config extends AuthorizationServerConfigurerAdapter {
+        @Autowired
+        @SuppressWarnings("SpringJavaAutowiringInspection")
+        private AuthenticationManager authenticationManager;
+
+
+
+        @Autowired
+        @SuppressWarnings("SpringJavaAutowiringInspection")
+        private AuthorizationServerProperties properties;
+
+
+
+        @Override
+        public void configure(AuthorizationServerSecurityConfigurer security)
+                throws Exception {
+            if (this.properties.getCheckTokenAccess() != null) {
+                security.checkTokenAccess(this.properties.getCheckTokenAccess());
+            }
+            if (this.properties.getTokenKeyAccess() != null) {
+                security.tokenKeyAccess(this.properties.getTokenKeyAccess());
+            }
+            if (this.properties.getRealm() != null) {
+                security.realm(this.properties.getRealm());
+            }
+        }
+
+
+        @Bean
+        public FilterRegistrationBean corsFilter() {
+            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+            CorsConfiguration config = new CorsConfiguration();
+            config.setAllowCredentials(true);
+            config.addAllowedOrigin("*");
+            config.addAllowedHeader("*");
+            config.addAllowedMethod("*");
+            source.registerCorsConfiguration("/**", config);
+            FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+            bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+            return bean;
+        }
+    }
+
 
 }

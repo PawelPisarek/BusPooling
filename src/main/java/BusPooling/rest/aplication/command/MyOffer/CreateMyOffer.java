@@ -6,6 +6,7 @@ import BusPooling.rest.aplication.command.ICommand;
 import BusPooling.rest.domain.MyOffer;
 import BusPooling.rest.infrastructure.DAO.MyOfferDAO;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
+import BusPooling.rest.infrastructure.entity.PersonEntity;
 
 import java.util.List;
 
@@ -19,11 +20,13 @@ public class CreateMyOffer implements ICommand, UsersConnectedWithDelayedTranspo
 
     MyOfferDAO myOffer;
     DelayedTransportEntity delayedTransport;
+    PersonEntity personEntity;
     List<String> personList;
 
-    public CreateMyOffer(MyOfferDAO myOffer, DelayedTransportEntity delayedTransport, List<String> personList) {
+    public CreateMyOffer(MyOfferDAO myOffer, DelayedTransportEntity delayedTransport, PersonEntity personEntity, List<String> personList) {
         this.myOffer = myOffer;
         this.delayedTransport = delayedTransport;
+        this.personEntity = personEntity;
         this.personList = personList;
     }
 
@@ -35,10 +38,13 @@ public class CreateMyOffer implements ICommand, UsersConnectedWithDelayedTranspo
         return delayedTransport;
     }
 
+    public PersonEntity getPersonEntity() {
+        return personEntity;
+    }
 
     public MyOffer addMyOffer() {
 
-        return new MyOffer(myOffer.getId(), myOffer.getPrice(), myOffer.getTimeToLeft(), myOffer.getAuthor(), getDelayedTransportEntity());
+        return new MyOffer(myOffer.getId(), myOffer.getPrice(), myOffer.getTimeToLeft(),getPersonEntity(), getDelayedTransportEntity());
     }
 
     @Override

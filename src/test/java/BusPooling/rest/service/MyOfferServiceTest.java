@@ -21,6 +21,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class MyOfferServiceTest {
         HashMap<AppConfiguration.Repositories, IRepository> hashMap = context.getBean("getRepositories", HashMap.class);
         IRepository getDelayedTransportRepository = context.getBean("getMyOfferRepository", IRepository.class);
         MyOfferService delayedTransportService = new MyOfferService(getDelayedTransportRepository);
-        delayedTransportService.getAll();
+        final Collection<MyOffer> all = delayedTransportService.getAll();
     }
 
     @Test
@@ -73,7 +74,7 @@ public class MyOfferServiceTest {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
         IRepository getDelayedTransportRepository = context.getBean("getMyOfferRepository", IRepository.class);
         MyOfferService delayedTransportService = new MyOfferService(getDelayedTransportRepository);
-        final MyOfferEntity byId = delayedTransportService.findById("58c569d14d4bef6fe87457c7");
+        final MyOfferEntity byId = delayedTransportService.findById("58d385a2cefef11813969dc6");
     }
 
     @Test
@@ -83,8 +84,8 @@ public class MyOfferServiceTest {
 
         HashMap<AppConfiguration.Repositories, IRepository> hashMap = context.getBean("getRepositories", HashMap.class);
         MyOfferService delayedTransportService = new MyOfferService(getDelayedTransportRepository);
-        MyOfferDAO i = new MyOfferDAO("ASD","ASD","SAD","SAD");
-        MyOfferEntity i2 = delayedTransportService.findById("58c6a8064d4bef0c16b29d3c");
+        MyOfferDAO i = new MyOfferDAO("ASD","ASD","SAD");
+        MyOfferEntity i2 = delayedTransportService.findById("58d385a2cefef11813969dc6");
         final UpdateMyOffer command = new UpdateMyOffer(i, i2);
         final UnitOfWork unitOfWork = new UnitOfWork(hashMap);
         unitOfWork.registerRepository(AppConfiguration.Repositories.MY_OFFER);

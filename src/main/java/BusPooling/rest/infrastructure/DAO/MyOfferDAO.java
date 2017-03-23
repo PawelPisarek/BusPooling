@@ -7,16 +7,14 @@ public class MyOfferDAO {
     private String id;
     private String price;
     private String timeToLeft;
-    private String author;
 
     public MyOfferDAO() {
     }
 
-    public MyOfferDAO(String id, String price, String timeToLeft, String author) {
+    public MyOfferDAO(String id, String price, String timeToLeft) {
         this.id = id;
         this.price = price;
         this.timeToLeft = timeToLeft;
-        this.author = author;
     }
 
     public String getId() {
@@ -43,11 +41,4 @@ public class MyOfferDAO {
         this.timeToLeft = timeToLeft;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 }

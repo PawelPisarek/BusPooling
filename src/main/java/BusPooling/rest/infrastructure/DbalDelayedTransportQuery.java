@@ -75,14 +75,14 @@ public class DbalDelayedTransportQuery {
                         entity.getId().toString(),
                         entity.getPrice(),
                         entity.getTimeToLeft(),
-                        entity.getAuthor()))
+                        entity.getPersonEntity().getUsername()))
                 .collect(Collectors.toList());
     }
 
     public List<String> getAllUserFromMyOffers(DelayedTransportEntity delayedTransportEntity) {
         return this.getMyOffersEntity(delayedTransportEntity)
                 .stream().map(myOfferEntity -> {
-                    return myOfferEntity.getAuthor();
+                    return myOfferEntity.getPersonEntity().getUsername();
                 })
                 .collect(Collectors.toList());
     }

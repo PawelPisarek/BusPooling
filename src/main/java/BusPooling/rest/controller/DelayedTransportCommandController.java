@@ -1,6 +1,7 @@
 package BusPooling.rest.controller;
 
 import BusPooling.AppConfiguration;
+import BusPooling.config.IAuthenticationFacade;
 import BusPooling.rest.aplication.ICommandBus;
 import BusPooling.rest.aplication.command.Comment.CreateComment;
 import BusPooling.rest.aplication.command.DelayedTransport.CreateDelayedTransport;
@@ -35,6 +36,7 @@ public class DelayedTransportCommandController {
     private ICommandBus commandBus;
     private DbalDelayedTransportQuery delayedTransportQuery;
     private UnitOfWork unitOfWork;
+    private IAuthenticationFacade authenticationFacade;
 
 
     public DelayedTransportCommandController() {
@@ -42,6 +44,7 @@ public class DelayedTransportCommandController {
         this.commandBus = context.getBean("getCommandBus", ICommandBus.class);
         this.delayedTransportQuery = context.getBean("getDelayedTransportQuery", DbalDelayedTransportQuery.class);
         this.unitOfWork = context.getBean("getUnitOfWork", UnitOfWork.class);
+        this.authenticationFacade = context.getBean("getAuthenticationFacade", IAuthenticationFacade.class);
     }
 
 
@@ -74,10 +77,11 @@ public class DelayedTransportCommandController {
     public Response addDelayedTransport(MyOfferDAO myOffer, @PathParam("id") String id) {
         ICommand command = new CreateMyOffer(myOffer,
                 this.delayedTransportQuery.getByUuid(id),
+                authenticationFacade.getAuthentication(),
                 this.delayedTransportQuery.getAllUserFromMyOffers(delayedTransportQuery.getByUuid(id))); //TODO Tu jest źle bo powiadomi tylko tych użytkowników którzy złożyli oferte
         this.commandBus.handle(command);
 
-        URI path = UriBuilder.fromPath("/users/" + myOffer.getAuthor()).build();
+        URI path = UriBuilder.fromPath("/users/" + myOffer.getId()).build();
         return Response.created(path).entity(myOffer).build();
 
     }

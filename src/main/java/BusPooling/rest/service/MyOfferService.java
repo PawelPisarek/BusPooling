@@ -51,7 +51,6 @@ public class MyOfferService implements IService<CreateMyOffer, UpdateMyOffer, My
     @Override
     public void update(UpdateMyOffer command) {
         final MyOfferEntity myOfferEntity = command.getMyOfferEntity();
-        myOfferEntity.setAuthor(command.getMyOffer().getAuthor());
         myOfferEntity.setPrice(command.getMyOffer().getPrice());
         myOfferEntity.setTimeToLeft(command.getMyOffer().getTimeToLeft());
         this.iRepository.update(myOfferEntity);

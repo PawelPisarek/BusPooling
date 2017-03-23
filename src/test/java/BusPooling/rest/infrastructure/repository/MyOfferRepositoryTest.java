@@ -14,12 +14,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class MyOfferRepositoryTest {
 
     @Test
-    public void add_my_offer(){
+    public void add_my_offer() {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
 
         MyOfferRepository testmorphia = new MyOfferRepository(context.getBean("mongoClien2t", Datastore.class));
         DelayedTransportRepository delayedTransportRepository = new DelayedTransportRepository(context.getBean("mongoClien2t", Datastore.class));
-        MyOffer myOffer = new MyOffer("sadasdasdsadasd", "asd", "asd", "asd",delayedTransportRepository.findById("58c564514d4bef6a2582ff24"));
+        PersonRepository personRepository = new PersonRepository(context.getBean("mongoClien2t", Datastore.class));
+        MyOffer myOffer = new MyOffer("sadasdasdsadasd", "asd", "asd",personRepository.findById("58c9b722e15488780817ebba") , delayedTransportRepository.findById("58c564514d4bef6a2582ff24"));
         testmorphia.addData(myOffer);
 
     }

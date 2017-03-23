@@ -34,7 +34,7 @@ public class DbalMyOfferQuery {
                         entity.getId().toString(),
                         entity.getPrice(),
                         entity.getTimeToLeft(),
-                        entity.getAuthor()))
+                        entity.getPersonEntity().getUsername()))
                 .collect(Collectors.toList());
     }
 

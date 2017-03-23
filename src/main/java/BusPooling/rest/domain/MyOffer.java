@@ -2,6 +2,7 @@ package BusPooling.rest.domain;
 
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.infrastructure.entity.MyOfferEntity;
+import BusPooling.rest.infrastructure.entity.PersonEntity;
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 
@@ -10,14 +11,14 @@ public class MyOffer {
     private String id;
     private String price;
     private String timeToLeft;
-    private String author;
+    private PersonEntity author;
     private DelayedTransportEntity delayedTransportEntity;
 
 
     public MyOffer() {
     }
 
-    public MyOffer(String id, String price, String timeToLeft, String author, DelayedTransportEntity delayedTransportEntity) {
+    public MyOffer(String id, String price, String timeToLeft, PersonEntity author, DelayedTransportEntity delayedTransportEntity) {
         this.id = id;
         this.price = price;
         this.timeToLeft = timeToLeft;
@@ -39,7 +40,7 @@ public class MyOffer {
         return timeToLeft;
     }
     @ApiModelProperty(value = "My offer author", required = true)
-    public String getAuthor() {
+    public PersonEntity getAuthor() {
         return author;
     }
 
@@ -47,7 +48,5 @@ public class MyOffer {
         return delayedTransportEntity;
     }
 
-    public void setDelayedTransportEntity(DelayedTransportEntity delayedTransportEntity) {
-        this.delayedTransportEntity = delayedTransportEntity;
-    }
+
 }

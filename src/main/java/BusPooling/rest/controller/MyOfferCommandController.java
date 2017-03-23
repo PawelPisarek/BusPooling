@@ -48,7 +48,7 @@ public class MyOfferCommandController {
         this.commandBus.handle(command);
         this.unitOfWork.commit();
 
-        URI path = UriBuilder.fromPath("/users/" + delayedTransport.getAuthor()).build();
+        URI path = UriBuilder.fromPath("/users/" + delayedTransport.getId()).build();
         return Response.created(path).entity(delayedTransport).build();
 
     }

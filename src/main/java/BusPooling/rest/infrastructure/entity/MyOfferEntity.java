@@ -16,18 +16,20 @@ public class MyOfferEntity {
 
     private String price;
     private String timeToLeft;
-    private String author;
+    @Reference
+    private PersonEntity personEntity;
     @Reference
     private DelayedTransportEntity delayedTransportEntity;
+
 
 
     public MyOfferEntity() {
     }
 
-    public MyOfferEntity(String price, String timeToLeft, String author, DelayedTransportEntity delayedTransportEntity) {
+    public MyOfferEntity(String price, String timeToLeft, PersonEntity personEntity, DelayedTransportEntity delayedTransportEntity) {
         this.price = price;
         this.timeToLeft = timeToLeft;
-        this.author = author;
+        this.personEntity = personEntity;
         this.delayedTransportEntity = delayedTransportEntity;
     }
 
@@ -60,13 +62,6 @@ public class MyOfferEntity {
         this.timeToLeft = timeToLeft;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 
     public DelayedTransportEntity getDelayedTransportEntity() {
         return delayedTransportEntity;
@@ -74,5 +69,13 @@ public class MyOfferEntity {
 
     public void setDelayedTransportEntity(DelayedTransportEntity delayedTransportEntity) {
         this.delayedTransportEntity = delayedTransportEntity;
+    }
+
+    public PersonEntity getPersonEntity() {
+        return personEntity;
+    }
+
+    public void setPersonEntity(PersonEntity personEntity) {
+        this.personEntity = personEntity;
     }
 }
