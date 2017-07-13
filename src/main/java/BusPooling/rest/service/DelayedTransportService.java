@@ -21,6 +21,7 @@ public class DelayedTransportService implements IService<CreateDelayedTransport,
 
     public DelayedTransportService(IRepository<DelayedTransport, DelayedTransportEntity> userRepository) {
         this.delayedTransportIRepository = userRepository;
+        System.out.println("nie z contextu");
     }
 
     public DelayedTransportService() {

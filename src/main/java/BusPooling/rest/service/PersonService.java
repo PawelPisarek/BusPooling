@@ -47,7 +47,6 @@ public class PersonService implements IService<RegisterPerson, UpdatePerson, Per
     public void update(UpdatePerson command) {
         final PersonEntity personEntity = command.getPersonEntity();
         personEntity.setName(command.getPersonDAO().getName());
-        personEntity.setActive(personEntity.isActive());
         personEntity.setBirthday(command.getPersonDAO().getBirthday());
         personEntity.setBirthday(command.getPersonDAO().getBirthday());
         personEntity.setGender(command.getPersonDAO().getGender());

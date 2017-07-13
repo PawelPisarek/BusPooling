@@ -4,6 +4,7 @@ import BusPooling.rest.aplication.query.Comment.CommentView;
 import BusPooling.rest.aplication.query.DelayedTransportView.DelayedTransportDetailView;
 import BusPooling.rest.aplication.query.DelayedTransportView.DelayedTransportView;
 import BusPooling.rest.aplication.query.MyOfferView.MyOfferView;
+import BusPooling.rest.aplication.query.Person.PersonView;
 import BusPooling.rest.aplication.query.TransportView.TransportOfferView;
 import BusPooling.rest.domain.DelayedTransport;
 import BusPooling.rest.domain.Person;
@@ -71,11 +72,23 @@ public class DbalDelayedTransportQuery {
 
     public List<MyOfferView> getMyOffers(DelayedTransportEntity delayedTransportEntity) {
         return this.getMyOffersEntity(delayedTransportEntity)
-                .stream().map(entity -> new MyOfferView(
-                        entity.getId().toString(),
-                        entity.getPrice(),
-                        entity.getTimeToLeft(),
-                        entity.getPersonEntity().getUsername()))
+                .stream().map(entity -> {
+                    final PersonView personEntity = new PersonView(entity.getPersonEntity().getUsername(),
+                            entity.getPersonEntity().getPassword(),
+                            entity.getPersonEntity().getName(),
+                            entity.getPersonEntity().getSurname(),
+                            entity.getPersonEntity().getBirthday(),
+                            entity.getPersonEntity().getGender(),
+                            entity.getPersonEntity().isActive(),
+                            entity.getPersonEntity().getFacebookUID(),
+                            entity.getPersonEntity().getGeoLat(),
+                            entity.getPersonEntity().getGeoLng());
+                    return new MyOfferView(
+                            entity.getId().toString(),
+                            entity.getPrice(),
+                            entity.getTimeToLeft(),
+                            personEntity);
+                })
                 .collect(Collectors.toList());
     }
 

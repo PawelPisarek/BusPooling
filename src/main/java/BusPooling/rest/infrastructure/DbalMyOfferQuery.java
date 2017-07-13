@@ -1,6 +1,7 @@
 package BusPooling.rest.infrastructure;
 
 import BusPooling.rest.aplication.query.MyOfferView.MyOfferView;
+import BusPooling.rest.aplication.query.Person.PersonView;
 import BusPooling.rest.domain.MyOffer;
 import BusPooling.rest.infrastructure.entity.DelayedTransportEntity;
 import BusPooling.rest.infrastructure.entity.MyOfferEntity;
@@ -30,11 +31,25 @@ public class DbalMyOfferQuery {
         final DelayedTransportEntity byUuid = this.dbalDelayedTransportQuery.getByUuid(delayedTransportId);
         return this.mongoDatabase.createQuery(MyOfferEntity.class)
                 .filter("delayedTransportEntity", byUuid).asList()
-                .stream().map(entity -> new MyOfferView(
-                        entity.getId().toString(),
-                        entity.getPrice(),
-                        entity.getTimeToLeft(),
-                        entity.getPersonEntity().getUsername()))
+                .stream().map(entity -> {
+
+                    final PersonView personEntity = new PersonView(entity.getPersonEntity().getUsername(),
+                            entity.getPersonEntity().getPassword(),
+                            entity.getPersonEntity().getName(),
+                            entity.getPersonEntity().getSurname(),
+                            entity.getPersonEntity().getBirthday(),
+                            entity.getPersonEntity().getGender(),
+                            entity.getPersonEntity().isActive(),
+                            entity.getPersonEntity().getFacebookUID(),
+                            entity.getPersonEntity().getGeoLat(),
+                            entity.getPersonEntity().getGeoLng());
+
+                    return new MyOfferView(
+                            entity.getId().toString(),
+                            entity.getPrice(),
+                            entity.getTimeToLeft(),
+                            personEntity);
+                })
                 .collect(Collectors.toList());
     }
 
